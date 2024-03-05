@@ -7,34 +7,44 @@
     <title>Resultaten van het ordenen</title>
     <link rel="stylesheet" href="css/reset.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="icon" href="images/click-logo.png" type="img/png" />
+    
+    <!--BOOTSTRAP-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" /><!--Source: https://getbootstrap.com/docs/5.3/getting-started/download/#cdn-via-jsdelivr-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script><!--Source: https://getbootstrap.com/docs/5.3/getting-started/download/#cdn-via-jsdelivr-->
 </head>
 
 <body>
     <header>
-        <a href="homepagina.html"><img src="images/logo_games/Juiste_logo.png" alt="logo" /></a><!--Afbeelding zelf gemaakt via canva-->
-        <h1>Lego Masters</h1>
-        <a href="login.html">Login</a>
+        <nav class="navbar container-fluid">
+            <a href="homepagina.html" class="navbar-brand">
+                <img src="images/click-logo.png" type="img/png" class="d-inline-block" alt="logo" height="35" /><!--Afbeelding zelf gemaakt via canva-->
+                Lego Masters
+            </a>
+
+            <form class="d-flex gap-2">
+                <a href="login.html" class="btn btn-outline-primary" id="login-btn">Uitloggen</a>
+            </form>
+        </nav>
     </header>
 
-    <main><!--De afbeeldingen komen van de API-->
-        <h2>Resultaten</h2>
-        <section>
-            <article>
-                <h3>Aantal geordend</h3>
+    <main class="container"><!--De afbeeldingen komen van de API-->
+        <h1>Resultaten</h1>
+        <section class="row justify-content-evenly">
+            <article class="col-9 col-sm-7 col-lg-4">
+                <h2>Aantal geordend</h2>
                 <p id="number-sorted">20</p>
-                <a href="geordende-minifigs.html">Lijst bekijken</a>
+                <a href="geordende-minifigs.html" class="btn btn-outline-info d-block">Lijst bekijken</a>
             </article>
-            <article>
-                <h3>Aantal overgeslagen</h3>
+            <article class="col-9 col-sm-7 col-lg-4">
+                <h2 class="mt-5 mt-lg-0">Aantal overgeslagen</h2>
                 <p id="number-skipped">7</p>
-                <a href="overgeslagen-minifigs.html">Lijst bekijken</a>
+                <a href="overgeslagen-minifigs.html" class="btn btn-outline-info d-block">Lijst bekijken</a>
             </article>
         </section>
     </main>
-
-    <footer>
-        <p>&copy; Click 2024</p>
-    </footer>
+    
+    <footer class="bg-black text-light">&copy; Click 2024</footer>
 </body>
 
 </html>

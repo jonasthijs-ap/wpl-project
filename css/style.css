@@ -1,5 +1,18 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    padding-bottom: 100px;
+}
+
 .navbar {
     padding: 15px !important;
+}
+
+.table {
+    padding: 25px !important;
 }
 
 footer {
@@ -7,10 +20,35 @@ footer {
 }
 
 main {
-    padding: 100px;
+    padding: 100px 0;
 }
 
 h1 {
     text-align: center;
     margin-bottom: 100px !important;
+}
+
+h2 {
+    text-align: center;
+}
+
+p#number-sorted,
+p#number-skipped {
+    text-align: center;
+    margin: 50px 0;
+    font-size: 3rem;
+}
+
+img.table-image {
+    width: 20vw;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: 50px;
+    height: 100px;
+    padding: 25px;
+    text-align: center;
 }

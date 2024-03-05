@@ -7,97 +7,132 @@
     <title>Minifigs ordenen</title>
     <link rel="stylesheet" href="css/reset.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="icon" href="images/click-logo.png" type="img/png" />
+
+    <!--BOOTSTRAP-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" /><!--Source: https://getbootstrap.com/docs/5.3/getting-started/download/#cdn-via-jsdelivr-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script><!--Source: https://getbootstrap.com/docs/5.3/getting-started/download/#cdn-via-jsdelivr-->
 </head>
 
 <body>
     <header>
-        <a href="homepagina.html"><img src="images/logo_games/Juiste_logo.png" alt="logo" /></a><!--Afbeelding zelf gemaakt via canva-->
-        <h1>Lego Masters</h1>
-        <a href="login.html">Login</a>
+        <nav class="navbar container-fluid">
+            <a href="homepagina.html" class="navbar-brand">
+                <img src="images/click-logo.png" type="img/png" class="d-inline-block" alt="logo" height="35" /><!--Afbeelding zelf gemaakt via canva-->
+                Lego Masters
+            </a>
+
+            <form class="d-flex gap-2">
+                <a href="login.html" class="btn btn-outline-primary btn-outline-primary" id="login-btn">Uitloggen</a>
+            </form>
+        </nav>
     </header>
 
-    <main><!--De afbeeldingen komen van de API-->
-        <h2>Minifigs ordenen</h2>
-        <section>
-            <article>
-                <a href="#" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad">
-                    <figure>
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-001804/111165.jpg/800x800p.jpg" alt="fig-001804" />
-                        <figcaption>Batman</figcaption>
-                    </figure>
-                </a>
-            </article>
-            <article>
-                <form action="#">
-                    <button id="minifig-skip" name="minifigSkip">Minifig overslaan</button>
-                    <select name="sets" id="sets">
-                        <option value="70922-1">The Joker Mano</option>
-                        <option value="70912-1">Arkham Asylum</option>
-                        <option value="70917-1">The Ultimate Batmobile</option>
-                        <option value="70916-1">The Batwing</option>
-                        <option value="70909-1">Batcave Break-in</option>
-                        <option value="70908-1">The Scuttler</option>
-                    </select>
-                    <button type="submit">Bevestigen</button>
-                    <button id="minifig-blacklist" name="minifigBlacklist">Minifig blacklisten</button>
-                </form>
-            </article>
-        </section>
-        <section>
-            <article>
-                <a href="#" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad">
-                    <figure>
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/70922-1/9300.jpg/1000x800p.jpg" alt="70922-1" />
-                        <figcaption>The Joker Manor</figcaption>
-                    </figure>
-                </a>
-            </article>
-            <article>
-                <a href="#" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad">
-                    <figure>
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/70912-1/1779.jpg/1000x800p.jpg" alt="70912-1" />
-                        <figcaption>Arkham Asylum</figcaption>
-                    </figure>
-                </a>
-            </article>
-            <article>
-                <a href="#" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad">
-                    <figure>
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/70917-1/11721.jpg/1000x800p.jpg" alt="70917-1" />
-                        <figcaption>The Ultimate Batmobile</figcaption>
-                    </figure>
-                </a>
-            </article>
-            <article>
-                <a href="#" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad">
-                    <figure>
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/70916-1/1081.jpg/1000x800p.jpg" alt="70916-1" />
-                        <figcaption>The Batwing</figcaption>
-                    </figure>
-                </a>
-            </article>
-            <article>
-                <a href="#" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad">
-                    <figure>
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/70909-1/13630.jpg/1000x800p.jpg" alt="70909-1" />
-                        <figcaption>Batcave Break-in</figcaption>
-                    </figure>
-                </a>
-            </article>
-            <article>
-                <a href="#" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad">
-                    <figure>
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/70908-1/1639.jpg/1000x800p.jpg" alt="70908-1" />
-                        <figcaption>The Scuttler</figcaption>
-                    </figure>
-                </a>
-            </article>
+    <main class="container"><!--De afbeeldingen komen van de API-->
+        <h1>Minifigs ordenen</h1>
+        <section class="row">
+            <aside class="col-lg-4">
+                <h2 class="mb-3">Huidige minifig</h2>
+                <article>
+                    <a href="#" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad">
+                        <figure class="card">
+                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-001804/111165.jpg/800x800p.jpg" alt="fig-001804" class="card-img-top" />
+                            <div class="card-body">
+                                <figcaption class="card-text">Batman</figcaption>
+                            </div>
+                        </figure>
+                    </a>
+                </article>
+                <article>
+                    <form action="#" class="d-flex flex-column gap-3">
+                        <fieldset class="d-flex flex-row gap-2">
+                            <button id="minifig-skip" class="btn btn-outline-danger btn-sm w-50" name="minifigSkip">Minifig overslaan</button>
+                            <button id="minifig-blacklist" class="btn btn-outline-dark btn-sm w-50" name="minifigBlacklist">Minifig blacklisten</button>
+                        </fieldset>
+                        <fieldset class="d-grid form-floating gap-2">
+                            <select class="form-select" name="setsSelect" id="sets-select">
+                                <option value="70922-1">The Joker Manor</option>
+                                <option value="70912-1">Arkham Asylum</option>
+                                <option value="70917-1">The Ultimate Batmobile</option>
+                                <option value="70916-1">The Batwing</option>
+                                <option value="70909-1">Batcave Break-in</option>
+                                <option value="70908-1">The Scuttler</option>
+                            </select>
+                            <label for="sets-select">Selecteer een set om deze minifig in te plaatsen</label>
+                            <button type="submit" class="btn btn-success btn-sm">Bevestigen</button>
+                        </fieldset>
+                    </form>
+                </article>
+            </aside>
+            <section class="container-fluid col-lg-7">
+                <h2 class="mb-3 mt-5 mt-lg-0">Overeenkomstige sets</h2>
+                <section class="row">
+                    <article class="col-xl-4 col-md-6 col-sm-12">
+                        <a href="#" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad">
+                            <figure class="card">
+                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/70922-1/9300.jpg/1000x800p.jpg" class="card-img-top" alt="70922-1" />
+                                <div class="card-body">
+                                    <figcaption class="card-text">The Joker Manor</figcaption>
+                                </div>
+                            </figure>
+                        </a>
+                    </article>
+                    <article class="col-xl-4 col-md-6 col-sm-12">
+                        <a href="#" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad">
+                            <figure class="card">
+                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/70912-1/1779.jpg/1000x800p.jpg" class="card-img-top" alt="70912-1" />
+                                <div class="card-body">
+                                    <figcaption class="card-text">Arkham Asylum</figcaption>
+                                </div>
+                            </figure>
+                        </a>
+                    </article>
+                    <article class="col-xl-4 col-md-6 col-sm-12">
+                        <a href="#" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad">
+                            <figure class="card">
+                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/70917-1/11721.jpg/1000x800p.jpg" class="card-img-top" alt="70917-1" />
+                                <div class="card-body">
+                                    <figcaption class="card-text">The Ultimate Batmobile</figcaption>
+                                </div>
+                            </figure>
+                        </a>
+                    </article>
+                    <article class="col-xl-4 col-md-6 col-sm-12">
+                        <a href="#" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad">
+                            <figure class="card">
+                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/70916-1/1081.jpg/1000x800p.jpg" class="card-img-top" alt="70916-1" />
+                                <div class="card-body">
+                                    <figcaption class="card-text">The Batwing</figcaption>
+                                </div>
+                            </figure>
+                        </a>
+                    </article>
+                    <article class="col-xl-4 col-md-6 col-sm-12">
+                        <a href="#" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad">
+                            <figure class="card">
+                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/70909-1/13630.jpg/1000x800p.jpg" class="card-img-top" alt="70909-1" />
+                                <div class="card-body">
+                                    <figcaption class="card-text">Batcave Break-in</figcaption>
+                                </div>
+                            </figure>
+                        </a>
+                    </article>
+                    <article class="col-xl-4 col-md-6 col-sm-12">
+                        <a href="#" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad">
+                            <figure class="card">
+                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/70908-1/1639.jpg/1000x800p.jpg" class="card-img-top" alt="70908-1" />
+                                <div class="card-body">
+                                    <figcaption class="card-text">The Scuttler</figcaption>
+                                </div>
+                            </figure>
+                        </a>
+                    </article>
+                </section>
+            </section>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; Click 2024</p>
-    </footer>
+    <footer class="bg-black text-light">&copy; Click 2024</footer>
 </body>
 
 </html>
