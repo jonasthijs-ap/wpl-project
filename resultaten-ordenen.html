@@ -12,6 +12,7 @@
     <!--BOOTSTRAP-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" /><!--Source: https://getbootstrap.com/docs/5.3/getting-started/download/#cdn-via-jsdelivr-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script><!--Source: https://getbootstrap.com/docs/5.3/getting-started/download/#cdn-via-jsdelivr-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /><!--Source: https://icons.getbootstrap.com/#install-->
 </head>
 
 <body>
@@ -23,7 +24,7 @@
             </a>
 
             <form class="d-flex gap-2">
-                <a href="login.html" class="btn btn-outline-primary" id="login-btn">Uitloggen</a>
+                <a href="login.html" class="btn btn-outline-primary" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
             </form>
         </nav>
     </header>
@@ -31,15 +32,19 @@
     <main class="container"><!--De afbeeldingen komen van de API-->
         <h1>Resultaten</h1>
         <section class="row justify-content-evenly">
-            <article class="col-9 col-sm-7 col-lg-4">
-                <h2>Aantal geordend</h2>
-                <p id="number-sorted">20</p>
-                <a href="geordende-minifigs.html" class="btn btn-outline-info d-block">Lijst bekijken</a>
+            <article class="card col-9 col-sm-7 col-lg-4">
+                <div class="card-body">
+                    <h2 class="card-title">Aantal geordend</h2>
+                    <p class="card-text" id="number-sorted">20</p>
+                    <a href="geordende-minifigs.html" class="btn btn-primary d-block">Lijst bekijken</a>
+                </div>
             </article>
-            <article class="col-9 col-sm-7 col-lg-4">
-                <h2 class="mt-5 mt-lg-0">Aantal overgeslagen</h2>
-                <p id="number-skipped">7</p>
-                <a href="overgeslagen-minifigs.html" class="btn btn-outline-info d-block">Lijst bekijken</a>
+            <article class="card col-9 col-sm-7 col-lg-4 mt-5 mt-lg-0">
+                <div class="card-body">
+                    <h2 class="card-title">Aantal overgeslagen</h2>
+                    <p class="card-text" id="number-skipped">7</p>
+                    <a href="overgeslagen-minifigs.html" class="btn btn-primary d-block">Lijst bekijken</a>
+                </div>
             </article>
         </section>
     </main>
