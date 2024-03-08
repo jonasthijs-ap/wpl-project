@@ -39,6 +39,12 @@ p#number-skipped {
     font-size: 3rem;
 }
 
+img.game-logo {
+    padding: 25px;
+    width: 500px;
+    height: 300px;
+}
+
 img.table-image {
     width: 20vw;
 }
