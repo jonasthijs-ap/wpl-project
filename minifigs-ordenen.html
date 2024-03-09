@@ -20,19 +20,22 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar container-fluid">
-            <a href="homepagina.html" class="navbar-brand">
-                <img src="images/click-logo.png" type="img/png" class="d-inline-block" alt="logo"
-                    height="35" /><!--Afbeelding zelf gemaakt via canva-->
-                Lego Masters
-            </a>
-
-            <form class="d-flex gap-2">
-                <a href="index.html" class="btn btn-outline-primary btn-outline-primary" id="login-btn">Uitloggen</a>
-            </form>
+    <header class="navbar container-fluid">
+        <a href="homepagina.html" class="navbar-brand">
+            <img src="images/click-logo.png" class="d-inline-block" alt="logo" height="50" /><!--Afbeelding zelf gemaakt via canva-->
+            Lego Masters
+        </a>
+        <nav class="d-flex justify-content-center gap-2">
+            <button class="btn btn-danger me-2" type="button">Minifigs bekijken</button>
+            <button class="btn btn-warning me-2" type="button">blackllisted Minifigs</button>
+            <button class="btn btn-success me-2" type="button">Geordende minifigs bekijken</button>
         </nav>
+        <form class="d-flex gap-2">
+            <a href="login.html" class="btn btn-outline-primary" id="login-btn"><i class="bi bi-person-fill"></i></a>
+            <a href="login.html" class="btn btn-primary" id="register-btn">Registreren</a>
+        </form>
     </header>
+    
 
     <main class="container"><!--De afbeeldingen komen van de API-->
         <h1>Geef je minifig een thuis</h1>
