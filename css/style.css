@@ -43,8 +43,8 @@ img.table-image {
     width: 20vw;
 }
 
-.cross {
-    font-size: 10vw;
+article.cross > i {
+    font-size: 15vw;
 }
 
 a.no-link-style {
