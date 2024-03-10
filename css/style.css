@@ -1,3 +1,5 @@
+/* TOP-LEVEL */
+
 html {
     position: relative;
     min-height: 100%;
@@ -7,12 +9,14 @@ body {
     padding-bottom: 100px;
 }
 
+/* OVERRIDES BOOTSTRAP */
+
 .navbar {
-    padding: 15px !important;
+    padding: 15px;
 }
 
 .table td {
-    padding: 25px !important;
+    padding: 25px;
 }
 
 .table td > figure {
@@ -33,7 +37,15 @@ body {
     font-size: 0.8rem;
 }
 
+/* GLOBAL CSS */
+
 footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: 50px;
+    height: 100px;
+    padding: 25px;
     text-align: center;
 }
 
@@ -43,18 +55,25 @@ main {
 
 h1 {
     text-align: center;
-    margin-bottom: 100px !important;
+    margin-bottom: 100px;
 }
 
 h2 {
     text-align: center;
 }
 
+/* INDIVIDUAL CSS */
+
 p#number-sorted,
 p#number-skipped {
     text-align: center;
     margin: 50px 0;
     font-size: 3rem;
+}
+
+img.click-logo {
+    display: inline-block;
+    height: 25px;
 }
 
 img.game-logo {
@@ -74,14 +93,4 @@ article.cross > i {
 a.no-link-style {
     text-decoration: none;
     color: unset;
-}
-
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    line-height: 50px;
-    height: 100px;
-    padding: 25px;
-    text-align: center;
 }
