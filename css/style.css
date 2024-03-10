@@ -67,6 +67,15 @@ img.table-image {
     width: 20vw;
 }
 
+article.cross > i {
+    font-size: 15vw;
+}
+
+a.no-link-style {
+    text-decoration: none;
+    color: unset;
+}
+
 footer {
     position: absolute;
     bottom: 0;

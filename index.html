@@ -5,28 +5,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Startpagina</title>
+
     <link rel="stylesheet" href="css/reset.css" />
-    
 
     <!--BOOTSTRAP-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-    <!--Source: https://getbootstrap.com/docs/5.3/getting-started/download/#cdn-via-jsdelivr-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <!--Source: https://getbootstrap.com/docs/5.2/getting-started/download/#cdn-via-jsdelivr-->
-
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!--link href="https://fonts.googleapis.com/css2?family=Glegoo:wght@400;700&display=swap" rel="stylesheet"-->
-   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" /><!--Source: https://getbootstrap.com/docs/5.3/getting-started/download/#cdn-via-jsdelivr-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script><!--Source: https://getbootstrap.com/docs/5.2/getting-started/download/#cdn-via-jsdelivr-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" /><!--Source: https://icons.getbootstrap.com/#install-->
 
     <link rel="stylesheet" href="css/style.css" />
-
-
 </head>
 
 <body>
@@ -34,8 +21,8 @@
     <header>
         <nav class="navbar container-fluid justify-content-end">
             <form class="d-flex gap-2">
-                <a href="login.html" class="btn btn-outline-primary" id="login-btn">Login</a>
-                <a href="registreren.html" class="btn btn-primary" id="register-btn">Registreren</a>
+                <a href="login.html" class="btn btn-outline-primary" id="login-btn"><i class="bi bi-person-circle">&ensp;</i>Login</a>
+                <a href="registreren.html" class="btn btn-primary" id="register-btn"><i class="bi bi-person-vcard-fill">&ensp;</i>Registreren</a>
             </form>
         </nav>
     </header>
@@ -51,19 +38,18 @@
                         <figure class="card rounded-4">
                             <img src="images/logo_games/FIFA.svg" alt="FIFA" class="card-img-top game-logo rounded-4" /><!--De afbeelding is public domain-->
                             <div class="card-body">
-                                <figcaption class="card-text">FIFA</figcaption>
-                                
+                                <figcaption class="card-text d-block btn btn-primary"><i class="bi bi-eye-fill">&ensp;</i>FIFA</figcaption>
                             </div>
                         </figure>
                     </a>
                 </article>
 
                 <article class="col-xl-4 col-md-6 col-sm-12">
-                    <a href="homepagina.html">
+                    <a href="foutmeldingspagina-login.html">
                         <figure class="card rounded-4">
                             <img src="images/logo_games/lego-masters.png" alt="Lego Masters" class="card-img-top game-logo object-fit-cover rounded-4" /><!--Afbeelding komt van de API-->
                             <div class="card-body">
-                                <figcaption class="card-text">Lego Masters</figcaption>
+                                <figcaption class="card-text d-block btn btn-primary"><i class="bi bi-eye-fill">&ensp;</i>Lego Masters</figcaption>
                             </div>
                         </figure>
                     </a>
@@ -74,7 +60,7 @@
                         <figure class="card rounded-4">
                             <img src="images/logo_games/Fortnite.svg" alt="Fortnite" class="card-img-top game-logo rounded-4" /><!--De afbeelding is public domain-->
                             <div class="card-body">
-                                <figcaption class="card-text">Fortnite</figcaption>
+                                <figcaption class="card-text d-block btn btn-primary"><i class="bi bi-eye-fill">&nbsp;</i>Fortnite</figcaption>
                             </div>
                         </figure>
                     </a>
@@ -85,7 +71,7 @@
                         <figure class="card rounded-4">
                             <img src="images/logo_games/LOTR.svg" alt="LOTR" class="card-img-top bg-black game-logo rounded-4" /><!--De afbeelding is public domain-->
                             <div class="card-body">
-                                <figcaption class="card-text">LOTR</figcaption>
+                                <figcaption class="card-text d-block btn btn-primary"><i class="bi bi-eye-fill">&nbsp;</i>LOTR</figcaption>
                             </div>
 
                         </figure>
@@ -97,7 +83,7 @@
                         <figure class="card rounded-4">
                             <img src="images/logo_games/MTG.svg" alt="MTG" class="card-img-top game-logo rounded-4" /><!--De afbeelding is public domain-->
                             <div class="card-body">
-                                <figcaption class="card-text">MTG</figcaption>
+                                <figcaption class="card-text d-block btn btn-primary"><i class="bi bi-eye-fill">&nbsp;</i>MTG</figcaption>
                             </div>
                         </figure>
                     </a>
@@ -108,7 +94,7 @@
                         <figure class="card rounded-4">
                             <img src="images/logo_games/Pokémon.svg" alt="Pokémon" class="card-img-top game-logo rounded-4" /><!--De afbeelding is public domain-->
                             <div class="card-body">
-                                <figcaption class="card-text">Pokémon</figcaption>
+                                <figcaption class="card-text d-block btn btn-primary"><i class="bi bi-eye-fill">&nbsp;</i>Pokémon</figcaption>
                             </div>
                         </figure>
                     </a>
@@ -118,7 +104,7 @@
     </main>
 
 
-    <footer>&copy; 2024 Click</footer>
+    <footer class="bg-black text-light">&copy; 2024 Click</footer>
 </body>
 
 </html>
