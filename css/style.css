@@ -11,8 +11,26 @@ body {
     padding: 15px !important;
 }
 
-.table {
+.table td {
     padding: 25px !important;
+}
+
+.table td > figure {
+    height: 100%;
+    margin: 0;
+}
+
+.table td > figure > img {
+    height: 100%;
+    width: 50%;
+}
+
+.table td > figure > figcaption {
+    padding: 10px 0;
+}
+
+.table td > figure > figcaption > b {
+    font-size: 0.8rem;
 }
 
 footer {
