@@ -17,19 +17,49 @@
 </head>
 
 <body>
-    <header class="navbar container-fluid">
-        <a href="homepagina.html" class="navbar-brand">
-            <img src="images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+    <header class="navbar navbar-expand-lg fixed-top">
+        <nav class="container-fluid justify-content-between">
+          <a href="homepagina.html" class="navbar-brand">
+            <img src="/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
             Lego Masters
-        </a>
-        <nav class="d-flex justify-content-center gap-2">
-            <button class="btn btn-danger me-2" type="button">Niet-geordende minifigs</button>
-            <button class="btn btn-warning me-2" type="button">Blacklist</button>
-            <button class="btn btn-success me-2" type="button">Geordende minifigs</button>
-        </nav>
-        <form class="d-flex gap-2">
-            <a href="login.html" class="btn btn-outline-primary btn-outline-primary" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+          </a>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                <a href="homepagina.html" class="navbar-brand">
+                  <img src="/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                  Lego Masters
+              </a>
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+
+          <div class="offcanvas-body d-flex justify-content-lg-center">
+            <ul class="navbar-nav gap-2">
+              <li class="nav-item">
+                <a href="niet-geordende-minifigs.html" class="btn btn-danger me-2">Niet-geordende minifigs</a>
+              </li>
+              <li class="nav-item">
+                <a href="blacklist.html" class="btn btn-warning me-2">Blacklist</a>
+              </li>
+              <li class="nav-item">
+                <a href="geordende-minifigs.html" class="btn btn-success me-2">Geordende minifigs</a>
+              </li>
+              <li class="nav-item mt-auto mt-lg-0 d-block d-lg-none">
+                <form>
+                  <a href="login.html" class="btn btn-outline-primary" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <form class="d-none d-lg-block">
+          <a href="login.html" class="btn btn-outline-primary" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
         </form>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
     </header>
     
 
