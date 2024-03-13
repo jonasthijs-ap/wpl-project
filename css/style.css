@@ -64,6 +64,16 @@ h2 {
 
 /* INDIVIDUAL CSS */
 
+table.table-blacklist img {
+    height: 100px;
+    width: max-content;
+}
+
+table.table-not-sorted img {
+    width: 150px;
+    height: max-content;
+}
+
 p#number-sorted,
 p#number-skipped {
     text-align: center;
