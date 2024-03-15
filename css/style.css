@@ -17,6 +17,7 @@ body {
 
 .table td {
     padding: 25px;
+    vertical-align: middle;
 }
 
 .table td > figure {
@@ -65,13 +66,35 @@ h2 {
 /* INDIVIDUAL CSS */
 
 table.table-blacklist img {
-    height: 100px;
-    width: max-content;
+    width: 250px;
+    height: max-content;
 }
 
 table.table-not-sorted img {
     width: 150px;
     height: max-content;
+}
+
+@media (max-width: 768px) {
+    .table td {
+        padding: 10px 2vw;
+    }
+
+    .table td > figure > img {
+        height: auto;
+        width: 30vw;
+    }
+
+    .table td,
+    .table td * {
+        font-size: 0.75rem;
+    }
+
+    table.table-blacklist img,
+    table.table-not-sorted img {
+        height: auto;
+        width: 30vw;
+    }
 }
 
 p#number-sorted,
