@@ -7,6 +7,8 @@ html {
 
 body {
     padding-bottom: 100px;
+    font-size: large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 /* OVERRIDES BOOTSTRAP */
@@ -56,10 +58,12 @@ main {
 h1 {
     text-align: center;
     margin-bottom: 100px;
+    text-transform: uppercase;
 }
 
 h2 {
     text-align: center;
+    text-transform: uppercase;
 }
 
 /* INDIVIDUAL CSS */
