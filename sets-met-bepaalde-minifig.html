@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Minifigs ordenen</title>
+    <title>Alle huizen waar &lsquo;Batman&rsquo; deel van uitmaakt</title>
 
     <link rel="stylesheet" href="css/reset.css" type="text/css" />
 
@@ -64,10 +64,9 @@
     
 
     <main class="container"><!--De afbeeldingen komen van de API-->
-        <h1>Geef je minifig een thuis</h1>
-        <div class="row">
+        <h1>Alle huizen waar &lsquo;Batman&rsquo; deel van uitmaakt</h1>
+        <div class="row justify-content-center">
             <aside class="col-lg-4">
-                <h2 class="mb-3">Minifig</h2>
                 <article>
                     <figure class="card rounded-4">
                         <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-001804/111165.jpg/800x800p.jpg" alt="fig-001804" class="card-img-top rounded-4" />
@@ -78,35 +77,12 @@
                             <a href="minifig-onderdelen.html" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
                                 <i class="btn btn-primary btn-sm bi-person-lines-fill rounded-2"></i>
                             </a>
-                            <a href="sets-met-bepaalde-minifig.html" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
-                                <i class="btn btn-primary btn-sm bi-view-list rounded-2"></i>
-                            </a>
                         </div>
                     </figure>
                 </article>
-                <article>
-                    <form action="resultaten-ordenen.html" class="d-flex flex-column gap-3">
-                        <fieldset class="d-grid form-floating gap-2">
-                            <select class="form-select rounded-4" name="setsSelect" id="sets-select">
-                                <option value="70922-1">The Joker Manor</option>
-                                <option value="70912-1">Arkham Asylum</option>
-                                <option value="70917-1">The Ultimate Batmobile</option>
-                                <option value="70916-1">The Batwing</option>
-                                <option value="70909-1">Batcave Break-in</option>
-                                <option value="70908-1">The Scuttler</option>
-                            </select>
-                            <label for="sets-select">Selecteer een set om deze minifig in te plaatsen</label>
-                        </fieldset>
-                        <fieldset class="d-flex flex-row gap-2">
-                            <button id="minifig-skip" class="btn btn-warning rounded-2" name="minifigSkip"><i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan--></button>
-                            <button id="minifig-blacklist" class="btn btn-dark rounded-2" name="minifigBlacklist"><i class="bi bi-ban"></i><!--Minifig blacklisten--></button>
-                            <button type="submit" class="btn btn-success flex-fill rounded-2">Bevestigen</button>
-                        </fieldset>
-                    </form>
-                </article>
             </aside>
+            <hr class="d-block d-lg-none col-8 mt-5 pt-5 border-top border-2 border-success" />
             <section class="container-fluid col-lg-7">
-                <h2 class="mb-3 mt-5 mt-lg-0">Kies een thuis</h2>
                 <div class="row">
                     <article class="col-xl-4 col-md-6 col-sm-12">
                         <figure class="card rounded-4">
