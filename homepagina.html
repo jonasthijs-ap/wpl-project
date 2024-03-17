@@ -65,6 +65,31 @@
 
     <main class="container">
 
+        <!--BEGIN MODAL OM TE BEGINNEN MET SORTEREN-->
+        <section class="modal fade in" id="modal-homepage">
+            <article class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Wil je beginnen minifigs een thuis te geven?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Er zijn nog minifigs gededecteerd die nog geen thuis hebben.<br />Wil je deze graag helpen met het vinden van een thuis?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Later</button>
+                        <a href="minifigs-ordenen.html" class="btn btn-primary">Laten we beginnen!</a>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <script type="text/javascript">
+            let modalHomepage = new bootstrap.Modal(document.getElementById("modal-homepage"), {});
+            modalHomepage.toggle();
+        </script>
+        <!--EINDE MODAL-->
+        
         <h1>Welkom bij Lego Masters</h1>
         <section class="row">
             <article class="col-md-4 col-sm-12">
