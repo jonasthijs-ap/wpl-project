@@ -64,6 +64,27 @@
     
 
     <main class="container"><!--De afbeeldingen komen van de API-->
+        <!--hier komt de pop-up-->
+        <section class="modal fade" id="modal-blacklist" tabindex="-1" aria-labelledby="modal-blacklistLabel" aria-hidden="true">
+            <article class="modal-dialog">
+              <div class="modal-content text-start">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modal-blacklistLabel">Waarom heb je deze minifig geblacklist?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+    
+                    <div class="modal-body">
+                        <label class="form-label">Geef hier je reden</label>
+                        <input type="text" class="form-control">
+                    </div>
+    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Sluit</button>
+                        <button type="button" class="btn btn-warning">Verzenden</button>
+                    </div>
+                </div>
+            </article>
+        </section>
         <h1>Gevangengenomen minifigs (blacklist)</h1>
         <section>
             <table class="table table-blacklist">
@@ -88,7 +109,7 @@
                             Deze wil ik voorlopig niet gebruiken.
                         </td>
                         <td class="align-middle text-center">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist" ><i class="bi bi-pencil-square"></i></button>
                             <br class="mb-3" />
                             <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
                         </td>
@@ -104,7 +125,7 @@
                             Geen fan van &lsquo;Jack Sparrow&rsquo;.
                         </td>
                         <td class="align-middle text-center">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
                             <br class="mb-3" />
                             <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
                         </td>
@@ -120,7 +141,7 @@
                             Nog nooit geen &lsquo;Lego Technic&rsquo; gehad en weet er dus niets van af.
                         </td>
                         <td class="align-middle text-center">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
                             <br class="mb-3" />
                             <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
                         </td>
@@ -136,7 +157,7 @@
                             Geen Marvel-fan.
                         </td>
                         <td class="align-middle text-center">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil-square"></i></button>
                             <br class="mb-3" />
                             <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
                         </td>
@@ -152,7 +173,7 @@
                             Niet meer voor mijn leeftijd.
                         </td>
                         <td class="align-middle text-center">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil-square"></i></button>
                             <br class="mb-3" />
                             <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
                         </td>

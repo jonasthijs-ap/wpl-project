@@ -64,6 +64,26 @@
     
 
     <main class="container"><!--De afbeeldingen komen van de API-->
+        <section class="modal fade" id="modal-blacklist" tabindex="-1" aria-labelledby="modal-blacklistLabel" aria-hidden="true">
+            <article class="modal-dialog">
+              <div class="modal-content text-start">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modal-blacklistLabel">Waarom wil je deze minifig blacklisten?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+    
+                    <div class="modal-body">
+                        <label class="form-label">Geef hier je reden</label>
+                        <input type="text" class="form-control">
+                    </div>
+    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Sluit</button>
+                        <button type="button" class="btn btn-warning">Verzenden</button>
+                    </div>
+                </div>
+            </article>
+        </section>
         <h1>Geef je minifig een thuis</h1>
         <div class="row">
             <aside class="col-lg-4">
@@ -85,7 +105,7 @@
                     </figure>
                 </article>
                 <article>
-                    <form action="resultaten-ordenen.html" class="d-flex flex-column gap-3">
+                    <form class="d-flex flex-column gap-3" action="#">
                         <fieldset class="d-grid form-floating gap-2">
                             <select class="form-select rounded-4" name="setsSelect" id="sets-select">
                                 <option value="70922-1">The Joker Manor</option>
@@ -98,9 +118,9 @@
                             <label for="sets-select">Selecteer een set om deze minifig in te plaatsen</label>
                         </fieldset>
                         <fieldset class="d-flex flex-row gap-2">
-                            <button id="minifig-skip" class="btn btn-warning rounded-2" name="minifigSkip"><i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan--></button>
-                            <button id="minifig-blacklist" class="btn btn-dark rounded-2" name="minifigBlacklist"><i class="bi bi-ban"></i><!--Minifig blacklisten--></button>
-                            <button type="submit" class="btn btn-success flex-fill rounded-2">Bevestigen</button>
+                            <button id="minifig-skip" class="btn btn-warning rounded-2" name="minifigSkip"><a href="resultaten-ordenen.html" class="no-link-style"><i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan--></a></button>
+                            <button id="minifig-blacklist" class="btn btn-dark rounded-2" name="minifigBlacklist" data-bs-toggle="modal" data-bs-target="#modal-blacklist"><i class="bi bi-ban"></i><!--Minifig blacklisten--></button>
+                            <button type="submit" class="btn btn-success flex-fill rounded-2"><a href="resultaten-ordenen.html" class="no-link-style">Bevestigen</a></button>
                         </fieldset>
                     </form>
                 </article>
