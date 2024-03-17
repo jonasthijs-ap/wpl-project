@@ -66,28 +66,53 @@
     
    
     
-    <main>
+    
 
-        <h1>Aanmelden</h1>
-        <section class="d-flex justify-content-center  ">
-            <form class="w-50" action="#" method="post">
-                <fieldset class="mb-3">
-                    <label for="email" class="form-label">E-mailadres</label>
-                    <input type="email" id="email" class="form-control" name="email" placeholder="E-mailadres" />
-                </fieldset>
+        <main class="container d-flex justify-content-center align-items-center min-vh-100">
 
-                <fieldset class="mb-3">
-                    <label for="password" class="form-label">Wachtwoord</label>
-                    <input type="password" id="password" class="form-control" name="password"
-                        placeholder="Wachtwoord" />
-                </fieldset>
-                <!--<button type="submit" class="btn btn-primary" name="login">Aanmelden</button>-->
-                <a href="homepagina.html" class="btn btn-primary">Aanmelden&ensp;<i class="bi bi-arrow-right"></i></a>
-            </form>
-        </section>
-    </main>
-
-    <footer class="bg-black text-light">&copy; 2024 Click</footer>
+            <!----------------------- Login Container -------------------------->
+        
+               <section class="row border rounded-5 p-3 bg-white shadow box-area">
+        
+            <!--------------------------- Left Box ----------------------------->
+                <article class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" >
+               
+                   <div class="featured-image mb-3 left-img">
+                    <img src="/images/click-logo.png" class="img-fluid w-100" >
+                   </div>
+                </article>
+        
+            <!-------------------- ------ Right Box ---------------------------->
+                
+               <article class="col-md-6 right-box">
+                  <div class="row align-items-center">
+                        <div class="header-text mb-4">
+                             <h3>Inloggen</h3>
+                             <p>Welkom bij Lego Masters</p>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="E-mail adres">
+                        </div>
+                        <div class="input-group mb-1">
+                            <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Wachtwoord">
+                        </div>
+                        <div class="input-group mb-5 d-flex justify-content-between">
+                            
+                            
+                        </div>
+                        <div class="input-group mb-3">
+                            <button class="btn btn-lg btn-warning w-100 fs-6">Login</button>
+                        </div>
+                        
+                        <div class="row">
+                            <small>Don't have account? <a href="registreren.html">Sign Up</a></small>
+                        </div>
+                  </div>
+               </article> 
+        
+            </section>
+        </main>
+<footer class="bg-black text-light">&copy; 2024 Click</footer>
 </body>
 
 </html>

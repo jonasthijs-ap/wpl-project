@@ -1,4 +1,5 @@
 /* TOP-LEVEL */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
 html {
     position: relative;
@@ -7,6 +8,8 @@ html {
 
 body {
     padding-bottom: 100px;
+    font-family: 'Poppins', sans-serif;
+    background: #ececec4c;
 }
 
 /* OVERRIDES BOOTSTRAP */
@@ -93,4 +96,62 @@ article.cross > i {
 a.no-link-style {
     text-decoration: none;
     color: unset;
+}
+
+
+
+
+
+/*------------ Login container ------------*/
+
+.box-area{
+    width: 930px;
+    
+}
+
+/*------------ Right box ------------*/
+
+.right-box{
+    padding: 40px 30px 40px 40px;
+}
+
+/*------------ Custom Placeholder ------------*/
+
+::placeholder{
+    font-size: 16px;
+}
+
+.rounded-4{
+    border-radius: 20px;
+}
+.rounded-5{
+    border-radius: 30px;
+}
+
+
+/*------------ For small screens------------*/
+
+@media only screen and (max-width: 768px){
+
+     .box-area{
+        margin: 0 20px;
+        
+
+     }
+     .left-box{
+        height: 100px;
+        overflow: hidden;
+        margin-top: 20px;
+     }
+     .right-box{
+        padding: 30px;
+     }
+
+     .left-box >.left-img > img{
+
+        width: 100px;
+        height: 80px;
+
+     }
+
 }
