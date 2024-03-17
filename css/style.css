@@ -1,4 +1,8 @@
 /* TOP-LEVEL */
+:root{
+    --color-orange: #FE6601;
+    --bg-color-header-yellow: rgb(255, 221, 0);
+}
 
 html {
     position: relative;
@@ -50,13 +54,18 @@ footer {
     text-align: center;
 }
 
+header{
+    background-color: var(--bg-color-header-yellow);
+}
+
 main {
     padding: 100px 0;
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 100px;
+    margin-bottom: 90px;
+    margin-top: 50px;
 }
 
 h2 {
@@ -73,6 +82,12 @@ table.table-blacklist img {
 table.table-not-sorted img {
     width: 150px;
     height: max-content;
+}
+
+table.table-blacklist td.blacklist-options {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.5rem;
 }
 
 @media (max-width: 768px) {
@@ -126,4 +141,11 @@ article.cross > i {
 a.no-link-style {
     text-decoration: none;
     color: unset;
+}
+
+.orange-hover:hover {
+    color: white;
+    background: var(--color-orange);
+    border-color: var(--color-orange);
+    outline-color: var(--color-orange);
 }
