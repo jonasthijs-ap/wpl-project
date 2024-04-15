@@ -4,6 +4,7 @@
 :root{
     --background-color-body: #ececec4c;
     --color-orange: #FE6601;
+    --color-orange__darker: #E25A01;
     --bg-color-header-yellow: rgb(255, 221, 0);
 }
 
@@ -151,6 +152,31 @@ article.cross > i {
 a.no-link-style {
     text-decoration: none;
     color: unset;
+}
+
+a.no-link-style figure {
+    margin-bottom: 0;
+}
+
+.orange {
+    color: white;
+    background: var(--color-orange);
+    border-color: var(--color-orange);
+    outline-color: var(--color-orange);
+}
+
+.orange:hover {
+    color: white;
+    background: var(--color-orange__darker);
+    border-color: var(--color-orange__darker);
+    outline-color: var(--color-orange__darker);
+}
+
+.orange:active {
+    color: var(--color-orange);
+    background: none;
+    border-color: var(--color-orange);
+    outline-color: var(--color-orange);
 }
 
 .orange-hover:hover {
