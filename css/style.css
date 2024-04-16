@@ -46,6 +46,7 @@ body {
 
 .table td > figure > figcaption {
     padding: 10px 0;
+    text-align: center;
 }
 
 .table td > figure > figcaption > b {
@@ -101,9 +102,21 @@ h2 {
 
 /* INDIVIDUAL CSS */
 
-table.table-blacklist img {
-    width: 250px;
+table.table-blacklist thead th:first-of-type {
+    text-align: center;
+}
+
+table.table-blacklist td:first-of-type {
+    width: 25%;
+}
+
+table.table-blacklist figure img {
+    width: 100%;
     height: max-content;
+}
+
+table.table-blacklist td.reason {
+    width: 75%;
 }
 
 table.table-not-sorted img {
@@ -115,6 +128,16 @@ table.table-blacklist td.blacklist-options {
     text-align: center;
     vertical-align: middle;
     font-size: 0.5rem;
+}
+
+table.table-sorted-minifigs td:not(td.plus-sign) {
+    width: 40%;
+}
+
+table.table-sorted-minifigs td.plus-sign {
+    font-size: 5rem;
+    font-family: Impact;
+    color: var(--color-orange);
 }
 
 @media (max-width: 768px) {
