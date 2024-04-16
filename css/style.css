@@ -89,6 +89,11 @@ hgroup h1 {
     margin: 0;
     margin-bottom: 25px;
 }
+hgroup p {
+    max-width: 50%;
+    text-align: center;
+    margin:  0 auto;
+}
 
 h2 {
     text-align: center;
