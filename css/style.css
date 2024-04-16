@@ -78,6 +78,18 @@ h1 {
     margin-top: 50px;
 }
 
+hgroup {
+    margin-bottom: 90px;
+    margin-top: 50px;
+    text-align: center;
+   
+}
+
+hgroup h1 {
+    margin: 0;
+    margin-bottom: 25px;
+}
+
 h2 {
     text-align: center;
 }
