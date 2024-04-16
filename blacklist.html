@@ -79,19 +79,17 @@
 
     <main class="container"><!--De afbeeldingen komen van de API-->
         <!--Blacklist modal-->
-        <section class="modal fade" id="modal-blacklist" tabindex="-1" aria-labelledby="modal-blacklistLabel"
-            aria-hidden="true">
+        <section class="modal fade" id="modal-blacklist" tabindex="-1" aria-labelledby="modal-blacklistLabel" aria-hidden="true">
             <article class="modal-dialog">
                 <div class="modal-content text-start">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modal-blacklistLabel">Waarom heb je deze minifig geblacklist?
-                        </h1>
+                        <h1 class="modal-title fs-5" id="modal-blacklistLabel">Waarom heb je deze minifig geblacklist?</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body">
                         <label class="form-label">Geef hier je reden</label>
-                        <textarea type="text" class="form-control"></textarea>
+                        <input type="text" class="form-control">
                     </div>
 
                     <div class="modal-footer">
@@ -101,14 +99,13 @@
                 </div>
             </article>
         </section>
-        <h1>Uitgeschakelde minifigs</h1>
+        <h1>Gevangengenomen minifigs (blacklist)</h1>
         <section>
             <table class="table table-blacklist">
                 <caption>Gevangengenomen minifigs (blacklist)</caption>
                 <thead>
                     <tr>
-                        <th scope="col">Naam</th>
-                        <th scope="col">Foto</th>
+                        <th scope="col">Minifig</th>
                         <th scope="col">Reden</th>
                         <th scope="col">Opties</th>
                     </tr>
@@ -116,102 +113,87 @@
                 <tbody class="table-group-divider">
                     <tr>
                         <td>
-                            <b>Harry Potter</b>
+                            <figure>
+                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-008927/109342.jpg/800x800p.jpg" alt="fig-008927" />
+                                <figcaption><b>Harry Potter</b></figcaption>
+                            </figure>
                         </td>
-                        <td>
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-008927/109342.jpg/800x800p.jpg"
-                                alt="fig-008927" />
-                        </td>
-                        <td>
+                        <td class="reason">
                             Deze wil ik voorlopig niet gebruiken.
                         </td>
                         <td class="blacklist-options">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal"
-                                data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
                             <br />
                             <br />
-                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i
-                                    class="bi bi-trash-fill"></i></button>
+                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <b>Captain Jack Sparrow</b>
+                            <figure>
+                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-002035/68663.jpg/800x800p.jpg" alt="fig-002035" />
+                                <figcaption><b>Captain Jack Sparrow</b></figcaption>
+                            </figure>
                         </td>
-                        <td>
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-002035/68663.jpg/800x800p.jpg"
-                                alt="fig-002035" />
-                        </td>
-                        <td>
+                        <td class="reason">
                             Geen fan van &lsquo;Jack Sparrow&rsquo;.
                         </td>
                         <td class="blacklist-options">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal"
-                                data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
                             <br />
                             <br />
-                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i
-                                    class="bi bi-trash-fill"></i></button>
+                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <b>Technic Figure Blue Legs</b>
+                            <figure>
+                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-010491/83659.jpg/800x800p.jpg" alt="fig-010491" />
+                                <figcaption><b>Technic Figure Blue Legs</b></figcaption>
+                            </figure>
                         </td>
-                        <td>
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-010491/83659.jpg/800x800p.jpg"
-                                alt="fig-010491" />
-                        </td>
-                        <td>
+                        <td class="reason">
                             Nog nooit geen &lsquo;Lego Technic&rsquo; gehad en weet er dus niets van af.
                         </td>
                         <td class="blacklist-options">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal"
-                                data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
                             <br />
                             <br />
-                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i
-                                    class="bi bi-trash-fill"></i></button>
+                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <b>Batman</b>
+                            <figure>
+                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-001804/111165.jpg/800x800p.jpg" alt="fig-001804" />
+                                <figcaption><b>Batman</b></figcaption>
+                            </figure>
                         </td>
-                        <td>
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-001804/111165.jpg/800x800p.jpg"
-                                alt="fig-001804" />
-                        </td>
-                        <td>
+                        <td class="reason">
                             Geen Marvel-fan.
                         </td>
                         <td class="blacklist-options">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil-square"></i></button>
                             <br />
                             <br />
-                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i
-                                    class="bi bi-trash-fill"></i></button>
+                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <b>Andrea - Bright Light Orange Top</b>
+                            <figure>
+                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-000302/96717.jpg/800x800p.jpg" alt="fig-000302" />
+                                <figcaption><b>Andrea - Bright Light Orange Top</b></figcaption>
+                            </figure>
                         </td>
-                        <td>
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-000302/96717.jpg/800x800p.jpg"
-                                alt="fig-000302" />
-                        </td>
-                        <td>
+                        <td class="reason">
                             Niet meer voor mijn leeftijd.
                         </td>
                         <td class="align-middle text-center">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen"><i
-                                    class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-sm btn-warning" title="Reden wijzigen"><i class="bi bi-pencil-square"></i></button>
                             <br />
                             <br />
-                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i
-                                    class="bi bi-trash-fill"></i></button>
+                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -220,7 +202,7 @@
     </main>
 
     <footer class="bg-black text-light">&copy; 2024 Click</footer>
-
+    
 </body>
 
 </html>
