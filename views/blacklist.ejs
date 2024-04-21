@@ -1,22 +1,17 @@
 <%- include("partials/header.ejs", { title: "Blacklist" }); %>
 
 <body>
-    <p>  WELKOM op de pagina blacklist. Hier kan je de geblacklisten minifigs terug vinden. Blacklist wilt namelijk zeggen dat de minifigs die niet worden gebruikt tijdens het sorteren van de minifigs automatisch in de blacklist lijst terug komen.
-        hierbij kan je ook nog de reden meegegven of wijzigen bij het blacklisten van een individuele minifig </p>
     <header class="navbar navbar-expand-lg fixed-top">
         <nav class="container-fluid justify-content-between">
             <a href="homepagina.html" class="navbar-brand">
-                <img src="/images/click-logo.png" class="click-logo"
-                    alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                <img src="/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
                 Lego Masters
             </a>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
                         <a href="homepagina.html" class="navbar-brand">
-                            <img src="/images/click-logo.png" class="click-logo"
-                                alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                            <img src="/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
                             Lego Masters
                         </a>
                     </h5>
@@ -26,8 +21,7 @@
                 <div class="offcanvas-body d-flex justify-content-lg-center">
                     <ul class="navbar-nav gap-2">
                         <li class="nav-item">
-                            <a href="niet-geordende-minifigs.html" class="btn btn-danger me-2">Niet-geordende
-                                minifigs</a>
+                            <a href="niet-geordende-minifigs.html" class="btn btn-danger me-2">Niet-geordende minifigs</a>
                         </li>
                         <li class="nav-item">
                             <a href="blacklist.html" class="btn btn-dark me-2">Blacklist</a>
@@ -37,19 +31,16 @@
                         </li>
                         <li class="nav-item mt-auto mt-lg-0 d-block d-lg-none">
                             <form>
-                                <a href="login.html" class="btn btn-outline-dark orange-hover" id="login-btn"><i
-                                        class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+                                <a href="login.html" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
                             </form>
                         </li>
                     </ul>
                 </div>
             </div>
             <form class="d-none d-lg-block">
-                <a href="login.html" class="btn btn-outline-dark orange-hover " id="login-btn"><i
-                        class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+                <a href="login.html" class="btn btn-outline-dark orange-hover " id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
             </form>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </nav>
@@ -77,7 +68,10 @@
                 </div>
             </article>
         </section>
-        <h1>Gevangengenomen minifigs (blacklist)</h1>
+        <hgroup>
+            <h1>Gevangengenomen minifigs (blacklist)</h1>
+            <p>WELKOM op de pagina blacklist. Hier kan je de geblacklisten minifigs terug vinden. Blacklist wilt namelijk zeggen dat de minifigs die niet worden gebruikt tijdens het sorteren van de minifigs automatisch in de blacklist lijst terug komen.<br />Hierbij kan je ook nog de reden meegegven of wijzigen bij het blacklisten van een individuele minifig</p>
+        </hgroup>
         <section>
             <table class="table table-blacklist">
                 <caption>Gevangengenomen minifigs (blacklist)</caption>
@@ -89,91 +83,25 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <tr>
-                        <td>
-                            <figure>
-                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-008927/109342.jpg/800x800p.jpg" alt="fig-008927" />
-                                <figcaption><b>Harry Potter</b></figcaption>
-                            </figure>
-                        </td>
-                        <td class="reason">
-                            Deze wil ik voorlopig niet gebruiken.
-                        </td>
-                        <td class="blacklist-options">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
-                            <br />
-                            <br />
-                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <figure>
-                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-002035/68663.jpg/800x800p.jpg" alt="fig-002035" />
-                                <figcaption><b>Captain Jack Sparrow</b></figcaption>
-                            </figure>
-                        </td>
-                        <td class="reason">
-                            Geen fan van &lsquo;Jack Sparrow&rsquo;.
-                        </td>
-                        <td class="blacklist-options">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
-                            <br />
-                            <br />
-                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <figure>
-                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-010491/83659.jpg/800x800p.jpg" alt="fig-010491" />
-                                <figcaption><b>Technic Figure Blue Legs</b></figcaption>
-                            </figure>
-                        </td>
-                        <td class="reason">
-                            Nog nooit geen &lsquo;Lego Technic&rsquo; gehad en weet er dus niets van af.
-                        </td>
-                        <td class="blacklist-options">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
-                            <br />
-                            <br />
-                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <figure>
-                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-001804/111165.jpg/800x800p.jpg" alt="fig-001804" />
-                                <figcaption><b>Batman</b></figcaption>
-                            </figure>
-                        </td>
-                        <td class="reason">
-                            Geen Marvel-fan.
-                        </td>
-                        <td class="blacklist-options">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil-square"></i></button>
-                            <br />
-                            <br />
-                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <figure>
-                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-000302/96717.jpg/800x800p.jpg" alt="fig-000302" />
-                                <figcaption><b>Andrea - Bright Light Orange Top</b></figcaption>
-                            </figure>
-                        </td>
-                        <td class="reason">
-                            Niet meer voor mijn leeftijd.
-                        </td>
-                        <td class="align-middle text-center">
-                            <button class="btn btn-sm btn-warning" title="Reden wijzigen"><i class="bi bi-pencil-square"></i></button>
-                            <br />
-                            <br />
-                            <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
-                        </td>
-                    </tr>
+                    <% for (let i = 0; i < blacklistedMinifigs.length; i++) { %>
+                        <tr>
+                            <td>
+                                <figure>
+                                    <img src="<%= blacklistedMinifigs[i].minifig.imageUrl %>" alt="<%= blacklistedMinifigs[i].minifig.figCode %>" />
+                                    <figcaption><b><%= blacklistedMinifigs[i].minifig.name %></b></figcaption>
+                                </figure>
+                            </td>
+                            <td class="reason">
+                                <%= blacklistedMinifigs[i].reason %>
+                            </td>
+                            <td class="blacklist-options">
+                                <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
+                                <br />
+                                <br />
+                                <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                        </tr>
+                    <% } %>
                 </tbody>
             </table>
         </section>
