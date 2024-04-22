@@ -1,4 +1,4 @@
-<%- include("partials/header.ejs" {title: "Overgeslagen minifigs"})%>
+<%- include("partials/header.ejs" {title: "Overgeslagen minifigs"}) %>
 
 <body>
 
@@ -62,12 +62,13 @@
         <section class="container-fluid col-lg-10">
             <div class="row">
 
+                <% for (let i=0; i<overgeslagenMinifigs.length; i++){%>
                 <article class="col-xl-4 col-md-6 col-sm-12">
                     <figure class="card rounded-4">
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-004654/106957.jpg/800x800p.jpg"
-                            class="card-img-top rounded-4" alt="fig-004654" />
+                        <img src="<%= overgeslagenMinifigs[i].minifigs.imageUrl %>"
+                            class="card-img-top rounded-4" alt="<%= overgeslagenMinifigs[i].minifig.figCode %>" />
                         <div class="card-body">
-                            <figcaption class="card-text fw-bold">Barbara Gordon in Pinstripe Vest and Holster
+                            <figcaption class="card-text fw-bold"><%= overgeslagenMinifigs[i].minifig.name %>
                             </figcaption>
                         </div>
                         <div class="card-footer">
@@ -83,113 +84,7 @@
                         </div>
                     </figure>
                 </article>
-
-                <article class="col-xl-4 col-md-6 col-sm-12">
-                    <figure class="card rounded-4">
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-004606/109144.jpg/800x800p.jpg"
-                            class="card-img-top rounded-4" alt="fig-004606" />
-                        <div class="card-body">
-                            <figcaption class="card-text fw-bold">Batman, Black Suit, Black Cape and Cowl, Utility Belt
-                                (3626cpr9996 Head)</figcaption>
-                        </div>
-                        <div class="card-footer">
-                            <a href="minifig-onderdelen.html" target="_blank"
-                                title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad"
-                                class="no-link-style">
-                                <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
-                            </a>
-                            <a href="sets-met-bepaalde-minifig.html" target="_blank"
-                                title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
-                                <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
-                            </a>
-                        </div>
-                    </figure>
-                </article>
-
-                <article class="col-xl-4 col-md-6 col-sm-12">
-                    <figure class="card rounded-4">
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-004653/106956.jpg/800x800p.jpg"
-                            class="card-img-top rounded-4" alt="fig-004653" />
-                        <div class="card-body">
-                            <figcaption class="card-text fw-bold">Catwoman in Prison Clothes</figcaption>
-                        </div>
-                        <div class="card-footer">
-                            <a href="minifig-onderdelen.html" target="_blank"
-                                title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad"
-                                class="no-link-style">
-                                <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
-                            </a>
-                            <a href="sets-met-bepaalde-minifig.html" target="_blank"
-                                title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
-                                <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
-                            </a>
-                        </div>
-                    </figure>
-                </article>
-
-                <article class="col-xl-4 col-md-6 col-sm-12">
-                    <figure class="card rounded-4">
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-004657/106958.jpg/800x800p.jpg"
-                            class="card-img-top rounded-4" alt="fig-004657" />
-                        <div class="card-body">
-                            <figcaption class="card-text fw-bold">Dr. Harleen Quinzel (Harley Quinn) with Red Glasses
-                            </figcaption>
-                        </div>
-                        <div class="card-footer">
-                            <a href="minifig-onderdelen.html" target="_blank"
-                                title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad"
-                                class="no-link-style">
-                                <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
-                            </a>
-                            <a href="sets-met-bepaalde-minifig.html" target="_blank"
-                                title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
-                                <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
-                            </a>
-                        </div>
-                    </figure>
-                </article>
-
-                <article class="col-xl-4 col-md-6 col-sm-12">
-                    <figure class="card rounded-4">
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-004652/106955.jpg/800x800p.jpg"
-                            class="card-img-top rounded-4" alt="fig-004652" />
-                        <div class="card-body">
-                            <figcaption class="card-text fw-bold">Poison Ivy in Prison Clothes</figcaption>
-                        </div>
-                        <div class="card-footer">
-                            <a href="minifig-onderdelen.html" target="_blank"
-                                title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad"
-                                class="no-link-style">
-                                <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
-                            </a>
-                            <a href="sets-met-bepaalde-minifig.html" target="_blank"
-                                title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
-                                <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
-                            </a>
-                        </div>
-                    </figure>
-                </article>
-
-                <article class="col-xl-4 col-md-6 col-sm-12">
-                    <figure class="card rounded-4">
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-004647/111112.jpg/800x800p.jpg"
-                            class="card-img-top rounded-4" alt="fig-004647" />
-                        <div class="card-body">
-                            <figcaption class="card-text fw-bold">The Riddler in Prison Clothes</figcaption>
-                        </div>
-                        <div class="card-footer">
-                            <a href="minifig-onderdelen.html" target="_blank"
-                                title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad"
-                                class="no-link-style">
-                                <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
-                            </a>
-                            <a href="sets-met-bepaalde-minifig.html" target="_blank"
-                                title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
-                                <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
-                            </a>
-                        </div>
-                    </figure>
-                </article>
+                <% } %>
 
             </div>
         </section>

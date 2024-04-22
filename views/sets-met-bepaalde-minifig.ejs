@@ -82,13 +82,13 @@
 
             <section class="container-fluid col-lg-7">
                 <div class="row">
-
+                    <% for (let i=0; i<setMetBepaaldeMinifig.length; i++){%>
                     <article class="col-xl-4 col-md-6 col-sm-12">
                         <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/70922-1/9300.jpg/1000x800p.jpg"
-                                class="card-img-top rounded-4" alt="70922-1" />
+                            <img src="<%= setMetBepaaldeMinifig[i].minifigs.imageUrl %>"
+                                class="card-img-top rounded-4" alt="<%= setMetBepaaldeMinifig[i].minifig.figCode %>" />
                             <div class="card-body">
-                                <figcaption class="card-text fw-bold">The Joker Manor</figcaption>
+                                <figcaption class="card-text fw-bold"><%= setMetBepaaldeMinifig[i].minifig.name %></figcaption>
                             </div>
                             <div class="card-footer">
                                 <a href="minifigs-in-set.html" target="_blank"
@@ -99,7 +99,7 @@
                             </div>
                         </figure>
                     </article>
-
+                    <% } %>
                     <article class="col-xl-4 col-md-6 col-sm-12">
                         <figure class="card rounded-4">
                             <img src="https://cdn.rebrickable.com/media/thumbs/sets/70912-1/1779.jpg/1000x800p.jpg"
@@ -190,4 +190,4 @@
         </div>
     </main>
 
- <%- include("partials/footer")%>
+ <%- include("partials/footer") %>
