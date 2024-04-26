@@ -1,0 +1,89 @@
+<%- include("partials/header.ejs", { title: "Minifigs en hun thuis" }); %>
+
+<body>
+    <header class="navbar navbar-expand-lg fixed-top">
+        <nav class="container-fluid justify-content-between">
+            <a href="/homepagina" class="navbar-brand">
+                <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                Lego Masters
+            </a>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                        <a href="/homepagina" class="navbar-brand">
+                            <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                            Lego Masters
+                        </a>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body d-flex justify-content-lg-center">
+                    <ul class="navbar-nav gap-2">
+                        <li class="nav-item">
+                            <a href="/niet-geordende-minifigs" class="btn btn-danger me-2">Niet-geordende minifigs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blacklist" class="btn btn-dark me-2">Blacklist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/geordende-minifigs" class="btn btn-success me-2">Geordende minifigs</a>
+                        </li>
+                        <li class="nav-item mt-auto mt-lg-0 d-block d-lg-none">
+                            <form>
+                                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <form class="d-none d-lg-block">
+                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+            </form>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+    
+    <main class="container"><!--De afbeeldingen komen van de API-->
+        <hgroup>
+            <h1>Minifigs en hun thuis</h1>
+            <p>In deze pagina ziet u een lijst met de geordende minifig en de bijhorende set.</p>
+        </hgroup>
+        <section>
+            <table class="table text-center table-sorted-minifigs">
+                <caption>Minifigs en hun thuis</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Minifig</th>
+                        <th scope="col"></th>
+                        <th scope="col">Set</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <% for (let i = 0; i < sortedMinifigs.length; i++) { %>
+                        <tr>
+                            <td>
+                                <figure>
+                                    <img src="<%= sortedMinifigs[i].minifig.imageUrl %>" alt="<%= sortedMinifigs[i].minifig.figCode %>" />
+                                    <figcaption><b><%= sortedMinifigs[i].minifig.name %></b><br /><code><%= sortedMinifigs[i].minifig.figCode %></code></figcaption>
+                                </figure>
+                            </td>
+                            <td class="plus-sign">
+                                +
+                            </td>
+                            <td>
+                                <figure>
+                                    <img src="<%= sortedMinifigs[i].set.imageUrl %>" alt="<%= sortedMinifigs[i].set.setCode %>" />
+                                    <figcaption><b><%= sortedMinifigs[i].set.name %></b><br /><code><%= sortedMinifigs[i].set.setCode %></code></figcaption>
+                                </figure>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <%- include("partials/footer.ejs"); %>

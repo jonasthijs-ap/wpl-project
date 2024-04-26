@@ -1,0 +1,29 @@
+<%- include("partials/header.ejs", { title: "Foutmelding" }); %>
+
+<body>
+    <header>
+        <nav class="navbar container-fluid justify-content-end">
+            <form class="d-flex gap-2">
+                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-circle">&ensp;</i>Login</a>
+                <a href="/registreren" class="btn btn-dark orange-hover" id="register-btn"><i class="bi bi-person-vcard-fill">&ensp;</i>Registreren</a>
+            </form>
+        </nav>
+    </header>
+
+    <main class="d-flex justify-content-center align-items-center p-5">
+        <section class="d-flex column-gap-5 flex-wrap">
+            <article class="cross">
+                <i class="bi bi-x-circle text-danger"></i>
+            </article>
+
+            <article class="d-flex align-items-center">
+                <div>
+                    <h5>Deze game kan niet gekozen worden</h5>
+                    <p>helaas is deze gekozen game niet beschikbaar op de server</p>
+                    <a class="btn btn-dark orange-hover" href="/">Ga terug naar start&ensp;<i class="bi bi-arrow-right"></i></a>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <%- include("partials/footer.ejs"); %>

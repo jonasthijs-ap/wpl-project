@@ -1,0 +1,110 @@
+<%- include("partials/header.ejs", { title: "Blacklist" }); %>
+
+<body>
+    <header class="navbar navbar-expand-lg fixed-top">
+        <nav class="container-fluid justify-content-between">
+            <a href="/homepagina" class="navbar-brand">
+                <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                Lego Masters
+            </a>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                        <a href="/homepagina" class="navbar-brand">
+                            <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                            Lego Masters
+                        </a>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body d-flex justify-content-lg-center">
+                    <ul class="navbar-nav gap-2">
+                        <li class="nav-item">
+                            <a href="/niet-geordende-minifigs" class="btn btn-danger me-2">Niet-geordende minifigs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blacklist" class="btn btn-dark me-2">Blacklist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/geordende-minifigs" class="btn btn-success me-2">Geordende minifigs</a>
+                        </li>
+                        <li class="nav-item mt-auto mt-lg-0 d-block d-lg-none">
+                            <form>
+                                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <form class="d-none d-lg-block">
+                <a href="/login" class="btn btn-outline-dark orange-hover " id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+            </form>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container"><!--De afbeeldingen komen van de API-->
+        <!--Blacklist modal-->
+        <section class="modal fade" id="modal-blacklist" tabindex="-1" aria-labelledby="modal-blacklistLabel" aria-hidden="true">
+            <article class="modal-dialog">
+                <div class="modal-content text-start">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modal-blacklistLabel">Waarom heb je deze minifig geblacklist?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <label class="form-label">Geef hier je reden</label>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Sluit</button>
+                        <button type="button" class="btn btn-warning">Verzenden</button>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <hgroup>
+            <h1>Gevangengenomen minifigs (blacklist)</h1>
+            <p>WELKOM op de pagina blacklist. Hier kan je de geblacklisten minifigs terug vinden. Blacklist wilt namelijk zeggen dat de minifigs die niet worden gebruikt tijdens het sorteren van de minifigs automatisch in de blacklist lijst terug komen.<br />Hierbij kan je ook nog de reden meegegven of wijzigen bij het blacklisten van een individuele minifig</p>
+        </hgroup>
+        <section>
+            <table class="table table-blacklist">
+                <caption>Gevangengenomen minifigs (blacklist)</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Minifig</th>
+                        <th scope="col">Reden</th>
+                        <th scope="col">Opties</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <% for (let i = 0; i < blacklistedMinifigs.length; i++) { %>
+                        <tr>
+                            <td>
+                                <figure>
+                                    <img src="<%= blacklistedMinifigs[i].minifig.imageUrl %>" alt="<%= blacklistedMinifigs[i].minifig.figCode %>" />
+                                    <figcaption><b><%= blacklistedMinifigs[i].minifig.name %></b></figcaption>
+                                </figure>
+                            </td>
+                            <td class="reason">
+                                <%= blacklistedMinifigs[i].reason %>
+                            </td>
+                            <td class="blacklist-options">
+                                <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
+                                <br />
+                                <br />
+                                <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <%- include("partials/footer.ejs"); %>
