@@ -1,0 +1,156 @@
+
+<% include('partials/header.ejs', {title: Minifigs ordenen}) %>
+
+<body>
+    <header class="navbar navbar-expand-lg fixed-top">
+        <nav class="container-fluid justify-content-between">
+            <a href="/homepagina" class="navbar-brand">
+                <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                Lego Masters
+            </a>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                        <a href="/homepagina" class="navbar-brand">
+                            <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                            Lego Masters
+                        </a>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body d-flex justify-content-lg-center">
+                    <ul class="navbar-nav gap-2">
+                        <li class="nav-item">
+                            <a href="/niet-geordende-minifigs" class="btn btn-danger me-2">Niet-geordende minifigs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blacklist" class="btn btn-dark me-2">Blacklist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/geordende-minifigs" class="btn btn-success me-2">Geordende minifigs</a>
+                        </li>
+                        <li class="nav-item mt-auto mt-lg-0 d-block d-lg-none">
+                            <form>
+                                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <form class="d-none d-lg-block">
+                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+            </form>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container"><!--De afbeeldingen komen van de API-->
+
+        <!--BEGIN MODAL-->
+        <section class="modal fade" id="modal-blacklist" tabindex="-1" aria-labelledby="modal-blacklistLabel" aria-hidden="true">
+            <article class="modal-dialog">
+                <form class="modal-content text-start">
+                    <fieldset class="modal-header">
+                        <h1 class="modal-title fs-5" id="modal-blacklistLabel">Waarom wil je deze minifig blacklisten?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </fieldset>
+
+                    <fieldset class="modal-body">
+                        <label for="reason" class="form-label">Geef hier je reden</label>
+                        <input type="text" id="reason" class="form-control" />
+                    </fieldset>
+
+                    <fieldset class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Sluit</button>
+                        <button type="button" class="btn btn-warning">Verzenden</button>
+                    </fieldset>
+                </form>
+            </article>
+        </section>
+        <!--EINDE MODAL-->
+        <hgroup>
+
+        <h1>Geef je minifig een thuis</h1>
+        <p> In deze pagina krijgt u een specifieke minifig te zien die geordend moet worden zo gezegd een thuis krijgen, onderaan de minifig heeft u een dropdown waaruit u een keuze kan maken van welke set bij de minifig hoort.
+            ook ziet u een aantal knopjes waardoor u de minifig kunt skippen of blacklisten maar ook nog direct naar de pagina kunt gaan met de onderdelen van de minifig.
+        </p>
+        </hgroup>
+        <div class="row">
+            <aside class="col-lg-4">
+                <h2 class="mb-3">Minifig</h2>
+                <article>
+                    <figure class="card rounded-4">
+                      
+                            
+                        <img src="<%= minifigOrdenen.imageUrl %>" alt="fig-001804" class="card-img-top rounded-4" />
+                        <div class="card-body">
+                            <figcaption class="card-text fw-bold"><%= minifigOrdenen.name %></figcaption>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/minifig-onderdelen" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
+                                <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
+                            </a>
+                            <a href="/sets-met-bepaalde-minifig" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
+                                <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
+                            </a>
+                        </div>
+                    </figure>
+                </article>
+                <article>
+                    <form class="d-flex flex-column gap-3" action="#">
+                        <fieldset class="d-grid form-floating gap-2">
+                            <select class="form-select rounded-4" name="setsSelect" id="sets-select">
+                                <% for (let set of sets) { %>
+                                    <option value="<%= set.setCode %>"><%= set.name %></option>
+                                <% } %>
+                            </select>
+                            <label for="sets-select">Selecteer een set om deze minifig in te plaatsen</label>
+                        </fieldset>
+                        <fieldset class="d-flex flex-row gap-2">
+                            <button id="minifig-skip" class="btn btn-warning rounded-2" name="minifigSkip">
+                                <a href="/resultaten-ordenen" class="no-link-style"><i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan--></a>
+                            </button>
+                            <button id="minifig-blacklist" class="btn btn-dark rounded-2" name="minifigBlacklist" data-bs-toggle="modal" data-bs-target="#modal-blacklist">
+                                <i class="bi bi-ban"></i><!--Minifig blacklisten-->
+                            </button>
+                            <button type="submit" class="btn btn-success flex-fill rounded-2">
+                                <a href="/resultaten-ordenen" class="no-link-style">Bevestigen</a>
+                            </button>
+                        </fieldset>
+                    </form>
+                </article>
+            </aside>
+            <section class="container-fluid col-lg-7">
+                <h2 class="mb-3 mt-5 mt-lg-0">Kies een thuis</h2>
+                <div class="row">
+
+                <% for (let set of sets) { %>
+                    <article class="col-xl-4 col-md-6 col-sm-12">
+
+                        <figure class="card rounded-4">
+                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/<%= set[i].fig_id %>/<%= set[i].img_url %>/1000x800p.jpg" class="card-img-top rounded-4" alt="<%= set.setCode %>" />
+                            <div class="card-body">
+                                <figcaption class="card-text fw-bold"><%= set[i].name %></figcaption>
+                            </div>
+                            <div class="card-footer">
+                                <a href="/minifigs-in-set" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
+                                    <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
+                                </a>
+                            </div>
+                        </figure>
+                    </article>
+                    <% } %>
+
+                    
+
+                    
+                    
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <% include('partials/footer.ejs') %>

@@ -1,0 +1,99 @@
+<% include('partials/header.ejs', {title: Minifig onderdelen}) %>
+
+
+<body>
+    <header class="navbar navbar-expand-lg fixed-top">
+        <nav class="container-fluid justify-content-between">
+            <a href="/homepagina" class="navbar-brand">
+                <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                Lego Masters
+            </a>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                        <a href="/homepagina" class="navbar-brand">
+                            <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                            Lego Masters
+                        </a>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body d-flex justify-content-lg-center">
+                    <ul class="navbar-nav gap-2">
+                        <li class="nav-item">
+                            <a href="/niet-geordende-minifigs" class="btn btn-danger me-2">Niet-geordende minifigs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blacklist" class="btn btn-dark me-2">Blacklist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/geordende-minifigs" class="btn btn-success me-2">Geordende minifigs</a>
+                        </li>
+                        <li class="nav-item mt-auto mt-lg-0 d-block d-lg-none">
+                            <form>
+                                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <form class="d-none d-lg-block">
+                <a href="/logout" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+            </form>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container"><!--De afbeeldingen komen van de API-->
+        <hgroup>
+            <h1>Minifig onderdelen</h1>
+            <p>Bij minifig onderdelen. In deze pagina zie je de onderdelen per minifig en per minifig kan je door behulp van de knopjes de bijhorende sets bekijken.</p>
+        </hgroup>
+        <div class="row">
+
+            <aside class="col-lg-4">
+                <h2 class="mb-3">Minifig</h2>
+                <article>
+                    <figure class="card rounded-4">
+                        
+                        <img src="<%= minifig.imageUrl %>" alt="<%= minifig.name %>" class="card-img-top rounded-4" />
+                        <div class="card-body">
+                            <figcaption class="card-text fw-bold"><%= minifig.name %></figcaption>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/minifig-onderdelen" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
+                                <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
+                            </a>
+                            <a href="/sets-met-bepaalde-minifig" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
+                                <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
+                            </a>
+                        </div>
+                    </figure>
+                </article>
+               
+            </aside>
+
+            <section class="container-fluid col-lg-7">
+                <h2 class="mb-3 mt-5 mt-lg-0">Onderdelen</h2>
+                <div class="row">
+                    <% for (let i =0; i<parts.length; i++) { %>
+                        <article class="col-xl-4 col-md-6 col-sm-12">
+                            <figure class="card rounded-4">
+                                <img src="https://cdn.rebrickable.com/media/thumbs/parts/elements/<%= parts[i].partNumber%>/85x85p.jpg" class="card-img-top rounded-4" alt="<%= parts[i].name%>" />
+                                <div class="card-body">
+                                    <figcaption class="card-text fw-bold"><%= parts[i].name %></figcaption>
+                                </div>
+                            </figure>
+                        </article>
+                    <% } %>
+
+                </div>
+            </section>
+            
+        </div>
+    </main>
+
+    <% include('partials/footer.ejs') %>
