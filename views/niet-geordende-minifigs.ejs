@@ -1,0 +1,92 @@
+<%- include("partials/header.ejs" {title: "Dakloze minifigs"}) %>
+
+<body>
+    <header class="navbar navbar-expand-lg fixed-top">
+        <nav class="container-fluid justify-content-between">
+            <a href="/homepagina" class="navbar-brand">
+                <img src="/assets/images/click-logo.png" class="click-logo"
+                    alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                Lego Masters
+            </a>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                        <a href="/homepagina" class="navbar-brand">
+                            <img src="/assets/images/click-logo.png" class="click-logo"
+                                alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                            Lego Masters
+                        </a>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body d-flex justify-content-lg-center">
+                    <ul class="navbar-nav gap-2">
+                        <li class="nav-item">
+                            <a href="/niet-geordende-minifigs" class="btn btn-danger me-2">Niet-geordende
+                                minifigs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blacklist" class="btn btn-dark me-2">Blacklist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/geordende-minifigs" class="btn btn-success me-2">Geordende minifigs</a>
+                        </li>
+                        <li class="nav-item mt-auto mt-lg-0 d-block d-lg-none">
+                            <form>
+                                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i
+                                        class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <form class="d-none d-lg-block">
+                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i
+                        class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+            </form>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container"><!--De afbeeldingen komen van de API-->
+        <hgroup>
+        <h1>Dakloze minifigs</h1>
+        <p>In deze pagina ziet u de geskipte minifigs die komen in de lijst van de niet geordende minifigs, waardoor men een minifig kan uitkiezen om het een bijhorende set te geven. </p>
+        </hgroup>
+        <section class="container-fluid col-lg-10">
+            <div class="row">
+
+                <% for (let i = 0; i< nietGeordendeMinifigs.length; i++){%>
+                <article class="col-xl-4 col-md-6 col-sm-12">
+                    <figure class="card rounded-4">
+                        <img src="<%= nietGeordendeMinifigs[i].imageUrl %>"
+                            class="card-img-top rounded-4" alt="<%= nietGeordendeMinifigs[i].figCode %>" />
+                        <div class="card-body">
+                            <figcaption class="card-text fw-bold"><%= nietGeordendeMinifigs[i].name %>
+                            </figcaption>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/minifig-onderdelen/"<%= nietGeordendeMinifig[i].figCode %> target="_blank"
+                                title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad"
+                                class="no-link-style">
+                                <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
+                            </a>
+                            <a href="/sets-met-bepaalde-minifig/<%=  nietGeordendeMinifig[i].figCode %>" target="_blank"
+                                title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
+                                <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
+                            </a>
+                        </div>
+                    </figure>
+                </article>
+                <% } %> 
+
+            </div>
+        </section>
+    </main>
+
+    <%- include("partials/footer.ejs") %>
