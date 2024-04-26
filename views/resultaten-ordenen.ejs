@@ -4,14 +4,14 @@
     <header class="navbar navbar-expand-lg fixed-top">
         <nav class="container-fluid justify-content-between">
             <a href="/homepagina" class="navbar-brand">
-                <img src="/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
                 Lego Masters
             </a>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
                         <a href="/homepagina" class="navbar-brand">
-                            <img src="/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                            <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
                             Lego Masters
                         </a>
                     </h5>
@@ -56,8 +56,8 @@
                     <h2 class="card-title">Aantal gebruikt</h2>
                 </div>
                 <div class="card-body">
-                    <p class="card-text" id="number-sorted">20</p>
-                    <a href="/gebruikte-minifigs" class="btn btn-dark d-block"><i class="bi bi-eye-fill">&ensp;</i>Lijst bekijken</a>
+                    <p class="card-text" id="number-sorted"><%= numberSorted %></p>
+                    <!--Link nog te bekijken/aan te passen met Post-request--><a href="/gebruikte-minifigs" class="btn btn-dark d-block"><i class="bi bi-eye-fill">&ensp;</i>Lijst bekijken</a>
                 </div>
             </article>
             <article class="card text-bg-warning col-9 col-sm-7 col-lg-4 mt-5 mt-lg-0">
@@ -65,8 +65,8 @@
                     <h2 class="card-title">Aantal overgeslagen</h2>
                 </div>
                 <div class="card-body">
-                    <p class="card-text" id="number-skipped">7</p>
-                    <a href="/overgeslagen-minifigs" class="btn btn-dark d-block"><i class="bi bi-eye-fill">&ensp;</i>Lijst bekijken</a>
+                    <p class="card-text" id="number-skipped"><%= numberSkipped %></p>
+                    <!--Link nog te bekijken/aan te passen met Post-request--><a href="/overgeslagen-minifigs" class="btn btn-dark d-block"><i class="bi bi-eye-fill">&ensp;</i>Lijst bekijken</a>
                 </div>
             </article>
         </section>

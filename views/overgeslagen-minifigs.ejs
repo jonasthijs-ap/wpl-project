@@ -5,7 +5,7 @@
     <header class="navbar navbar-expand-lg fixed-top">
         <nav class="container-fluid justify-content-between">
             <a href="/homepagina" class="navbar-brand">
-                <img src="/images/click-logo.png" class="click-logo"
+                <img src="/assets/images/click-logo.png" class="click-logo"
                     alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
                 Lego Masters
             </a>
@@ -14,7 +14,7 @@
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
                         <a href="/homepagina" class="navbar-brand">
-                            <img src="/images/click-logo.png" class="click-logo"
+                            <img src="/assets/images/click-logo.png" class="click-logo"
                                 alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
                             Lego Masters
                         </a>
@@ -65,19 +65,19 @@
                 <% for (let i=0; i<overgeslagenMinifigs.length; i++){%>
                 <article class="col-xl-4 col-md-6 col-sm-12">
                     <figure class="card rounded-4">
-                        <img src="<%= overgeslagenMinifigs[i].minifigs.imageUrl %>"
-                            class="card-img-top rounded-4" alt="<%= overgeslagenMinifigs[i].minifig.figCode %>" />
+                        <img src="<%= overgeslagenMinifigs[i].imageUrl %>"
+                            class="card-img-top rounded-4" alt="<%= overgeslagenMinifigs[i].figCode %>" />
                         <div class="card-body">
-                            <figcaption class="card-text fw-bold"><%= overgeslagenMinifigs[i].minifig.name %>
+                            <figcaption class="card-text fw-bold"><%= overgeslagenMinifigs[i].name %>
                             </figcaption>
                         </div>
                         <div class="card-footer">
-                            <a href="minifig-onderdelen.html" target="_blank"
+                            <a href="/minifig-onderdelen/<%= overgeslagenMinifigs[i].figCode %>" target="_blank"
                                 title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad"
                                 class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
                             </a>
-                            <a href="sets-met-bepaalde-minifig.html" target="_blank"
+                            <a href="/sets-met-bepaalde-minifig/<%= overgeslagenMinifigs[i].figCode %>" target="_blank"
                                 title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
                             </a>
