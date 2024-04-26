@@ -3,15 +3,15 @@
 <body>
     <header class="navbar navbar-expand-lg fixed-top">
         <nav class="container-fluid justify-content-between">
-            <a href="homepagina.html" class="navbar-brand">
-                <img src="/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+            <a href="/homepagina" class="navbar-brand">
+                <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
                 Lego Masters
             </a>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-                        <a href="homepagina.html" class="navbar-brand">
-                            <img src="/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                        <a href="/homepagina" class="navbar-brand">
+                            <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
                             Lego Masters
                         </a>
                     </h5>
@@ -21,24 +21,24 @@
                 <div class="offcanvas-body d-flex justify-content-lg-center">
                     <ul class="navbar-nav gap-2">
                         <li class="nav-item">
-                            <a href="niet-geordende-minifigs.html" class="btn btn-danger me-2">Niet-geordende minifigs</a>
+                            <a href="/niet-geordende-minifigs" class="btn btn-danger me-2">Niet-geordende minifigs</a>
                         </li>
                         <li class="nav-item">
-                            <a href="blacklist.html" class="btn btn-dark me-2">Blacklist</a>
+                            <a href="/blacklist" class="btn btn-dark me-2">Blacklist</a>
                         </li>
                         <li class="nav-item">
-                            <a href="geordende-minifigs.html" class="btn btn-success me-2">Geordende minifigs</a>
+                            <a href="/geordende-minifigs" class="btn btn-success me-2">Geordende minifigs</a>
                         </li>
                         <li class="nav-item mt-auto mt-lg-0 d-block d-lg-none">
                             <form>
-                                <a href="login.html" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+                                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
                             </form>
                         </li>
                     </ul>
                 </div>
             </div>
             <form class="d-none d-lg-block">
-                <a href="login.html" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
             </form>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -58,9 +58,9 @@
                 <h2 class="mb-3">Thuis</h2>
                 <article>
                     <figure class="card rounded-4">
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/70912-1/1779.jpg/1000x800p.jpg" alt="70912-1" class="card-img-top rounded-4" />
+                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/<%= minifigSet.set_num %>/<%= minifigSet.img_url %>/1000x800p.jpg" alt="70912-1" class="card-img-top rounded-4" />
                         <div class="card-body">
-                            <figcaption class="card-text fw-bold">Arkham Asylum</figcaption>
+                            <figcaption class="card-text fw-bold"><%= minifigSet.name %></figcaption>
                         </div>
                     </figure>
                 </article>
@@ -69,61 +69,16 @@
             <section class="container-fluid col-lg-7">
                 <h2 class="mb-3 mt-5 mt-lg-0">De bewoners</h2>
                 <div class="row">
-
-                    <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-004654/106957.jpg/800x800p.jpg" class="card-img-top rounded-4" alt="fig-004654" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold">Barbara Gordon in Pinstripe Vest and Holster</figcaption>
-                            </div>
-                        </figure>
-                    </article>
-
-                    <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-004606/109144.jpg/800x800p.jpg" class="card-img-top rounded-4" alt="fig-004606" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold">Batman, Black Suit, Black Cape and Cowl, Utility Belt (3626cpr9996 Head)</figcaption>
-                            </div>
-                        </figure>
-                    </article>
-
-                    <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-004653/106956.jpg/800x800p.jpg" class="card-img-top rounded-4" alt="fig-004653" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold">Catwoman in Prison Clothes</figcaption>
-                            </div>
-                        </figure>
-                    </article>
-                    
-                    <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-004657/106958.jpg/800x800p.jpg" class="card-img-top rounded-4" alt="fig-004657" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold">Dr. Harleen Quinzel (Harley Quinn) with Red Glasses</figcaption>
-                            </div>
-                        </figure>
-                    </article>
-
-                    <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-004652/106955.jpg/800x800p.jpg" class="card-img-top rounded-4" alt="fig-004652" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold">Poison Ivy in Prison Clothes</figcaption>
-                            </div>
-                        </figure>
-                    </article>
-
-                    <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-004647/111112.jpg/800x800p.jpg" class="card-img-top rounded-4" alt="fig-004647" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold">The Riddler in Prison Clothes</figcaption>
-                            </div>
-                        </figure>
-                    </article>
-
+                    <% for (let i = 0; i < minifigInSet.length; i++) { %>
+                        <article class="col-xl-4 col-md-6 col-sm-12">
+                            <figure class="card rounded-4">
+                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/<%= minifigInSet[i].fig_id %>/<%= minifigInSet[i].img_url %>/800x800p.jpg" class="card-img-top rounded-4" alt="<%= minifigInSet[i].fig_id %>" />
+                                <div class="card-body">
+                                    <figcaption class="card-text fw-bold"><%= minifigInSet[i].name %></figcaption>
+                                </div>
+                            </figure>
+                        </article>
+                    <% } %>
                 </div>
             </section>
 

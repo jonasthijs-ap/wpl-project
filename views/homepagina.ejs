@@ -48,6 +48,7 @@
     <main class="container">
         
         <h1>Welkom bij Lego Masters</h1>
+        
 
         <section class="row gap-5 gap-lg-0">
             <article class="col-lg-4 col-md-12">
@@ -55,11 +56,12 @@
                     <figure class="card rounded-4">
                         <img src="images/niet-geordende-minifigs.png" class="card-img-top rounded-4" alt="niet-geordende-minifigs_image" /><!--Afbeelding komt van pixabay-->
                         <div class="card-body">
-                            <figcaption class="card-text d-block btn btn-danger rounded-3"><i class="bi bi-archive-fill">&ensp;</i>Niet-geordende minifigs</figcaption>
+                            <figcaption class="card-text d-block btn btn-danger<%=minifig.buttonClass%> rounded-3"><i class="bi bi-archive-fill">&ensp;</i>Niet-geordende minifigs</figcaption>
                         </div>
                     </figure>
                 </a>
             </article>
+            
 
             <article class="col-lg-4 col-md-12">
                 <a href="blacklist.html" class="no-link-style">
@@ -82,6 +84,7 @@
                     </figure>
                 </a>
             </article>
+            
 
         </section>
 
@@ -89,7 +92,7 @@
             <article class="text-center col-xl-8 col-lg-12 p-4 p-lg-5 mx-auto mt-5 border rounded-4">
                 <h4>Te ordenen minifigs</h4>
                 <hr class="my-4 my-lg-5 w-75 mx-auto" />
-                <p>Er zijn nog <b>7</b> minifigs zonder verblijf.</p>
+                <p>Er zijn nog <b><%=minifigToOrder.lenght%></b> minifigs zonder verblijf.</p>
                 <a href="minifigs-ordenen.html" class="btn orange mt-3 w-50 rounded-3">Help ze een handje!</a>
             </article>
         </section>

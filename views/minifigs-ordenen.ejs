@@ -4,15 +4,15 @@
 <body>
     <header class="navbar navbar-expand-lg fixed-top">
         <nav class="container-fluid justify-content-between">
-            <a href="homepagina.html" class="navbar-brand">
-                <img src="/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+            <a href="/homepagina" class="navbar-brand">
+                <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
                 Lego Masters
             </a>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-                        <a href="homepagina.html" class="navbar-brand">
-                            <img src="/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
+                        <a href="/homepagina" class="navbar-brand">
+                            <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
                             Lego Masters
                         </a>
                     </h5>
@@ -22,24 +22,24 @@
                 <div class="offcanvas-body d-flex justify-content-lg-center">
                     <ul class="navbar-nav gap-2">
                         <li class="nav-item">
-                            <a href="niet-geordende-minifigs.html" class="btn btn-danger me-2">Niet-geordende minifigs</a>
+                            <a href="/niet-geordende-minifigs" class="btn btn-danger me-2">Niet-geordende minifigs</a>
                         </li>
                         <li class="nav-item">
-                            <a href="blacklist.html" class="btn btn-dark me-2">Blacklist</a>
+                            <a href="/blacklist" class="btn btn-dark me-2">Blacklist</a>
                         </li>
                         <li class="nav-item">
-                            <a href="geordende-minifigs.html" class="btn btn-success me-2">Geordende minifigs</a>
+                            <a href="/geordende-minifigs" class="btn btn-success me-2">Geordende minifigs</a>
                         </li>
                         <li class="nav-item mt-auto mt-lg-0 d-block d-lg-none">
                             <form>
-                                <a href="login.html" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+                                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
                             </form>
                         </li>
                     </ul>
                 </div>
             </div>
             <form class="d-none d-lg-block">
-                <a href="login.html" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
+                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
             </form>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -83,15 +83,17 @@
                 <h2 class="mb-3">Minifig</h2>
                 <article>
                     <figure class="card rounded-4">
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/fig-001804/111165.jpg/800x800p.jpg" alt="fig-001804" class="card-img-top rounded-4" />
+                      
+                            
+                        <img src="<%= minifigOrdenen.imageUrl %>" alt="fig-001804" class="card-img-top rounded-4" />
                         <div class="card-body">
-                            <figcaption class="card-text fw-bold">Batman</figcaption>
+                            <figcaption class="card-text fw-bold"><%= minifigOrdenen.name %></figcaption>
                         </div>
                         <div class="card-footer">
-                            <a href="minifig-onderdelen.html" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
+                            <a href="/minifig-onderdelen" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
                             </a>
-                            <a href="sets-met-bepaalde-minifig.html" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
+                            <a href="/sets-met-bepaalde-minifig" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
                             </a>
                         </div>
@@ -101,24 +103,21 @@
                     <form class="d-flex flex-column gap-3" action="#">
                         <fieldset class="d-grid form-floating gap-2">
                             <select class="form-select rounded-4" name="setsSelect" id="sets-select">
-                                <option value="70922-1">The Joker Manor</option>
-                                <option value="70912-1">Arkham Asylum</option>
-                                <option value="70917-1">The Ultimate Batmobile</option>
-                                <option value="70916-1">The Batwing</option>
-                                <option value="70909-1">Batcave Break-in</option>
-                                <option value="70908-1">The Scuttler</option>
+                                <% for (let set of sets) { %>
+                                    <option value="<%= set.setCode %>"><%= set.name %></option>
+                                <% } %>
                             </select>
                             <label for="sets-select">Selecteer een set om deze minifig in te plaatsen</label>
                         </fieldset>
                         <fieldset class="d-flex flex-row gap-2">
                             <button id="minifig-skip" class="btn btn-warning rounded-2" name="minifigSkip">
-                                <a href="resultaten-ordenen.html" class="no-link-style"><i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan--></a>
+                                <a href="/resultaten-ordenen" class="no-link-style"><i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan--></a>
                             </button>
                             <button id="minifig-blacklist" class="btn btn-dark rounded-2" name="minifigBlacklist" data-bs-toggle="modal" data-bs-target="#modal-blacklist">
                                 <i class="bi bi-ban"></i><!--Minifig blacklisten-->
                             </button>
                             <button type="submit" class="btn btn-success flex-fill rounded-2">
-                                <a href="resultaten-ordenen.html" class="no-link-style">Bevestigen</a>
+                                <a href="/resultaten-ordenen" class="no-link-style">Bevestigen</a>
                             </button>
                         </fieldset>
                     </form>
@@ -128,89 +127,26 @@
                 <h2 class="mb-3 mt-5 mt-lg-0">Kies een thuis</h2>
                 <div class="row">
 
+                <% for (let set of sets) { %>
                     <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/70922-1/9300.jpg/1000x800p.jpg" class="card-img-top rounded-4" alt="70922-1" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold">The Joker Manor</figcaption>
-                            </div>
-                            <div class="card-footer">
-                                <a href="minifigs-in-set.html" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
-                                    <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
-                                </a>
-                            </div>
-                        </figure>
-                    </article>
 
-                    <article class="col-xl-4 col-md-6 col-sm-12">
                         <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/70912-1/1779.jpg/1000x800p.jpg" class="card-img-top rounded-4" alt="70912-1" />
+                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/<%= set[i].fig_id %>/<%= set[i].img_url %>/1000x800p.jpg" class="card-img-top rounded-4" alt="<%= set.setCode %>" />
                             <div class="card-body">
-                                <figcaption class="card-text fw-bold">Arkham Asylum</figcaption>
+                                <figcaption class="card-text fw-bold"><%= set[i].name %></figcaption>
                             </div>
                             <div class="card-footer">
-                                <a href="minifigs-in-set.html" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
+                                <a href="/minifigs-in-set" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
                                     <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
                                 </a>
                             </div>
                         </figure>
                     </article>
+                    <% } %>
 
-                    <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/70917-1/11721.jpg/1000x800p.jpg" class="card-img-top rounded-4" alt="70917-1" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold">The Ultimate Batmobile</figcaption>
-                            </div>
-                            <div class="card-footer">
-                                <a href="minifigs-in-set.html" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
-                                    <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
-                                </a>
-                            </div>
-                        </figure>
-                    </article>
+                    
 
-                    <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/70916-1/1081.jpg/1000x800p.jpg" class="card-img-top rounded-4" alt="70916-1" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold">The Batwing</figcaption>
-                            </div>
-                            <div class="card-footer">
-                                <a href="minifigs-in-set.html" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
-                                    <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
-                                </a>
-                            </div>
-                        </figure>
-                    </article>
-
-                    <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/70909-1/13630.jpg/1000x800p.jpg" class="card-img-top rounded-4" alt="70909-1" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold">Batcave Break-in</figcaption>
-                            </div>
-                            <div class="card-footer">
-                                <a href="minifigs-in-set.html" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
-                                    <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
-                                </a>
-                            </div>
-                        </figure>
-                    </article>
-
-                    <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/70908-1/1639.jpg/1000x800p.jpg" class="card-img-top rounded-4" alt="70908-1" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold">The Scuttler</figcaption>
-                            </div>
-                            <div class="card-footer">
-                                <a href="minifigs-in-set.html" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
-                                    <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
-                                </a>
-                            </div>
-                        </figure>
-                    </article>
+                    
                     
                 </div>
             </section>
