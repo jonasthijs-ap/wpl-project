@@ -3,6 +3,9 @@ import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
 import * as Interfaces from "./types/types";
 import * as fetchFunctions from "./functions/fetchFunctions";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // Aanmaken Express-applicatie en connectie met MongoDB maken
 const app: express.Express = express();
