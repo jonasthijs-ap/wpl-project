@@ -2,8 +2,9 @@
 import dotenv from "dotenv";
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
-import * as Interfaces from "./types";
+import { Minifig, Set, Part, Blacklist, MinifigParts } from "./types";
 import * as fetchFunctions from "./functions/fetchFunctions";
+import { client, connect, retrieveBlacklist } from "./database";
 
 dotenv.config();
 
@@ -12,7 +13,6 @@ dotenv.config();
 
 // Aanmaken Express-applicatie en connectie met MongoDB maken
 const app: express.Express = express();
-const client: MongoClient = new MongoClient(process.env.MONGO_URI || "");
 
 // Omgevingsvariabelen en Express-variabelen
 app.set("view engine", "ejs");
@@ -27,5 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Maakt het mogelijk om de Express-applicatie te laten draaien op de ingestelde poort
 app.listen(app.get("port"), async () => {
+    await connect();
     console.info(`Express listening to 'http://localhost:${app.get("port")}'`);
 });
