@@ -2,8 +2,11 @@
 import dotenv from "dotenv";
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
-import * as Interfaces from "./types/types";
-import * as tempMockFunctions from "./functions/tempMock.ts";
+import * as Interfaces from "./types";
+import * as fetchFunctions from "./functions/fetchFunctions";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // .env-settings
 dotenv.config();
