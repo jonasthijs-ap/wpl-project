@@ -1,7 +1,7 @@
 // Importeren van modules
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
-import * as Interfaces from "./types/types";
+import * as Interfaces from "./types";
 import * as fetchFunctions from "./functions/fetchFunctions";
 import dotenv from "dotenv";
 
