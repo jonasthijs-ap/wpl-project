@@ -2,9 +2,9 @@
 import dotenv from "dotenv";
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
-import { Minifig, Set, Part, Blacklist, MinifigParts } from "./types";
+import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts } from "./types";
 import * as fetchFunctions from "./functions/fetchFunctions";
-import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs } from "./database";
+import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs } from "./database";
 
 // .env-settings
 dotenv.config();
@@ -27,6 +27,11 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/niet-geordende-minifigs", async (req, res) => {
     let unsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs();
     res.render("niet-geordende-minifigs", { nietGeordendeMinifigs: unsortedMinifigs });
+});
+
+app.get("/geordende-minifigs", async (req, res) => {
+    let sortedMinifigs: MinifigSet[] = await retrieveSortedMinifigs();
+    res.render("geordende-minifigs", { sortedMinifigs });
 });
 
 // Maakt het mogelijk om de Express-applicatie te laten draaien op de ingestelde poort

@@ -1,5 +1,5 @@
 import { MongoClient, ObjectId } from "mongodb";
-import { Minifig, Blacklist, MinifigParts, Part } from "./types";
+import { Minifig, MinifigSet, Blacklist, MinifigParts, Part } from "./types";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -43,6 +43,15 @@ export async function retrieveUnsortedMinifigs(): Promise<Minifig[]> {
     let result: Minifig[] = await cursor.toArray();
 
     return new Promise<Minifig[]>((resolve, reject) => {
+        resolve(result);
+    });
+}
+
+export async function retrieveSortedMinifigs(): Promise<MinifigSet[]> {
+    let cursor = client.db("GameData").collection("SortedMinifigs").find<MinifigSet>({});
+    let result: MinifigSet[] = await cursor.toArray();
+
+    return new Promise<MinifigSet[]>((resolve, reject) => {
         resolve(result);
     });
 }

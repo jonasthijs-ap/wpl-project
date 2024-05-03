@@ -10,6 +10,11 @@ export interface Set {
     imageUrl: string;
 }
 
+export interface MinifigSet {
+    minifig: Minifig;
+    set: Set;
+}
+
 export interface Part {
     name: string;
     partNumber: string;
