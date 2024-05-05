@@ -47,63 +47,74 @@
     </header>
 
     <main class="container"><!--De afbeeldingen komen van de API-->
-        <!--Blacklist modal-->
-        <section class="modal fade" id="modal-blacklist" tabindex="-1" aria-labelledby="modal-blacklistLabel" aria-hidden="true">
-            <article class="modal-dialog">
-                <div class="modal-content text-start">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modal-blacklistLabel">Waarom heb je deze minifig geblacklist?</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <label class="form-label">Geef hier je reden</label>
-                        <input type="text" class="form-control">
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Sluit</button>
-                        <button type="button" class="btn btn-warning">Verzenden</button>
-                    </div>
-                </div>
-            </article>
-        </section>
         <hgroup>
             <h1>Gevangengenomen minifigs (blacklist)</h1>
             <p>WELKOM op de pagina blacklist. Hier kan je de geblacklisten minifigs terug vinden. Blacklist wilt namelijk zeggen dat de minifigs die niet worden gebruikt tijdens het sorteren van de minifigs automatisch in de blacklist lijst terug komen.<br />Hierbij kan je ook nog de reden meegegven of wijzigen bij het blacklisten van een individuele minifig</p>
         </hgroup>
         <section>
-            <table class="table table-blacklist">
-                <caption>Gevangengenomen minifigs (blacklist)</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">Minifig</th>
-                        <th scope="col">Reden</th>
-                        <th scope="col">Opties</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    <% for (let i = 0; i < blacklistedMinifigs.length; i++) { %>
+            <% if (blacklistedMinifigs.length === 0) { %>
+                <h2>Je hebt nog geen minifigs geblacklist.</h2>
+            <% } else { %>
+                <table class="table table-blacklist">
+                    <caption>Gevangengenomen minifigs (blacklist)</caption>
+                    <thead>
                         <tr>
-                            <td>
-                                <figure>
-                                    <img src="<%= blacklistedMinifigs[i].minifig.imageUrl %>" alt="<%= blacklistedMinifigs[i].minifig.figCode %>" />
-                                    <figcaption><b><%= blacklistedMinifigs[i].minifig.name %></b></figcaption>
-                                </figure>
-                            </td>
-                            <td class="reason">
-                                <%= blacklistedMinifigs[i].reason %>
-                            </td>
-                            <td class="blacklist-options">
-                                <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist"><i class="bi bi-pencil-square"></i></button>
-                                <br />
-                                <br />
-                                <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
-                            </td>
+                            <th scope="col">Minifig</th>
+                            <th scope="col">Reden</th>
+                            <th scope="col">Opties</th>
                         </tr>
-                    <% } %>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <% for (let i = 0; i < blacklistedMinifigs.length; i++) { %>
+                            <tr>
+                                <td>
+                                    <figure>
+                                        <img src="<%= blacklistedMinifigs[i].minifig.imageUrl %>" alt="<%= blacklistedMinifigs[i].minifig.figCode %>" />
+                                        <figcaption><b><%= blacklistedMinifigs[i].minifig.name %></b></figcaption>
+                                    </figure>
+                                </td>
+                                <td class="reason">
+                                    <%= blacklistedMinifigs[i].reason %>
+                                </td>
+                                <td class="blacklist-options">
+                                    <button class="btn btn-sm btn-warning" title="Reden wijzigen" data-bs-toggle="modal" data-bs-target="#modal-blacklist-<%= i %>"><i class="bi bi-pencil-square"></i></button>
+
+                                    <!--Blacklist modal-->
+                                    <section class="modal fade" id="modal-blacklist-<%= i %>" tabindex="-1" aria-labelledby="modal-blacklistLabel" aria-hidden="true">
+                                        <article class="modal-dialog">
+                                            <form action="/blacklist/changeReason" method="post" class="modal-content text-start">
+                                                <fieldset class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="modal-blacklistLabel">Waarom heb je deze minifig geblacklist?</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </fieldset>
+
+                                                <fieldset class="modal-body">
+                                                    <input type="hidden" name="minifig" value="<%= blacklistedMinifigs[i].minifig.figCode %>" />
+                                                    <label for="reason" class="form-label">Geef hier je reden</label>
+                                                    <textarea name="reason" id="reason" cols="30" rows="10"></textarea>
+                                                </fieldset>
+
+                                                <fieldset class="modal-footer">
+                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Sluit</button>
+                                                    <button type="submit" class="btn btn-warning">Verzenden</button>
+                                                </fieldset>
+                                            </form>
+                                        </article>
+                                    </section>
+                                    <!--Einde blacklist modal-->
+
+                                    <br />
+                                    <br />
+                                    <form action="/blacklist/remove" method="post">
+                                        <input type="hidden" name="minifig" value="<%= blacklistedMinifigs[i].minifig.figCode %>" />
+                                        <button type="submit" class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            <% } %>
         </section>
     </main>
 

@@ -25,6 +25,53 @@ app.use(express.static("public"));
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+// Express-routes
+app.get("/blacklist", async (req, res) => {
+    // let blacklist: Blacklist[] = await retrieveBlacklist();
+    let tijdelijkeBlacklist: Blacklist[] = [
+        {
+            reason: "Niet meer voor mijn leeftijd",
+            minifig: {
+                name: "Kinderlego",
+                figCode: "fig-11111",
+                imageUrl: "https://www.pixelstalk.net/wp-content/uploads/2016/09/Best-Beautiful-Images-For-Desktop-Nature.png"
+            }
+        },
+        {
+            reason: "Niet meer voor mijn leeftijd",
+            minifig: {
+                name: "Kinderlego",
+                figCode: "fig-22222",
+                imageUrl: "https://www.pixelstalk.net/wp-content/uploads/2016/09/Best-Beautiful-Images-For-Desktop-Nature.png"
+            }
+        },
+        {
+            reason: "Niet meer voor mijn leeftijd",
+            minifig: {
+                name: "Kinderlego",
+                figCode: "fig-33333",
+                imageUrl: "https://www.pixelstalk.net/wp-content/uploads/2016/09/Best-Beautiful-Images-For-Desktop-Nature.png"
+            }
+        }
+    ];
+    res.render("blacklist", { blacklistedMinifigs: tijdelijkeBlacklist });
+});
+
+app.post("/blacklist/changeReason", (req, res) => {
+    let figCodeOfMinifigToChangeReasonOf: string = req.body.minifig;
+    let reasonOfBlacklisting: string = req.body.reason;
+    console.log(`FIGCODE:\t${figCodeOfMinifigToChangeReasonOf}\nREASON:\t\t${reasonOfBlacklisting}`);
+    res.redirect("/blacklist");
+    return;
+});
+
+app.post("/blacklist/remove", (req, res) => {
+    let figCodeOfMinifigToRemove: string = req.body.minifig;
+    console.log(figCodeOfMinifigToRemove);
+    res.redirect("/blacklist");
+    return;
+});
+
 // Maakt het mogelijk om de Express-applicatie te laten draaien op de ingestelde poort
 app.listen(app.get("port"), async () => {
     await connect();
