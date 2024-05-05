@@ -1,26 +1,90 @@
-import { Minifig, Set, MinifigSet, Minifig_Set_FromAPI, Parts_FromAPI } from "../types";
+import { Minifig, Set, MinifigSet, Minifig_Set_FromAPI, Parts_FromAPI, MinifigParts, Part } from "../types";
 import { client, retrieveSortedMinifigs, retrieveUnsortedMinifigs } from "../database";
 import dotenv from "dotenv";
 import { randomInt } from "crypto";
 
 dotenv.config();
 
-export async function getLoadOfNewMinifigsAtStart(): Promise<Minifig_Set_FromAPI[]> {
+function convert_MinifigsFromAPI_ToMinifigs(minifigs: Minifig_Set_FromAPI[]): Minifig[] {
+    let output: Minifig[] = minifigs.map(value => {
+        return {
+            name: value.name,
+            figCode: value.set_num,
+            imageUrl: value.set_img_url
+        }
+    });
+    return output;
+}
+
+function convert_SetsFromAPI_ToSets(sets: Minifig_Set_FromAPI[]): Set[] {
+    let output: Set[] = sets.map(value => {
+        return {
+            name: value.name,
+            setCode: value.set_num,
+            imageUrl: value.set_img_url
+        }
+    });
+    return output;
+}
+
+function convert_PartsFromAPI_ToMinifigsParts(minifig: Minifig, parts: Parts_FromAPI[]): MinifigParts {
+    let convertedParts: Part[] = parts.map(value => {
+        return {
+            name: value.part.name,
+            imageUrl: value.part.part_img_url
+        }
+    });
+    return { minifig: minifig, parts: convertedParts };
+}
+
+export async function getLoadOfNewMinifigsAtStart(): Promise<Minifig[]> {
     const response = await fetch(
         `https://rebrickable.com/api/v3/lego/minifigs?page_size=25`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
     );
     const result: Minifig_Set_FromAPI[] = (await response.json()).results;
 
-    return new Promise<Minifig_Set_FromAPI[]>((resolve, reject) => {
+    const output: Minifig[] = convert_MinifigsFromAPI_ToMinifigs(result);
+
+    return new Promise<Minifig[]>((resolve, reject) => {
         try {
-            resolve(result);
+            resolve(output);
         } catch (error) {
             reject(error);
         }
     });
 }
 
-export async function getNewMinifigsFromAPI(count: number): Promise<Minifig_Set_FromAPI[]> {
+export async function retrieveSingleMinifig(figCode: string): Promise<Minifig> {
+    let outputMinifig: Minifig;
+    const minifigFromDB: Minifig | null = await client.db("Session").collection("ApiMinifigs").findOne<Minifig>({ figCode: figCode });
+
+    if (minifigFromDB != null) {
+        console.info("Er is geen gebruik gemaakt van de API, maar wel van de DB om de minifig op te halen.");
+        outputMinifig = minifigFromDB;
+    } else {
+        console.info("Er is wel gebruik gemaakt van de API om de minifig op te halen.");
+        const response = await fetch(
+            `https://rebrickable.com/api/v3/lego/minifigs/${figCode}`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
+        );
+        const result: Minifig_Set_FromAPI = await response.json();
+        outputMinifig = {
+            name: result.name,
+            figCode: result.set_num,
+            imageUrl: result.set_img_url
+        };
+        client.db("Session").collection("ApiMinifigs").insertOne(outputMinifig);
+    }
+
+    return new Promise<Minifig>((resolve, reject) => {
+        try {
+            resolve(outputMinifig);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+export async function getNewMinifigsFromAPI(count: number): Promise<Minifig[]> {
     let notAvailableFigCodes: string[] = [];
     let figCodesForNewMinifigs: string[] = [];
     
@@ -43,9 +107,6 @@ export async function getNewMinifigsFromAPI(count: number): Promise<Minifig_Set_
         } while (notAvailableFigCodes.includes(randomFigCode));
         figCodesForNewMinifigs.push(randomFigCode);
     }
-
-    let figCodesString: string = figCodesForNewMinifigs.join(",");
-    console.log(figCodesString);
     
     let newMinifigs: Minifig_Set_FromAPI[] = [];
 
@@ -53,56 +114,67 @@ export async function getNewMinifigsFromAPI(count: number): Promise<Minifig_Set_
         const response = await fetch(
             `https://rebrickable.com/api/v3/lego/minifigs/${currentFigCode}`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
         );
-        const result: Minifig_Set_FromAPI = (await response.json()).results;
+        const result: Minifig_Set_FromAPI = await response.json();
         newMinifigs.push(result);
         await setTimeout(() => {}, 1500);
     }
 
-    return new Promise<Minifig_Set_FromAPI[]>((resolve, reject) => {
+    const output: Minifig[] = convert_MinifigsFromAPI_ToMinifigs(newMinifigs);
+
+    return new Promise<Minifig[]>((resolve, reject) => {
         try {
-            resolve(newMinifigs);
+            resolve(output);
         } catch (error) {
             reject(error);
         }
     });
 }
 
-export async function getSetsFromSpecificMinifig(minifig: Minifig): Promise<Minifig_Set_FromAPI[]> {
+export async function getSetsFromSpecificMinifig(minifig: Minifig): Promise<Set[]> {
     const response = await fetch(
         `https://rebrickable.com/api/v3/lego/minifigs/${minifig.figCode}/sets`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
     );
     const result: Minifig_Set_FromAPI[] = (await response.json()).results;
-    return new Promise<Minifig_Set_FromAPI[]>((resolve, reject) => {
+
+    const output: Set[] = convert_SetsFromAPI_ToSets(result);
+
+    return new Promise<Set[]>((resolve, reject) => {
         try {
-            resolve(result);
+            resolve(output);
         } catch (error) {
             reject(error);
         }
     });
 }
 
-export async function getPartsOfSpecificMinifig(minifig: Minifig): Promise<Parts_FromAPI[]> {
+export async function getPartsOfSpecificMinifig(minifig: Minifig): Promise<MinifigParts> {
     const response = await fetch(
         `https://rebrickable.com/api/v3/lego/minifigs/${minifig.figCode}/parts?inc_color_details=0`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
     );
     const result: Parts_FromAPI[] = (await response.json()).results;
-    return new Promise<Parts_FromAPI[]>((resolve, reject) => {
+
+    const output: MinifigParts = convert_PartsFromAPI_ToMinifigsParts(minifig, result);
+
+    return new Promise<MinifigParts>((resolve, reject) => {
         try {
-            resolve(result);
+            resolve(output);
         } catch (error) {
             reject(error);
         }
     });
 }
 
-export async function getMinifigsOfSpecificSet(set: Set): Promise<Minifig_Set_FromAPI[]> {
+export async function getMinifigsOfSpecificSet(set: Set): Promise<Minifig[]> {
     const response = await fetch(
         `https://rebrickable.com/api/v3/lego/sets/${set.setCode}/minifigs`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
     );
     const result: Minifig_Set_FromAPI[] = (await response.json()).results;
-    return new Promise<Minifig_Set_FromAPI[]>((resolve, reject) => {
+
+    const output: Minifig[] = convert_MinifigsFromAPI_ToMinifigs(result);
+
+    return new Promise<Minifig[]>((resolve, reject) => {
         try {
-            resolve(result);
+            resolve(output);
         } catch (error) {
             reject(error);
         }

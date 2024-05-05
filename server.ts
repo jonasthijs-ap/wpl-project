@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
 import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts, Minifig_Set_FromAPI } from "./types";
-import { getLoadOfNewMinifigsAtStart, getNewMinifigsFromAPI, getSetsFromSpecificMinifig } from "./functions/fetchFunctions";
+import { getLoadOfNewMinifigsAtStart, getNewMinifigsFromAPI, getSetsFromSpecificMinifig, retrieveSingleMinifig } from "./functions/fetchFunctions";
 import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs } from "./database";
 
 // .env-settings
@@ -38,6 +38,8 @@ app.get("/geordende-minifigs", async (req, res) => {
 app.listen(app.get("port"), async () => {
     await connect();
     console.info(`Express listening to 'http://localhost:${app.get("port")}'`);
+    /* console.log(await retrieveSingleMinifig("fig-012562")); */
+
     /* let old_minifigs: Minifig_Set_FromAPI[] = await getLoadOfNewMinifigsAtStart();
     console.log(old_minifigs);
     let minifigs: Minifig[] = old_minifigs.map(value => {

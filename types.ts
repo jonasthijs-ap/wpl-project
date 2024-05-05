@@ -17,7 +17,7 @@ export interface MinifigSet {
 
 export interface Part {
     name: string;
-    partNumber: string;
+    imageUrl: string;
 }
 
 export interface Blacklist {
@@ -27,7 +27,7 @@ export interface Blacklist {
 
 export interface MinifigParts {
     minifig: Minifig;
-    parts: Part;
+    parts: Part[];
 }
 
 
@@ -41,12 +41,10 @@ export interface Minifig_Set_FromAPI {
     last_modified_dt: Date;
 }
 
-export interface MinifigWithParts_FromAPI {}
-
 export interface Parts_FromAPI {
     id: number;
     inv_part_id: number;
-    part: Part;
+    part: Part_FromAPI;
     color: Color;
     set_num: string;
     quantity: number;
@@ -55,7 +53,7 @@ export interface Parts_FromAPI {
     num_sets: number;
 }
 
-export interface Part {
+interface Part_FromAPI {
     part_num: string;
     name: string;
     part_cat_id: number;
