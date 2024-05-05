@@ -10,7 +10,7 @@ export interface Minifig {
 export interface Set {
     _id?: ObjectId;
     name: string;
-    setCode: string;    
+    setCode: string;
     imageUrl: string;
 }
 
