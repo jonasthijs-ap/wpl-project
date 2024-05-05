@@ -1,16 +1,21 @@
+import { ObjectId } from "mongodb";
+
 export interface Minifig {
+    _id?: ObjectId;
     name: string;
     figCode: string;
     imageUrl: string;
 }
 
 export interface Set {
+    _id?: ObjectId;
     name: string;
     setCode: string;    
     imageUrl: string;
 }
 
 export interface MinifigSet {
+    _id?: ObjectId;
     minifig: Minifig;
     set: Set;
 }
@@ -21,11 +26,13 @@ export interface Part {
 }
 
 export interface Blacklist {
+    _id?: ObjectId;
     reason: string;
     minifig: Minifig;
 }
 
 export interface MinifigParts {
+    _id?: ObjectId;
     minifig: Minifig;
     parts: Part[];
 }

@@ -38,17 +38,4 @@ app.get("/geordende-minifigs", async (req, res) => {
 app.listen(app.get("port"), async () => {
     await connect();
     console.info(`Express listening to 'http://localhost:${app.get("port")}'`);
-    /* console.log(await retrieveSingleMinifig("fig-012562")); */
-
-    /* let old_minifigs: Minifig_Set_FromAPI[] = await getLoadOfNewMinifigsAtStart();
-    console.log(old_minifigs);
-    let minifigs: Minifig[] = old_minifigs.map(value => {
-        const currentMinifig: Minifig = {
-            name: value.name,
-            figCode: value.set_num,
-            imageUrl: value.set_img_url
-        }
-        return currentMinifig;
-    });
-    await client.db("GameData").collection("UnsortedMinifigs").insertMany(minifigs); */
 });

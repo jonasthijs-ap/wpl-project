@@ -2,6 +2,7 @@ import { Minifig, Set, MinifigSet, Minifig_Set_FromAPI, Parts_FromAPI, MinifigPa
 import { client, retrieveSortedMinifigs, retrieveUnsortedMinifigs } from "../database";
 import dotenv from "dotenv";
 import { randomInt } from "crypto";
+import { ObjectId } from "mongodb";
 
 dotenv.config();
 
@@ -148,16 +149,26 @@ export async function getSetsFromSpecificMinifig(minifig: Minifig): Promise<Set[
 }
 
 export async function getPartsOfSpecificMinifig(minifig: Minifig): Promise<MinifigParts> {
-    const response = await fetch(
-        `https://rebrickable.com/api/v3/lego/minifigs/${minifig.figCode}/parts?inc_color_details=0`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
-    );
-    const result: Parts_FromAPI[] = (await response.json()).results;
+    let outputMinifigWithParts: MinifigParts;
+    const minifigFromDB: Minifig | null = await client.db("Session").collection("ApiMinifigs").findOne<Minifig>({ figCode: minifig.figCode });
+    const minifigWithPartsFromDB: MinifigParts | null = await client.db("Session").collection("ApiParts").findOne<MinifigParts>({ _id: new ObjectId(minifigFromDB?._id) });
 
-    const output: MinifigParts = convert_PartsFromAPI_ToMinifigsParts(minifig, result);
+    if (minifigWithPartsFromDB != null) {
+        console.info("Er is geen gebruik gemaakt van de API, maar wel van de DB om de minifig en haar onderdelen op te halen.");
+        outputMinifigWithParts = minifigWithPartsFromDB;
+    } else {
+        console.info("Er is wel gebruik gemaakt van de API om de minifig en haar onderdelen op te halen.");
+        const response = await fetch(
+            `https://rebrickable.com/api/v3/lego/minifigs/${minifig.figCode}/parts?inc_color_details=0`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
+        );
+        const result: Parts_FromAPI[] = (await response.json()).results;
+
+        const output: MinifigParts = convert_PartsFromAPI_ToMinifigsParts(minifig, result);
+    }
 
     return new Promise<MinifigParts>((resolve, reject) => {
         try {
-            resolve(output);
+            resolve(outputMinifigWithParts);
         } catch (error) {
             reject(error);
         }
