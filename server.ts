@@ -34,6 +34,30 @@ app.get("/geordende-minifigs", async (req, res) => {
     res.render("geordende-minifigs", { sortedMinifigs });
 });
 
+app.get("/sets-met-bepaalde-minifig/:figCode", async (req, res) => {
+    let figCode: string = req.params.figCode;
+    let minifig: Minifig = await retrieveSingleMinifig(figCode);
+    let sets: Set[] = await getSetsFromSpecificMinifig(minifig);
+    
+    res.render("sets-met-bepaalde-minifig", { minifig, setsMetBepaaldeMinifig: sets });
+});
+
+
+app.post("/resultaten-ordenen", async (req, res) => {
+    const usedMinifigs: Minifig[] = req.body.usedMinifigs;
+    const skippedMinifigs: Minifig[] = req.body.skippedMinifigs;
+
+    res.render("resultaten-ordenen", {usedMinifigs, skippedMinifigs});
+    return;
+});
+
+
+app.post("/overgeslagen-minifigs", async (req, res) => {
+    const skippedMinifigs: Minifig[] = req.body.skippedMinifigs;
+
+    res.render("overgeslagen-minifigs", { skippedMinifigs });
+});
+
 // Maakt het mogelijk om de Express-applicatie te laten draaien op de ingestelde poort
 app.listen(app.get("port"), async () => {
     await connect();
