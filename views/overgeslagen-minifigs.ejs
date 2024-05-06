@@ -62,22 +62,22 @@
         <section class="container-fluid col-lg-10">
             <div class="row">
 
-                <% for (let i=0; i<overgeslagenMinifigs.length; i++){%>
+                <% for (let i = 0; i < skippedMinifigs.length; i++){%>
                 <article class="col-xl-4 col-md-6 col-sm-12">
                     <figure class="card rounded-4">
-                        <img src="<%= overgeslagenMinifigs[i].imageUrl %>"
-                            class="card-img-top rounded-4" alt="<%= overgeslagenMinifigs[i].figCode %>" />
+                        <img src="<%= skippedMinifigs[i].imageUrl %>"
+                            class="card-img-top rounded-4" alt="<%= skippedMinifigs[i].figCode %>" />
                         <div class="card-body">
-                            <figcaption class="card-text fw-bold"><%= overgeslagenMinifigs[i].name %>
+                            <figcaption class="card-text fw-bold"><%= skippedMinifigs[i].name %>
                             </figcaption>
                         </div>
                         <div class="card-footer">
-                            <a href="/minifig-onderdelen/<%= overgeslagenMinifigs[i].figCode %>" target="_blank"
+                            <a href="/minifig-onderdelen/<%= skippedMinifigs[i].figCode %>" target="_blank"
                                 title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad"
                                 class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
                             </a>
-                            <a href="/sets-met-bepaalde-minifig/<%= overgeslagenMinifigs[i].figCode %>" target="_blank"
+                            <a href="/sets-met-bepaalde-minifig/<%= skippedMinifigs[i].figCode %>" target="_blank"
                                 title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
                             </a>
