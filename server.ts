@@ -27,47 +27,24 @@ app.use(express.urlencoded({ extended: true }));
 
 // Express-routes
 app.get("/blacklist", async (req, res) => {
-    // let blacklist: Blacklist[] = await retrieveBlacklist();
-    let tijdelijkeBlacklist: Blacklist[] = [
-        {
-            reason: "Niet meer voor mijn leeftijd",
-            minifig: {
-                name: "Kinderlego",
-                figCode: "fig-11111",
-                imageUrl: "https://www.pixelstalk.net/wp-content/uploads/2016/09/Best-Beautiful-Images-For-Desktop-Nature.png"
-            }
-        },
-        {
-            reason: "Niet meer voor mijn leeftijd",
-            minifig: {
-                name: "Kinderlego",
-                figCode: "fig-22222",
-                imageUrl: "https://www.pixelstalk.net/wp-content/uploads/2016/09/Best-Beautiful-Images-For-Desktop-Nature.png"
-            }
-        },
-        {
-            reason: "Niet meer voor mijn leeftijd",
-            minifig: {
-                name: "Kinderlego",
-                figCode: "fig-33333",
-                imageUrl: "https://www.pixelstalk.net/wp-content/uploads/2016/09/Best-Beautiful-Images-For-Desktop-Nature.png"
-            }
-        }
-    ];
-    res.render("blacklist", { blacklistedMinifigs: tijdelijkeBlacklist });
+    let blacklist: Blacklist[] = await retrieveBlacklist();
+    res.render("blacklist", { blacklistedMinifigs: blacklist });
 });
 
-app.post("/blacklist/changeReason", (req, res) => {
+app.post("/blacklist/changeReason", async (req, res) => {
     let figCodeOfMinifigToChangeReasonOf: string = req.body.minifig;
-    let reasonOfBlacklisting: string = req.body.reason;
-    console.log(`FIGCODE:\t${figCodeOfMinifigToChangeReasonOf}\nREASON:\t\t${reasonOfBlacklisting}`);
+    let newReasonOfBlacklisting: string = req.body.reason;
+    client.db("GameData").collection("Blacklist").updateOne({ "minifig.figCode": figCodeOfMinifigToChangeReasonOf }, { $set: { reason: newReasonOfBlacklisting } });
+
     res.redirect("/blacklist");
     return;
 });
 
-app.post("/blacklist/remove", (req, res) => {
+app.post("/blacklist/remove", async (req, res) => {
     let figCodeOfMinifigToRemove: string = req.body.minifig;
-    console.log(figCodeOfMinifigToRemove);
+    let result = await client.db("GameData").collection("Blacklist").deleteOne({ "minifig.figCode": figCodeOfMinifigToRemove });
+    console.log(result);
+    
     res.redirect("/blacklist");
     return;
 });
