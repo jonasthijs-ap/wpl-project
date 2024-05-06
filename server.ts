@@ -26,6 +26,22 @@ app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // Express-routes
+app.post("/minifigs-ordenen/addToBlacklist", async (req, res) => {
+    const figCodeOfMinifigToBlacklist: string = req.body.figCode;
+    const reasonOfBlacklisting: string = req.body.reason;
+
+    let minifigToBlacklist: Minifig = await retrieveSingleMinifig(figCodeOfMinifigToBlacklist);
+    let result: Blacklist = {
+        reason: reasonOfBlacklisting,
+        minifig: minifigToBlacklist
+    };
+
+    await client.db("GameData").collection("Blacklist").insertOne(result);
+
+    res.sendStatus(201).redirect("/blacklist");
+    return;
+});
+
 app.get("/blacklist", async (req, res) => {
     let blacklist: Blacklist[] = await retrieveBlacklist();
     res.render("blacklist", { blacklistedMinifigs: blacklist });
