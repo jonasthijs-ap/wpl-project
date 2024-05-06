@@ -42,20 +42,31 @@ app.get("/sets-met-bepaalde-minifig/:figCode", async (req, res) => {
     res.render("sets-met-bepaalde-minifig", { minifig, setsMetBepaaldeMinifig: sets });
 });
 
-
-app.post("/resultaten-ordenen", async (req, res) => {
+app.get("/resultaten-ordenen", async (req, res) => {
     const usedMinifigs: Minifig[] = req.body.usedMinifigs;
     const skippedMinifigs: Minifig[] = req.body.skippedMinifigs;
 
-    res.render("resultaten-ordenen", {usedMinifigs, skippedMinifigs});
+    res.render("resultaten-ordenen", { usedMinifigs, skippedMinifigs });
     return;
 });
 
+app.post("/resultaten-ordenen/gebruikte-minifigs", async (req, res) => {
+    const usedMinifigs: Minifig[] = JSON.parse(req.body.usedMinifigs);
 
-app.post("/overgeslagen-minifigs", async (req, res) => {
-    const skippedMinifigs: Minifig[] = req.body.skippedMinifigs;
+    res.render("gebruikte-minifigs", { usedMinifigs });
+    return;
+});
+
+app.post("/resultaten-ordenen/overgeslagen-minifigs", async (req, res) => {
+    const skippedMinifigs: Minifig[] = JSON.parse(req.body.skippedMinifigs);
 
     res.render("overgeslagen-minifigs", { skippedMinifigs });
+    return;
+});
+
+// Wanneer opgevraagde pagina niet gevonden wordt (HTTP 404 NOT FOUND), wordt dit opgeroepen in de middleware
+app.use((req, res) => {
+    res.status(404).render("not-found", { requestedUrl: req.url });
 });
 
 // Maakt het mogelijk om de Express-applicatie te laten draaien op de ingestelde poort
