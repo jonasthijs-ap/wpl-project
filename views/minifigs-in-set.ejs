@@ -1,4 +1,4 @@
-<%- include('partials/header.ejs', {title: Minifigs ordenen}) %>
+<%- include('partials/header.ejs', {title: "Alle minifigs die in de set " + set.name + " voorkomen"}) %>
 
 <body>
     <header class="navbar navbar-expand-lg fixed-top">
@@ -58,9 +58,9 @@
                 <h2 class="mb-3">Thuis</h2>
                 <article>
                     <figure class="card rounded-4">
-                        <img src="https://cdn.rebrickable.com/media/thumbs/sets/<%= minifigSet.set_num %>/<%= minifigSet.img_url %>/1000x800p.jpg" alt="70912-1" class="card-img-top rounded-4" />
+                        <img src="<%=set.imageUrl%>" alt="<%=set.SetCode %>" class="card-img-top rounded-4" />
                         <div class="card-body">
-                            <figcaption class="card-text fw-bold"><%= minifigSet.name %></figcaption>
+                            <figcaption class="card-text fw-bold"><%= set.name %></figcaption>
                         </div>
                     </figure>
                 </article>
@@ -69,12 +69,12 @@
             <section class="container-fluid col-lg-7">
                 <h2 class="mb-3 mt-5 mt-lg-0">De bewoners</h2>
                 <div class="row">
-                    <% for (let i = 0; i < minifigInSet.length; i++) { %>
+                    <% for (let i = 0; i < minifigsInSet.length; i++) { %>
                         <article class="col-xl-4 col-md-6 col-sm-12">
                             <figure class="card rounded-4">
-                                <img src="https://cdn.rebrickable.com/media/thumbs/sets/<%= minifigInSet[i].fig_id %>/<%= minifigInSet[i].img_url %>/800x800p.jpg" class="card-img-top rounded-4" alt="<%= minifigInSet[i].fig_id %>" />
+                                <img src="<%= minifigsInSet[i].imageUrl %>" class="card-img-top rounded-4" alt="<%= minifigsInSet[i].figCode %>" />
                                 <div class="card-body">
-                                    <figcaption class="card-text fw-bold"><%= minifigInSet[i].name %></figcaption>
+                                    <figcaption class="card-text fw-bold"><%= minifigsInSet[i].name %></figcaption>
                                 </div>
                             </figure>
                         </article>

@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
 import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts, Minifig_Set_FromAPI } from "./types";
-import { getLoadOfNewMinifigsAtStart, getNewMinifigsFromAPI, getSetsFromSpecificMinifig, retrieveSingleMinifig } from "./functions/fetchFunctions";
+import { getLoadOfNewMinifigsAtStart, getMinifigsOfSpecificSet, getNewMinifigsFromAPI, getPartsOfSpecificMinifig, getSetsFromSpecificMinifig, retrieveSingleMinifig } from "./functions/fetchFunctions";
 import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs } from "./database";
 
 // .env-settings
@@ -42,6 +42,33 @@ app.get("/sets-met-bepaalde-minifig/:figCode", async (req, res) => {
     res.render("sets-met-bepaalde-minifig", { minifig, setsMetBepaaldeMinifig: sets });
 });
 
+app.get("/minifig-onderdelen/:figCode", async (req, res) => {
+    let figCode: string = req.params.figCode;
+    let minifig: Minifig = await retrieveSingleMinifig(figCode);
+    let minifigWithParts: MinifigParts = await getPartsOfSpecificMinifig(minifig);
+    
+    res.render("minifig-onderdelen", { minifig: minifigWithParts.minifig, parts: minifigWithParts.parts });
+});
+
+app.get("/minifigs-in-set/:setCode", async (req, res) => {
+    let setCode: string = req.params.setCode;
+    let set: Set = await retrieveSingleSet(setCode);
+    let minifigs: Minifig[] = await getMinifigsOfSpecificSet(set);
+    
+    res.render("minifig-onderdelen", { set, minifigsInSet: minifigs });
+});
+
+app.get('/home', async (req, res)=>{
+
+    res.render('homepagina');
+})
+
+app.get('/', (req, res) => {
+    res.render('index');
+  });
+
+
+
 
 app.post("/resultaten-ordenen", async (req, res) => {
     const usedMinifigs: Minifig[] = req.body.usedMinifigs;
@@ -57,6 +84,8 @@ app.post("/overgeslagen-minifigs", async (req, res) => {
 
     res.render("overgeslagen-minifigs", { skippedMinifigs });
 });
+
+
 
 // Maakt het mogelijk om de Express-applicatie te laten draaien op de ingestelde poort
 app.listen(app.get("port"), async () => {
