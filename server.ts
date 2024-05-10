@@ -5,6 +5,7 @@ import { MongoClient, ObjectId } from "mongodb";
 import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts, Minifig_Set_FromAPI } from "./types";
 import { getLoadOfNewMinifigsAtStart, getMinifigsOfSpecificSet, getNewMinifigsFromAPI, getPartsOfSpecificMinifig, getSetsFromSpecificMinifig, retrieveSingleMinifig } from "./functions/fetchFunctions";
 import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs } from "./database";
+import session from "./session";
 
 // .env-settings
 dotenv.config();
@@ -23,7 +24,24 @@ app.use(express.static("public"));
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+// Maakt het gebruik van sessions mogelijk in de pipeline
+app.use(session);
+
 // Express-routes
+app.get("/", (req, res) => {
+    res.render("index");
+});
+
+app.get("/home", async (req, res) => {
+    res.render("homepagina");
+});
+
+app.get("/login", (req, res) => {
+    res.render("login");
+});
+
+app.post("/login", (req, res) => {});
+
 app.get("/niet-geordende-minifigs", async (req, res) => {
     let unsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs();
     res.render("niet-geordende-minifigs", { nietGeordendeMinifigs: unsortedMinifigs });
@@ -50,21 +68,13 @@ app.get("/minifig-onderdelen/:figCode", async (req, res) => {
     res.render("minifig-onderdelen", { minifig: minifigWithParts.minifig, parts: minifigWithParts.parts });
 });
 
-app.get("/minifigs-in-set/:setCode", async (req, res) => {
+/* app.get("/minifigs-in-set/:setCode", async (req, res) => {
     let setCode: string = req.params.setCode;
     let set: Set = await retrieveSingleSet(setCode);
     let minifigs: Minifig[] = await getMinifigsOfSpecificSet(set);
     
     res.render("minifig-onderdelen", { set, minifigsInSet: minifigs });
-});
-
-app.get("/home", async (req, res) => {
-    res.render('homepagina');
-});
-
-app.get("/", (req, res) => {
-    res.render("index");
-});
+}); */
 
 app.get("/resultaten-ordenen", async (req, res) => {
     const usedMinifigs: Minifig[] = req.body.usedMinifigs;

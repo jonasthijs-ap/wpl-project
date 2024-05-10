@@ -1,17 +1,22 @@
 import { MongoClient, ObjectId } from "mongodb";
-import { Minifig, MinifigSet, Blacklist, MinifigParts, Part } from "./types";
+import bcrypt from "bcrypt";
+import { User, Minifig, MinifigSet, Blacklist, MinifigParts, Part } from "./types";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 
 export const client: MongoClient = new MongoClient(process.env.MONGO_URI || "");
+export const userCollection = client.db("LoginSystem").collection<User>("Users");
+const saltRounds: number = 10;
 
 // Async connect functions
 export const connect = async () => {
     try {
         await client.connect();
         console.info("Connected to database");
+        await createInitialUser();
+        console.info("Created initial user");
         process.on("SIGINT", exit);
     } catch (error) {
         console.error(error);
@@ -26,6 +31,42 @@ export const exit = async () => {
         console.error(error);
     } finally {
         process.exit(0);
+    }
+}
+
+async function createInitialUser() {
+    if (await userCollection.countDocuments() > 0) return;
+    
+    let firstName: string | undefined = process.env.ADMIN_FN;
+    let lastName: string | undefined = process.env.ADMIN_LN;
+    let email: string | undefined = process.env.ADMIN_EMAIL;
+    let password: string | undefined = process.env.ADMIN_PASSWORD;
+
+    if (firstName === undefined || lastName === undefined || email === undefined || password === undefined) {
+        throw new Error("ADMIN_FN, ADMIN_LN, ADMIN_EMAIL and ADMIN_PASSWORD must be set in environment");
+    }
+
+    await userCollection.insertOne({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: await bcrypt.hash(password, saltRounds),
+        role: "ADMIN"
+    });
+}
+
+export async function login(email: string, password: string) {
+    if (email === "" || password === "") {
+        throw new Error("Email and password required");
+    }
+
+    let user : User | null = await userCollection.findOne<User>({ email: email });
+
+    if (user) {
+        if (await bcrypt.compare(password, user.password!)) return user;
+        else throw new Error("Password incorrect");
+    } else {
+        throw new Error("User not found");
     }
 }
 
