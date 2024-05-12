@@ -40,7 +40,7 @@ function convert_PartsFromAPI_ToMinifigsParts(minifig: Minifig, parts: Parts_Fro
 
 export async function getLoadOfNewMinifigsAtStart(): Promise<Minifig[]> {
     const response = await fetch(
-        `https://rebrickable.com/api/v3/lego/minifigs?page_size=25`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
+        `https://rebrickable.com/api/v3/lego/minifigs?page_size=25`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
     );
     const result: Minifig_Set_FromAPI[] = (await response.json()).results;
 
@@ -65,7 +65,7 @@ export async function retrieveSingleMinifig(figCode: string): Promise<Minifig> {
     } else {
         console.info("Er is wel gebruik gemaakt van de API om de minifig op te halen.");
         const response = await fetch(
-            `https://rebrickable.com/api/v3/lego/minifigs/${figCode}`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
+            `https://rebrickable.com/api/v3/lego/minifigs/${figCode}`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
         );
         const result: Minifig_Set_FromAPI = await response.json();
         outputMinifig = {
@@ -84,11 +84,39 @@ export async function retrieveSingleMinifig(figCode: string): Promise<Minifig> {
         }
     });
 }
+export async function retrieveSingleSet(setCode: string): Promise<Set> {
+    let outputSet: Set;
+    const setFromDB: Set | null = await client.db("Session").collection("ApiSets").findOne<Set>({ setCode: setCode });
+
+    if (setFromDB != null) {
+        console.info("Er is geen gebruik gemaakt van de API, maar wel van de DB om de set op te halen.");
+        outputSet = setFromDB;
+    } else {
+        console.info("Er is wel gebruik gemaakt van de API om de set op te halen.");
+        const response = await fetch(
+            `https://rebrickable.com/api/v3/lego/sets/${setCode}`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
+        );
+        const result: Minifig_Set_FromAPI = await response.json();
+        outputSet = {
+            name: result.name,
+            setCode: result.set_num,
+            imageUrl: result.set_img_url
+        };
+        client.db("Session").collection("ApiSets").insertOne(outputSet);
+    }
+    return new Promise<Set>((resolve, reject) => {
+        try {
+            resolve(outputSet);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
 
 export async function getNewMinifigsFromAPI(count: number): Promise<Minifig[]> {
     let notAvailableFigCodes: string[] = [];
     let figCodesForNewMinifigs: string[] = [];
-    
+
     let unsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs();
     let sortedMinifigs: MinifigSet[] = await retrieveSortedMinifigs();
 
@@ -108,16 +136,16 @@ export async function getNewMinifigsFromAPI(count: number): Promise<Minifig[]> {
         } while (notAvailableFigCodes.includes(randomFigCode));
         figCodesForNewMinifigs.push(randomFigCode);
     }
-    
+
     let newMinifigs: Minifig_Set_FromAPI[] = [];
 
     for (let currentFigCode of figCodesForNewMinifigs) {
         const response = await fetch(
-            `https://rebrickable.com/api/v3/lego/minifigs/${currentFigCode}`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
+            `https://rebrickable.com/api/v3/lego/minifigs/${currentFigCode}`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
         );
         const result: Minifig_Set_FromAPI = await response.json();
         newMinifigs.push(result);
-        await setTimeout(() => {}, 1500);
+        await setTimeout(() => { }, 1500);
     }
 
     const output: Minifig[] = convert_MinifigsFromAPI_ToMinifigs(newMinifigs);
@@ -133,7 +161,7 @@ export async function getNewMinifigsFromAPI(count: number): Promise<Minifig[]> {
 
 export async function getSetsFromSpecificMinifig(minifig: Minifig): Promise<Set[]> {
     const response = await fetch(
-        `https://rebrickable.com/api/v3/lego/minifigs/${minifig.figCode}/sets`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
+        `https://rebrickable.com/api/v3/lego/minifigs/${minifig.figCode}/sets`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
     );
     const result: Minifig_Set_FromAPI[] = (await response.json()).results;
 
@@ -148,6 +176,8 @@ export async function getSetsFromSpecificMinifig(minifig: Minifig): Promise<Set[
     });
 }
 
+
+
 export async function getPartsOfSpecificMinifig(minifig: Minifig): Promise<MinifigParts> {
     let outputMinifigWithParts: MinifigParts;
     const minifigFromDB: Minifig | null = await client.db("Session").collection("ApiMinifigs").findOne<Minifig>({ figCode: minifig.figCode });
@@ -159,7 +189,7 @@ export async function getPartsOfSpecificMinifig(minifig: Minifig): Promise<Minif
     } else {
         console.info("Er is wel gebruik gemaakt van de API om de minifig en haar onderdelen op te halen.");
         const response = await fetch(
-            `https://rebrickable.com/api/v3/lego/minifigs/${minifig.figCode}/parts?inc_color_details=0`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
+            `https://rebrickable.com/api/v3/lego/minifigs/${minifig.figCode}/parts?inc_color_details=0`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
         );
         const result: Parts_FromAPI[] = (await response.json()).results;
 
@@ -177,7 +207,7 @@ export async function getPartsOfSpecificMinifig(minifig: Minifig): Promise<Minif
 
 export async function getMinifigsOfSpecificSet(set: Set): Promise<Minifig[]> {
     const response = await fetch(
-        `https://rebrickable.com/api/v3/lego/sets/${set.setCode}/minifigs`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
+        `https://rebrickable.com/api/v3/lego/sets/${set.setCode}/minifigs`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
     );
     const result: Minifig_Set_FromAPI[] = (await response.json()).results;
 
@@ -190,4 +220,18 @@ export async function getMinifigsOfSpecificSet(set: Set): Promise<Minifig[]> {
             reject(error);
         }
     });
+}
+
+export async function get5RandomSets(): Promise<Set[]> {
+    const randomNumber = Math.floor(Math.random() * 3785 + 1);
+    let sets: any[] = [];
+    for (let i = 0; i < 5; i++) {
+        const response = await fetch(
+            `https://rebrickable.com/api/v3/lego/sets/?key=55564703db4246a9f134ad8465a30a48&page=${randomNumber}&page_size=6`
+        );
+        const result: any = await response.json();
+        sets.push(result.results[i]);
+    }
+    const output: Set[] = convert_SetsFromAPI_ToSets(sets);
+    return output;
 }

@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
 import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts, Minifig_Set_FromAPI } from "./types";
-import { getLoadOfNewMinifigsAtStart, getMinifigsOfSpecificSet, getNewMinifigsFromAPI, getPartsOfSpecificMinifig, getSetsFromSpecificMinifig, retrieveSingleMinifig } from "./functions/fetchFunctions";
-import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs } from "./database";
+import { get5RandomSets, getLoadOfNewMinifigsAtStart, getMinifigsOfSpecificSet, getNewMinifigsFromAPI, getPartsOfSpecificMinifig, getSetsFromSpecificMinifig, retrieveSingleMinifig, retrieveSingleSet } from "./functions/fetchFunctions";
+import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs, addMinifigToSet } from "./database";
 
 // .env-settings
 dotenv.config();
@@ -31,6 +31,7 @@ app.get("/niet-geordende-minifigs", async (req, res) => {
 
 app.get("/geordende-minifigs", async (req, res) => {
     let sortedMinifigs: MinifigSet[] = await retrieveSortedMinifigs();
+
     res.render("geordende-minifigs", { sortedMinifigs });
 });
 
@@ -38,23 +39,26 @@ app.get("/sets-met-bepaalde-minifig/:figCode", async (req, res) => {
     let figCode: string = req.params.figCode;
     let minifig: Minifig = await retrieveSingleMinifig(figCode);
     let sets: Set[] = await getSetsFromSpecificMinifig(minifig);
-    
+
     res.render("sets-met-bepaalde-minifig", { minifig, setsMetBepaaldeMinifig: sets });
 });
+
+app.get("")
 
 app.get("/minifig-onderdelen/:figCode", async (req, res) => {
     let figCode: string = req.params.figCode;
     let minifig: Minifig = await retrieveSingleMinifig(figCode);
     let minifigWithParts: MinifigParts = await getPartsOfSpecificMinifig(minifig);
-    
+
     res.render("minifig-onderdelen", { minifig: minifigWithParts.minifig, parts: minifigWithParts.parts });
 });
+
 
 app.get("/minifigs-in-set/:setCode", async (req, res) => {
     let setCode: string = req.params.setCode;
     let set: Set = await retrieveSingleSet(setCode);
     let minifigs: Minifig[] = await getMinifigsOfSpecificSet(set);
-    
+
     res.render("minifig-onderdelen", { set, minifigsInSet: minifigs });
 });
 
@@ -74,17 +78,71 @@ app.get("/resultaten-ordenen", async (req, res) => {
     return;
 });
 
-app.post("/resultaten-ordenen/gebruikte-minifigs", async (req, res) => {
-    const usedMinifigs: Minifig[] = JSON.parse(req.body.usedMinifigs);
+app.get("/minifigs-ordenen", async (req, res) => {
+    let UnsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs();
+    let randomMinifig = UnsortedMinifigs[Math.floor(Math.random() * UnsortedMinifigs.length)];
+    let sets: Set[] = [];
+    sets = await get5RandomSets();
+    let setsFromMinifig = await getSetsFromSpecificMinifig(randomMinifig);
+    sets.push(setsFromMinifig[0]);
+    if (UnsortedMinifigs.length == 0) {
+        let minifig = await getNewMinifigsFromAPI(1);
+        res.render("minifigs_ordenen", { minifigOrdenen: minifig, sets });
 
+
+
+
+    } else {
+
+
+        res.render("minifigs_ordenen", { minifigOrdenen: randomMinifig, sets });
+
+
+    }
+
+});
+
+//skip minifig lokaal opgeslagen
+
+let skippedMinifigs: string[] = [];
+
+app.post("/minifigs-ordenen/skip", async (req, res) => {
+    const skippedMinifig = req.body.minifigId; 
+    skippedMinifigs.push(skippedMinifig);
+    res.redirect("/minifigs-ordenen");
+});
+
+app.post("/minifigs-ordenen/bevestigen", async (req, res) => {
+    const minifig = await retrieveSingleMinifig(req.body.minifigId);
+    const set = await retrieveSingleSet(req.body.setsSelect);
+    await addMinifigToSet(minifig, set);
+    res.redirect("/minifigs-ordenen");
+});
+
+//gebruikte en skip miniffigs lokaal opgeslagen
+app.get("/resultaten", async (req, res) => {
+    let sortedMinifigs: MinifigSet[] = await retrieveSortedMinifigs();
+    res.render("resultaten-ordenen", { usedMinifigs : sortedMinifigs, skippedMinifigs });
+});
+
+
+
+
+app.post("/resultaten-ordenen/gebruikte-minifigs", async (req, res) => {
+    const usedMinifigs: MinifigSet[] = await retrieveSortedMinifigs();
+    console.log(usedMinifigs);
     res.render("gebruikte-minifigs", { usedMinifigs });
     return;
 });
 
 app.post("/resultaten-ordenen/overgeslagen-minifigs", async (req, res) => {
-    const skippedMinifigs: Minifig[] = JSON.parse(req.body.skippedMinifigs);
-
-    res.render("overgeslagen-minifigs", { skippedMinifigs });
+    let skippedFigs: Minifig[] = [];
+    for (let i = 0; i < skippedMinifigs.length; i++) {
+        let fig = await retrieveSingleMinifig(skippedMinifigs[i]);
+        skippedFigs.push(fig);
+    }
+    console.log(skippedFigs);
+    res.render("overgeslagen-minifigs", { skippedMinifigs : skippedFigs });
     return;
 });
 

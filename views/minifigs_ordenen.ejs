@@ -1,5 +1,5 @@
 
-<%- include('partials/header.ejs', {title: Minifigs ordenen}) %>
+<%- include('partials/header.ejs', {title: "Minifigs ordenen"}) %>
 
 <body>
     <header class="navbar navbar-expand-lg fixed-top">
@@ -82,10 +82,10 @@
             <aside class="col-lg-4">
                 <h2 class="mb-3">Minifig</h2>
                 <article>
-                    <figure class="card rounded-4">
-                      
-                            
+                    
+                    <figure class="card rounded-4">     
                         <img src="<%= minifigOrdenen.imageUrl %>" alt="fig-001804" class="card-img-top rounded-4" />
+                       
                         <div class="card-body">
                             <figcaption class="card-text fw-bold"><%= minifigOrdenen.name %></figcaption>
                         </div>
@@ -98,9 +98,10 @@
                             </a>
                         </div>
                     </figure>
+                    
                 </article>
                 <article>
-                    <form class="d-flex flex-column gap-3" action="#">
+                    <form class="d-flex flex-column gap-3" action="/minifigs-ordenen/skip" method="post">
                         <fieldset class="d-grid form-floating gap-2">
                             <select class="form-select rounded-4" name="setsSelect" id="sets-select">
                                 <% for (let set of sets) { %>
@@ -110,14 +111,15 @@
                             <label for="sets-select">Selecteer een set om deze minifig in te plaatsen</label>
                         </fieldset>
                         <fieldset class="d-flex flex-row gap-2">
-                            <button id="minifig-skip" class="btn btn-warning rounded-2" name="minifigSkip">
-                                <a href="/resultaten-ordenen" class="no-link-style"><i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan--></a>
+                            <button type="submit" id="minifig-skip" class="btn btn-warning rounded-2" name="minifigSkip" formaction="/minifigs-ordenen/skip">
+                                <a href="#" class="no-link-style"><i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan--></a>
+                                <input type="hidden" name="minifigId" value="<%= minifigOrdenen.figCode %>" />
                             </button>
                             <button id="minifig-blacklist" class="btn btn-dark rounded-2" name="minifigBlacklist" data-bs-toggle="modal" data-bs-target="#modal-blacklist">
                                 <i class="bi bi-ban"></i><!--Minifig blacklisten-->
                             </button>
-                            <button type="submit" class="btn btn-success flex-fill rounded-2">
-                                <a href="/resultaten-ordenen" class="no-link-style">Bevestigen</a>
+                            <button type="submit" class="btn btn-success flex-fill rounded-2" formaction="/minifigs-ordenen/bevestigen">
+                                <a href="#" class="no-link-style">Bevestigen</a>
                             </button>
                         </fieldset>
                     </form>
@@ -131,18 +133,18 @@
                     <article class="col-xl-4 col-md-6 col-sm-12">
 
                         <figure class="card rounded-4">
-                            <img src="https://cdn.rebrickable.com/media/thumbs/sets/<%= set[i].fig_id %>/<%= set[i].img_url %>/1000x800p.jpg" class="card-img-top rounded-4" alt="<%= set.setCode %>" />
+                            <img src="<%= set.imageUrl %>" class="card-img-top rounded-4" alt="<%= set.setCode %>" />
                             <div class="card-body">
-                                <figcaption class="card-text fw-bold"><%= set[i].name %></figcaption>
+                                <figcaption class="card-text fw-bold"><%= set.name %></figcaption>
                             </div>
                             <div class="card-footer">
-                                <a href="/minifigs-in-set" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
+                                <a href="/minifigs-in-set/<%= set.setCode %>" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
                                     <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
                                 </a>
                             </div>
                         </figure>
                     </article>
-                    <% } %>
+                <% } %>
 
                     
 
