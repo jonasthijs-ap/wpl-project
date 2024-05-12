@@ -58,15 +58,15 @@
                 <% for (let minifig of usedMinifigs) { %>
                     <article class="col-xl-4 col-md-6 col-sm-12">
                         <figure class="card rounded-4">
-                            <img src="<%= minifig.imageUrl %>" class="card-img-top rounded-4" alt="<%= minifig.figCode %>" />
+                            <img src="<%= minifig.minifig.imageUrl %>" class="card-img-top rounded-4" alt="<%= minifig.minifig.figCode %>" />
                             <div class="card-body">
-                                <figcaption class="card-text fw-bold"><%= minifig.name %></figcaption>
+                                <figcaption class="card-text fw-bold"><%= minifig.minifig.name %></figcaption>
                             </div>
                             <div class="card-footer">
-                                <a href="/minifig-onderdelen/<%= minifig.figCode %>" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
+                                <a href="/minifig-onderdelen/<%= minifig.minifig.figCode %>" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
                                     <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
                                 </a>
-                                <a href="/sets-met-bepaalde-minifig/<%= minifig.figCode %>" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
+                                <a href="/sets-met-bepaalde-minifig/<%= minifig.minifig.figCode %>" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
                                     <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
                                 </a>
                             </div>
