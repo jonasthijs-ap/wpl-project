@@ -193,7 +193,7 @@ export async function getPartsOfSpecificMinifig(minifig: Minifig): Promise<Minif
         );
         const result: Parts_FromAPI[] = (await response.json()).results;
 
-        const output: MinifigParts = convert_PartsFromAPI_ToMinifigsParts(minifig, result);
+        outputMinifigWithParts = convert_PartsFromAPI_ToMinifigsParts(minifig, result);
     }
 
     return new Promise<MinifigParts>((resolve, reject) => {

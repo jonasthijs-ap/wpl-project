@@ -1,49 +1,5 @@
-<%- include('partials/header.ejs', {title:"Lego Masters"}) %>
-
-<body class="container-fluid">
-    <header class="navbar navbar-expand-lg fixed-top">
-        <nav class="container-fluid justify-content-between">
-            <a href="homepagina.html" class="navbar-brand">
-                <img src="/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
-                Lego Masters
-            </a>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-                        <a href="homepagina.html" class="navbar-brand">
-                            <img src="/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
-                            Lego Masters
-                        </a>
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body d-flex justify-content-lg-center">
-                    <ul class="navbar-nav gap-2">
-                        <li class="nav-item">
-                            <a href="niet-geordende-minifigs.html" class="btn btn-danger me-2">Niet-geordende minifigs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="blacklist.html" class="btn btn-dark me-2">Blacklist</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="geordende-minifigs.html" class="btn btn-success me-2">Geordende minifigs</a>
-                        </li>
-                        <li class="nav-item mt-auto mt-lg-0 d-block d-lg-none">
-                            <form>
-                                <a href="login.html" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <form class="d-none d-lg-block">
-                <a href="login.html" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
-            </form>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </nav>
-    </header>
+<%- include('partials/head.ejs', {title: "Lego Masters"}) %>
+<%- include("partials/header-complex.ejs") %>
 
     <main class="container">
         
@@ -52,9 +8,9 @@
 
         <section class="row gap-5 gap-lg-0">
             <article class="col-lg-4 col-md-12">
-                <a href="niet-geordende-minifigs.html" class="no-link-style">
+                <a href="/niet-geordende-minifigs" class="no-link-style">
                     <figure class="card rounded-4">
-                        <img src="images/niet-geordende-minifigs.png" class="card-img-top rounded-4" alt="niet-geordende-minifigs_image" /><!--Afbeelding komt van pixabay-->
+                        <img src="/assets/images/niet-geordende-minifigs.png" class="card-img-top rounded-4" alt="niet-geordende-minifigs_image" /><!--Afbeelding komt van pixabay-->
                         <div class="card-body">
                             <figcaption class="card-text d-block btn btn-danger<%=minifig.buttonClass%> rounded-3"><i class="bi bi-archive-fill">&ensp;</i>Niet-geordende minifigs</figcaption>
                         </div>
@@ -64,9 +20,9 @@
             
 
             <article class="col-lg-4 col-md-12">
-                <a href="blacklist.html" class="no-link-style">
+                <a href="/blacklist" class="no-link-style">
                     <figure class="card rounded-4">
-                        <img src="images/blacklist.png" class="card-img-top rounded-4" alt="blacklist_image" /><!--Afbeelding komt van Pinterest-->
+                        <img src="/assets/images/blacklist.png" class="card-img-top rounded-4" alt="blacklist_image" /><!--Afbeelding komt van Pinterest-->
                         <div class="card-body">
                             <figcaption class="card-text d-block btn btn-dark rounded-3"><i class="bi bi-x-circle-fill">&ensp;</i>Blacklist</figcaption>
                         </div>
@@ -75,9 +31,9 @@
             </article>
 
             <article class="col-lg-4 col-md-12">
-                <a href="geordende-minifigs.html" class="no-link-style">
+                <a href="/geordende-minifigs" class="no-link-style">
                     <figure class="card rounded-4">
-                        <img src="images/geordende-minifigs.png" class="card-img-top rounded-4" alt="geordende-minifigs_image" /><!--Afbeelding komt van pixabay-->
+                        <img src="/assets/images/geordende-minifigs.png" class="card-img-top rounded-4" alt="geordende-minifigs_image" /><!--Afbeelding komt van pixabay-->
                         <div class="card-body">
                             <figcaption class="card-text d-block btn btn-success rounded-3"><i class="bi bi-check-circle-fill">&ensp;</i>Geordende minifigs</figcaption>
                         </div>
@@ -93,7 +49,7 @@
                 <h4>Te ordenen minifigs</h4>
                 <hr class="my-4 my-lg-5 w-75 mx-auto" />
                 <p>Er zijn nog <b><%=minifigToOrder.lenght%></b> minifigs zonder verblijf.</p>
-                <a href="minifigs-ordenen.html" class="btn orange mt-3 w-50 rounded-3">Help ze een handje!</a>
+                <a href="/minifigs-ordenen" class="btn orange mt-3 w-50 rounded-3">Help ze een handje!</a>
             </article>
         </section>
         

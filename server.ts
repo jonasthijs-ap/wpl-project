@@ -63,7 +63,7 @@ app.get("/minifigs-in-set/:setCode", async (req, res) => {
 });
 
 app.get("/home", async (req, res) => {
-    res.render('homepagina');
+    res.render('foutmeldingspagina-login');
 });
 
 app.get("/", (req, res) => {
@@ -74,7 +74,7 @@ app.get("/resultaten-ordenen", async (req, res) => {
     const usedMinifigs: Minifig[] = req.body.usedMinifigs;
     const skippedMinifigs: Minifig[] = req.body.skippedMinifigs;
 
-    res.render("resultaten-ordenen", { usedMinifigs, skippedMinifigs });
+    res.render("resultaten-ordenen", {usedMinifigs, skippedMinifigs});
     return;
 });
 

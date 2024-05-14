@@ -75,7 +75,7 @@ main {
 }
 
 h1 {
-    text-align: center;
+    text-align: left;
     margin-bottom: 90px;
     margin-top: 50px;
 }
@@ -93,8 +93,8 @@ hgroup h1 {
 }
 hgroup p {
     max-width: 50%;
-    text-align: center;
-    margin:  0 auto;
+    text-align: left;
+    
 }
 
 h2 {

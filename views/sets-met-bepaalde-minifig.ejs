@@ -1,76 +1,21 @@
-<%- include("partials/header.ejs", {title: "Alle huizen waar " + minifig.name + " deel van uitmaakt"}) %>
-
-<body>
-    <header class="navbar navbar-expand-lg fixed-top">
-        <nav class="container-fluid justify-content-between">
-            <a href="/homepagina" class="navbar-brand">
-                <img src="/assets/images/click-logo.png" class="click-logo"
-                    alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
-                Lego Masters
-            </a>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-                        <a href="/homepagina" class="navbar-brand">
-                            <img src="/assets/images/click-logo.png" class="click-logo"
-                                alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
-                            Lego Masters
-                        </a>
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-
-                <div class="offcanvas-body d-flex justify-content-lg-center">
-                    <ul class="navbar-nav gap-2">
-                        <li class="nav-item">
-                            <a href="/niet-geordende-minifigs/" class="btn btn-danger me-2">Niet-geordende
-                                minifigs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/blacklist/" class="btn btn-dark me-2">Blacklist</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/geordende-minifigs/" class="btn btn-success me-2">Geordende minifigs</a>
-                        </li>
-                        <li class="nav-item mt-auto mt-lg-0 d-block d-lg-none">
-                            <form>
-                                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i
-                                        class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <form class="d-none d-lg-block">
-                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i
-                        class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
-            </form>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </nav>
-    </header>
+<%- include("partials/head.ejs", {title: "Alle huizen waar " + minifig.name + " deel van uitmaakt"}) %>
+<%- include("partials/header-complex.ejs") %>
 
     <main class="container"><!--De afbeeldingen komen van de API-->
-        <hgroup>
+        <hgroup class="container-fluid col-lg-10">
         <h1>Verblijven van <%= minifig.name%></h1>
-        <p>In deze pagina ziet u een specifieke minifig met daarbij alle bijhorende sets, en per set kunt u met behulp van het knopje de bijhorende minifig bekijken van dat specifieke set.</p>
+        <p>In deze pagina ziet u een specifieke minifig met daarbij alle bijhorende sets en per set kunt u met behulp van het knopje de bijhorende minifig bekijken van dat specifieke set.</p>
         </hgroup>
         <div class="row justify-content-center">
             <aside class="col-lg-4">
                 <article>
                     <figure class="card rounded-4">
-                        <img src="<%= minifig.imageUrl %>"
-                            alt="<%= minifig.figCode %>" class="card-img-top rounded-4" />
+                        <img src="<%= minifig.imageUrl %>" alt="<%= minifig.figCode %>" class="card-img-top rounded-4" />
                         <div class="card-body">
                             <figcaption class="card-text fw-bold"><%= minifig.name %></figcaption>
                         </div>
                         <div class="card-footer">
-                            <a href="/minifig-onderdelen/<%= minifig.figCode %>" target="_blank"
-                                title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad"
-                                class="no-link-style">
+                            <a href="/minifig-onderdelen/<%= minifig.figCode %>" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
                             </a>
                         </div>
@@ -85,15 +30,12 @@
                     <% for (let i=0; i<setsMetBepaaldeMinifig.length; i++){%>
                     <article class="col-xl-4 col-md-6 col-sm-12">
                         <figure class="card rounded-4">
-                            <img src="<%= setsMetBepaaldeMinifig[i].imageUrl %>"
-                                class="card-img-top rounded-4" alt="<%= setsMetBepaaldeMinifig[i].setCode %>" />
+                            <img src="<%= setsMetBepaaldeMinifig[i].imageUrl %>" class="card-img-top rounded-4" alt="<%= setsMetBepaaldeMinifig[i].setCode %>" />
                             <div class="card-body">
                                 <figcaption class="card-text fw-bold"><%= setsMetBepaaldeMinifig[i].name %></figcaption>
                             </div>
                             <div class="card-footer">
-                                <a href="/minifigs-in-set/<%= setsMetBepaaldeMinifig[i].setCode %>" target="_blank"
-                                    title="Bekijk lijst van minifigs van deze set in een nieuw tabblad"
-                                    class="no-link-style">
+                                <a href="/minifigs-in-set/<%= setsMetBepaaldeMinifig[i].setCode %>" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
                                     <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
                                 </a>
                             </div>

@@ -1,23 +1,14 @@
 
-<%- include('partials/header.ejs', {title:"Aanmelden"}) %>
+<%- include('partials/head.ejs', {title: "Aanmelden"}) %>
+<%- include("partials/header-simple.ejs") %>    
 
-<body>
-    <header>
-        <nav class="navbar container-fluid justify-content-end">
-            <form class="d-flex gap-2">
-                <a href="login.html" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-circle">&ensp;</i>Login</a>
-                <a href="registreren.html" class="btn btn-dark orange-hover" id="register-btn"><i class="bi bi-person-vcard-fill">&ensp;</i>Registreren</a>
-            </form>
-        </nav>
-    </header>
-    
     <main class="container d-flex justify-content-center align-items-center min-vh-100">
 
         <section class="row border rounded-5 p-3 bg-white shadow box-area">
 
             <article class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
                 <figure class="featured-image mb-3 left-img">
-                    <img src="/images/click-logo.png" class="img-fluid w-100" />
+                    <img src="/assets/images/click-logo.png" class="img-fluid w-100" />
                 </figure>
             </article>
             
@@ -35,10 +26,10 @@
                     </fieldset>
                     <br class="input-group mb-5 d-flex justify-content-between" />
                     <fieldset class="input-group mb-3">
-                        <a href="homepagina.html" class="btn btn-lg btn-warning w-100 fs-6">Login&ensp;<i class="bi bi-arrow-right"></i></a>
+                        <a href="/home" class="btn btn-lg btn-warning w-100 fs-6">Login&ensp;<i class="bi bi-arrow-right"></i></a>
                     </fieldset>
                     <div class="row">
-                        <small>Heb je geen account? Laat je <a href="registreren.html">Registreren</a>.</small>
+                        <small>Heb je geen account? Laat je <a href="/registreren">Registreren</a>.</small>
                     </div>
                 </form>
             </article>
