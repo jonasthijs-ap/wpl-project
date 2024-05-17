@@ -43,7 +43,10 @@ app.get("/sets-met-bepaalde-minifig/:figCode", async (req, res) => {
     res.render("sets-met-bepaalde-minifig", { minifig, setsMetBepaaldeMinifig: sets });
 });
 
-app.get("")
+
+    
+
+
 
 app.get("/minifig-onderdelen/:figCode", async (req, res) => {
     let figCode: string = req.params.figCode;
@@ -88,6 +91,7 @@ app.get("/minifigs-ordenen", async (req, res) => {
     if (UnsortedMinifigs.length == 0) {
         let minifig = await getNewMinifigsFromAPI(1);
         res.render("minifigs_ordenen", { minifigOrdenen: minifig, sets });
+        //einde van minifig ordenen de resultaten pagina tonen
 
 
 

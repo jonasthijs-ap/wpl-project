@@ -93,7 +93,17 @@
                 <h4>Te ordenen minifigs</h4>
                 <hr class="my-4 my-lg-5 w-75 mx-auto" />
                 <p>Er zijn nog <b><%=minifigToOrder.lenght%></b> minifigs zonder verblijf.</p>
-                <a href="minifigs-ordenen.html" class="btn orange mt-3 w-50 rounded-3">Help ze een handje!</a>
+                
+                <% if (minifigToOrder.length == 0) { %>
+                   <form action="addNewMinifigToDatabase" ></form> <a href="minifigs-ordenen.html" class="btn orange mt-3 w-50 rounded-3">Help ze een handje!</a></form>
+                   <!--als databse leeg is nieuwe minifigs uit database ophalen met beperkte aantal aan gebruiker vragen hoeveel minifigs ophalen van database -->
+                   
+                <% } else { %>
+                    <a href="minifigs-ordenen.html" class="btn orange mt-3 w-50 rounded-3">Help ze een handje!</a>
+                    <!--als database niet leeg is dan gewoon de tekst van te ordenen minifigs laten zien
+                    hierna komt de gebruiker in te ordenen minifigs pagina
+                na het einde van ordenen wordt gebruiker automatisch naar resultaten pagina gestuurt-->
+                <% } %>
             </article>
         </section>
         
