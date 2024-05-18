@@ -1,6 +1,8 @@
 import { MongoClient, ObjectId } from "mongodb";
+import session from "express-session";
+import mongoDbSession from "connect-mongodb-session";
 import bcrypt from "bcrypt";
-import { User, Minifig, MinifigSet, Blacklist, MinifigParts, Part } from "./types";
+import { User, Minifig, MinifigSet, Blacklist, MinifigParts, Part, Set } from "./types";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -9,6 +11,35 @@ dotenv.config();
 export const client: MongoClient = new MongoClient(process.env.MONGO_URI || "");
 export const userCollection = client.db("LoginSystem").collection<User>("Users");
 const saltRounds: number = 10;
+
+// Session store
+const MongoDBStore = mongoDbSession(session);
+
+const mongoStore = new MongoDBStore({
+    uri: process.env.MONGO_URI ?? "",
+    databaseName: "LoginSystem",
+    collection: "Sessions"
+});
+
+mongoStore.on("error", (error) => {
+    console.error(error);
+});
+
+declare module 'express-session' {
+    export interface SessionData {
+        username?: string;
+        cachedMinifigs?: Minifig[];
+        cachedSets?: Set[];
+        cachedMinifigParts?: MinifigParts[];
+    }
+}
+
+export default session({
+    secret: process.env.SESSION_SECRET ?? "my-super-secret-secret",
+    store: mongoStore,
+    resave: false,
+    saveUninitialized: false,
+});
 
 // Async connect functions
 export const connect = async () => {

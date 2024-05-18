@@ -77,16 +77,16 @@ app.get("/geordende-minifigs", secureMiddleware, async (req, res) => {
 
 app.get("/sets-met-bepaalde-minifig/:figCode", secureMiddleware, async (req, res) => {
     let figCode: string = req.params.figCode;
-    let minifig: Minifig = await retrieveSingleMinifig(figCode);
-    let sets: Set[] = await getSetsFromSpecificMinifig(minifig);
+    let minifig: Minifig = await retrieveSingleMinifig(req, figCode);
+    let sets: Set[] = await getSetsFromSpecificMinifig(req, minifig);
     
     res.render("sets-met-bepaalde-minifig", { minifig, setsMetBepaaldeMinifig: sets });
 });
 
 app.get("/minifig-onderdelen/:figCode", secureMiddleware, async (req, res) => {
     let figCode: string = req.params.figCode;
-    let minifig: Minifig = await retrieveSingleMinifig(figCode);
-    let minifigWithParts: MinifigParts = await getPartsOfSpecificMinifig(minifig);
+    let minifig: Minifig = await retrieveSingleMinifig(req, figCode);
+    let minifigWithParts: MinifigParts = await getPartsOfSpecificMinifig(req, minifig);
     
     res.render("minifig-onderdelen", { minifig: minifigWithParts.minifig, parts: minifigWithParts.parts });
 });
