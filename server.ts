@@ -4,7 +4,7 @@ import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
 import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts, Minifig_Set_FromAPI, User } from "./types";
 import { getLoadOfNewMinifigsAtStart, getMinifigsOfSpecificSet, getNewMinifigsFromAPI, getPartsOfSpecificMinifig, getSetsFromSpecificMinifig, retrieveSingleMinifig } from "./functions/fetchFunctions";
-import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs, login } from "./database";
+import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs, login, createNewUser } from "./database";
 import { secureMiddleware } from "./secureMiddleware";
 import session from "./session";
 
@@ -55,13 +55,40 @@ app.get("/logout", secureMiddleware, async (req, res) => {
 app.post("/login", async (req, res) => {
     const email: string = req.body.email;
     const password: string = req.body.password;
+
     try {
         let user: User = await login(email, password);
         delete user.password; 
         req.session.user = user;
         res.redirect("/home");
+        return;
     } catch (error) {
         res.redirect("/login");
+        return;
+    }
+});
+
+app.get("/registreren", (req, res) => {
+    res.render("registreren");
+});
+
+app.post("/registreren", async (req, res) => {
+    const firstName: string = req.body.firstName;
+    const lastName: string = req.body.lastName;
+    const email: string = req.body.email;
+    const password: string = req.body.password;
+
+    try {
+        let newUser: User = await createNewUser(firstName, lastName, email, password);
+        newUser = await login(email, password);
+        delete newUser.password; 
+        req.session.user = newUser;
+        res.redirect("/home");
+        return;
+    } catch (error) {
+        console.error(error);
+        res.redirect("/registreren");
+        return;
     }
 });
 

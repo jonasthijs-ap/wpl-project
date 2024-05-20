@@ -65,7 +65,7 @@ export const exit = async () => {
     }
 }
 
-async function createInitialUser() {
+async function createInitialUser(): Promise<void> {
     if (await userCollection.countDocuments() > 0) return;
     
     let firstName: string | undefined = process.env.ADMIN_FN;
@@ -84,6 +84,22 @@ async function createInitialUser() {
         password: await bcrypt.hash(password, saltRounds),
         role: "ADMIN"
     });
+}
+
+export async function createNewUser(firstName: string, lastName: string, email: string, password: string): Promise<User> {
+    if (firstName === undefined || lastName === undefined || email === undefined || password === undefined) {
+        throw new Error("Some user values were not set properly. Please try again!");
+    }
+
+    await userCollection.insertOne({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: await bcrypt.hash(password, saltRounds),
+        role: "USER"
+    });
+
+    return { firstName, lastName, email, password, role: "USER" }
 }
 
 export async function login(email: string, password: string) {
