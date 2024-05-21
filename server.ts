@@ -41,7 +41,7 @@ app.get("/home", secureMiddleware, async (req, res) => {
     let user: User | undefined = req.session.user;
     if (user !== undefined) {
         const unsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs(user);
-        res.render("homepagina", { unsortedMinifigs });
+        res.render("homepagina", { minifigToOrder: unsortedMinifigs });
     }
 });
 
@@ -143,7 +143,7 @@ app.get("/minifigs-in-set/:setCode", secureMiddleware, async (req, res) => {
     res.render("minifigs-in-set", { set, minifigsInSet: minifigs });
 });
 
-app.get("/home", async (req, res) => {
+/* app.get("/home", async (req, res) => {
     counter = 0;
     maxCounter = 0;
     
@@ -160,7 +160,7 @@ app.get("/home", async (req, res) => {
         //minifigToOrder.splice(0, minifigToOrder.length);
         res.render('homepagina', { minifigToOrder });
     }
-});
+}); */
 
 app.post("/addNewMinifigToDatabase", async (req, res) => {
     const { minifigs } = req.body;
