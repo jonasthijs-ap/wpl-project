@@ -1,22 +1,14 @@
-<%- include('partials/header.ejs', { title:"Aanmelden" }); %>
 
-<body>
-    <header>
-        <nav class="navbar container-fluid justify-content-end">
-            <form class="d-flex gap-2">
-                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-circle">&ensp;</i>Login</a>
-                <a href="/registreren" class="btn btn-dark orange-hover" id="register-btn"><i class="bi bi-person-vcard-fill">&ensp;</i>Registreren</a>
-            </form>
-        </nav>
-    </header>
-    
+<%- include('partials/head.ejs', {title: "Aanmelden"}) %>
+<%- include("partials/header-simple.ejs") %>    
+
     <main class="container d-flex justify-content-center align-items-center min-vh-100">
 
         <section class="row border rounded-5 p-3 bg-white shadow box-area">
 
             <article class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
                 <figure class="featured-image mb-3 left-img">
-                    <img src="/assets/images/click-logo.png" class="img-fluid w-100" />
+                    <img src="/assets/assets/images/click-logo.png" class="img-fluid w-100" />
                 </figure>
             </article>
             

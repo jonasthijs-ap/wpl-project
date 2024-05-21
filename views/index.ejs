@@ -1,26 +1,16 @@
-<%- include('partials/header.ejs', {title:"Startpagina"}) %>
-
-<body>
-
-    <header>
-        <nav class="navbar container-fluid justify-content-end">
-            <form class="d-flex gap-2">
-                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-circle">&ensp;</i>Login</a>
-                <a href="/registreren" class="btn btn-dark orange-hover" id="register-btn"><i class="bi bi-person-vcard-fill">&ensp;</i>Registreren</a>
-            </form>
-        </nav>
-    </header>
+<%- include('partials/head.ejs', {title: "Startpagina"}) %>
+<%- include("partials/header-simple.ejs") %>
 
     <main>
 
         <section class="container">
             <section class="row">
-                
+
 
                 <article class="col-xl-4 col-md-6 col-sm-12">
                     <a href="/foute-game" class="no-link-style">
                         <figure class="card rounded-4">
-                            <img src="images/logo_games/FIFA.svg" alt="FIFA" class="card-img-top game-logo rounded-4" /><!--De afbeelding is public domain-->
+                            <img src="/assets/images/logo_games/FIFA.svg" alt="FIFA" class="card-img-top game-logo rounded-4" /><!--De afbeelding is public domain-->
                             <div class="card-body">
                                 <figcaption class="card-text d-block btn btn-warning orange-hover"><i class="bi bi-eye-fill">&ensp;</i>FIFA</figcaption>
                             </div>
@@ -31,7 +21,7 @@
                 <article class="col-xl-4 col-md-6 col-sm-12">
                     <a href="/home" class="no-link-style">
                         <figure class="card rounded-4">
-                            <img src="images/logo_games/lego-masters.png" alt="Lego Masters" class="card-img-top game-logo object-fit-cover rounded-4" /><!--Afbeelding komt van de API-->
+                            <img src="/assets/images/logo_games/lego-masters.png" alt="Lego Masters" class="card-img-top game-logo object-fit-cover rounded-4" /><!--Afbeelding komt van de API-->
                             <div class="card-body">
                                 <figcaption class="card-text d-block btn btn-success orange-hover"><i class="bi bi-eye-fill">&ensp;</i>Lego Masters</figcaption>
                             </div>
@@ -42,7 +32,7 @@
                 <article class="col-xl-4 col-md-6 col-sm-12">
                     <a href="/foute-game" class="no-link-style">
                         <figure class="card rounded-4">
-                            <img src="images/logo_games/Fortnite.svg" alt="Fortnite" class="card-img-top game-logo rounded-4" /><!--De afbeelding is public domain-->
+                            <img src="/assets/images/logo_games/Fortnite.svg" alt="Fortnite" class="card-img-top game-logo rounded-4" /><!--De afbeelding is public domain-->
                             <div class="card-body">
                                 <figcaption class="card-text d-block btn btn-danger orange-hover"><i class="bi bi-eye-fill">&nbsp;</i>Fortnite</figcaption>
                             </div>
@@ -53,7 +43,7 @@
                 <article class="col-xl-4 col-md-6 col-sm-12">
                     <a href="/foute-game" class="no-link-style">
                         <figure class="card rounded-4">
-                            <img src="images/logo_games/LOTR.svg" alt="LOTR" class="card-img-top bg-black game-logo rounded-4" /><!--De afbeelding is public domain-->
+                            <img src="/assets/images/logo_games/LOTR.svg" alt="LOTR" class="card-img-top bg-black game-logo rounded-4" /><!--De afbeelding is public domain-->
                             <div class="card-body">
                                 <figcaption class="card-text d-block btn btn-danger orange-hover"><i class="bi bi-eye-fill">&nbsp;</i>LOTR</figcaption>
                             </div>
@@ -64,7 +54,7 @@
                 <article class="col-xl-4 col-md-6 col-sm-12">
                     <a href="/foute-game" class="no-link-style">
                         <figure class="card rounded-4">
-                            <img src="images/logo_games/MTG.svg" alt="MTG" class="card-img-top game-logo rounded-4" /><!--De afbeelding is public domain-->
+                            <img src="/assets/images/logo_games/MTG.svg" alt="MTG" class="card-img-top game-logo rounded-4" /><!--De afbeelding is public domain-->
                             <div class="card-body">
                                 <figcaption class="card-text d-block btn btn-success orange-hover"><i class="bi bi-eye-fill">&nbsp;</i>MTG</figcaption>
                             </div>
@@ -75,16 +65,16 @@
                 <article class="col-xl-4 col-md-6 col-sm-12">
                     <a href="/foute-game" class="no-link-style">
                         <figure class="card rounded-4">
-                            <img src="images/logo_games/Pokémon.svg" alt="Pokémon" class="card-img-top game-logo rounded-4" /><!--De afbeelding is public domain-->
+                            <img src="/assets/images/logo_games/Pokémon.svg" alt="Pokémon" class="card-img-top game-logo rounded-4" /><!--De afbeelding is public domain-->
                             <div class="card-body">
                                 <figcaption class="card-text d-block btn btn-warning orange-hover"><i class="bi bi-eye-fill">&nbsp;</i>Pokémon</figcaption>
                             </div>
                         </figure>
                     </a>
                 </article>
-                
+
             </section>
-           
+
         </section>
 
     </main>

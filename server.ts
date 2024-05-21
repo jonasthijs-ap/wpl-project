@@ -181,7 +181,7 @@ app.get("/resultaten-ordenen", secureMiddleware, async (req, res) => {
     const usedMinifigs: Minifig[] = req.body.usedMinifigs;
     const skippedMinifigs: Minifig[] = req.body.skippedMinifigs;
 
-    res.render("resultaten-ordenen", { usedMinifigs, skippedMinifigs });
+    res.render("resultaten-ordenen", {usedMinifigs, skippedMinifigs});
     return;
 });
 let counter : number ;

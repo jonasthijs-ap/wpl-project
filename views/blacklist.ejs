@@ -1,50 +1,5 @@
-<%- include("partials/header.ejs", { title: "Blacklist" }); %>
-
-<body>
-    <header class="navbar navbar-expand-lg fixed-top">
-        <nav class="container-fluid justify-content-between">
-            <a href="/homepagina" class="navbar-brand">
-                <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
-                Lego Masters
-            </a>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-                        <a href="/homepagina" class="navbar-brand">
-                            <img src="/assets/images/click-logo.png" class="click-logo" alt="logo" /><!--Afbeelding zelf gemaakt via canva-->
-                            Lego Masters
-                        </a>
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-
-                <div class="offcanvas-body d-flex justify-content-lg-center">
-                    <ul class="navbar-nav gap-2">
-                        <li class="nav-item">
-                            <a href="/niet-geordende-minifigs" class="btn btn-danger me-2">Niet-geordende minifigs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/blacklist" class="btn btn-dark me-2">Blacklist</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/geordende-minifigs" class="btn btn-success me-2">Geordende minifigs</a>
-                        </li>
-                        <li class="nav-item mt-auto mt-lg-0 d-block d-lg-none">
-                            <form>
-                                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <form class="d-none d-lg-block">
-                <a href="/logout" class="btn btn-outline-dark orange-hover " id="login-btn"><i class="bi bi-person-fill-dash">&ensp;</i>Uitloggen</a>
-            </form>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </nav>
-    </header>
+<%- include("partials/head.ejs", { title: "Blacklist" }); %>
+<%- include("partials/header-complex.ejs") %>
 
     <main class="container"><!--De afbeeldingen komen van de API-->
         <!--Blacklist modal-->
@@ -68,7 +23,7 @@
                 </div>
             </article>
         </section>
-        <hgroup>
+        <hgroup class="container-fluid col-lg-10">
             <h1>Gevangengenomen minifigs (blacklist)</h1>
             <p>WELKOM op de pagina blacklist. Hier kan je de geblacklisten minifigs terug vinden. Blacklist wilt namelijk zeggen dat de minifigs die niet worden gebruikt tijdens het sorteren van de minifigs automatisch in de blacklist lijst terug komen.<br />Hierbij kan je ook nog de reden meegegven of wijzigen bij het blacklisten van een individuele minifig</p>
         </hgroup>
