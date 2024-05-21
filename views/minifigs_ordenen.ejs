@@ -90,7 +90,7 @@
                             <figcaption class="card-text fw-bold"><%= minifigOrdenen.name %></figcaption>
                         </div>
                         <div class="card-footer">
-                            <a href="/minifig-onderdelen" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
+                            <a href="/minifig-onderdelen/<%=minifigOrdenen.figCode%>" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
                             </a>
                             <a href="/sets-met-bepaalde-minifig" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
@@ -119,7 +119,7 @@
                                 <i class="bi bi-ban"></i><!--Minifig blacklisten-->
                             </button>
                             <button type="submit" class="btn btn-success flex-fill rounded-2" formaction="/minifigs-ordenen/bevestigen">
-                                <a href="#" class="no-link-style">Bevestigen</a>
+                                Bevestigen
                             </button>
                         </fieldset>
                     </form>

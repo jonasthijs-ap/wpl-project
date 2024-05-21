@@ -193,7 +193,7 @@ export async function getPartsOfSpecificMinifig(minifig: Minifig): Promise<Minif
         );
         const result: Parts_FromAPI[] = (await response.json()).results;
 
-        const output: MinifigParts = convert_PartsFromAPI_ToMinifigsParts(minifig, result);
+        outputMinifigWithParts = convert_PartsFromAPI_ToMinifigsParts(minifig, result);
     }
 
     return new Promise<MinifigParts>((resolve, reject) => {
@@ -222,10 +222,10 @@ export async function getMinifigsOfSpecificSet(set: Set): Promise<Minifig[]> {
     });
 }
 
-export async function get5RandomSets(): Promise<Set[]> {
-    const randomNumber = Math.floor(Math.random() * 3785 + 1);
+export async function get6RandomSets(): Promise<Set[]> {
     let sets: any[] = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
+        const randomNumber = Math.floor(Math.random() * 3785 + 1);
         const response = await fetch(
             `https://rebrickable.com/api/v3/lego/sets/?key=55564703db4246a9f134ad8465a30a48&page=${randomNumber}&page_size=6`
         );

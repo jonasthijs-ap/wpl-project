@@ -1,4 +1,4 @@
-<%- include('partials/header.ejs', {title: Minifig onderdelen}) %>
+<%- include('partials/header.ejs', {title: "Minifig onderdelen"}) %>
 
 
 <body>
@@ -82,7 +82,7 @@
                     <% for (let i =0; i<parts.length; i++) { %>
                         <article class="col-xl-4 col-md-6 col-sm-12">
                             <figure class="card rounded-4">
-                                <img src="https://cdn.rebrickable.com/media/thumbs/parts/elements/<%= parts[i].partNumber%>/85x85p.jpg" class="card-img-top rounded-4" alt="<%= parts[i].name%>" />
+                                <img src="<%= parts[i].imageUrl%>" class="card-img-top rounded-4" alt="<%= parts[i].name%>" />
                                 <div class="card-body">
                                     <figcaption class="card-text fw-bold"><%= parts[i].name %></figcaption>
                                 </div>
