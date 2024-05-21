@@ -1,5 +1,4 @@
-<%- include('partials/header.ejs', {title: "Minifig onderdelen"}) %>
-
+<%- include('partials/header.ejs', { title: "Minifig onderdelen" }) %>
 
 <body>
     <header class="navbar navbar-expand-lg fixed-top">
@@ -82,7 +81,7 @@
                     <% for (let i =0; i<parts.length; i++) { %>
                         <article class="col-xl-4 col-md-6 col-sm-12">
                             <figure class="card rounded-4">
-                                <img src="<%= parts[i].imageUrl%>" class="card-img-top rounded-4" alt="<%= parts[i].name%>" />
+                                <img src="<%= parts[i].imageUrl %>" class="card-img-top rounded-4" alt="<%= parts[i].name %>" />
                                 <div class="card-body">
                                     <figcaption class="card-text fw-bold"><%= parts[i].name %></figcaption>
                                 </div>

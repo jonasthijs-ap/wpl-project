@@ -1,12 +1,11 @@
-
-<%- include('partials/header.ejs', {title:"Aanmelden"}) %>
+<%- include('partials/header.ejs', { title:"Aanmelden" }); %>
 
 <body>
     <header>
         <nav class="navbar container-fluid justify-content-end">
             <form class="d-flex gap-2">
-                <a href="login.html" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-circle">&ensp;</i>Login</a>
-                <a href="registreren.html" class="btn btn-dark orange-hover" id="register-btn"><i class="bi bi-person-vcard-fill">&ensp;</i>Registreren</a>
+                <a href="/login" class="btn btn-outline-dark orange-hover" id="login-btn"><i class="bi bi-person-circle">&ensp;</i>Login</a>
+                <a href="/registreren" class="btn btn-dark orange-hover" id="register-btn"><i class="bi bi-person-vcard-fill">&ensp;</i>Registreren</a>
             </form>
         </nav>
     </header>
@@ -17,28 +16,28 @@
 
             <article class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
                 <figure class="featured-image mb-3 left-img">
-                    <img src="/images/click-logo.png" class="img-fluid w-100" />
+                    <img src="/assets/images/click-logo.png" class="img-fluid w-100" />
                 </figure>
             </article>
             
             <article class="col-md-6 right-box">
-                <form action="#" method="post" class="row align-items-center">
+                <form action="/login" method="post" class="row align-items-center">
                     <hgroup class="header-text mb-4">
                         <h3>Inloggen</h3>
                         <p>Welkom bij Lego Masters</p>
                     </hgroup>
                     <fieldset class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="E-mailadres" />
+                        <input type="text" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="E-mailadres" />
                     </fieldset>
                     <fieldset class="input-group mb-1">
-                        <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Wachtwoord" />
+                        <input type="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Wachtwoord" />
                     </fieldset>
                     <br class="input-group mb-5 d-flex justify-content-between" />
                     <fieldset class="input-group mb-3">
-                        <a href="homepagina.html" class="btn btn-lg btn-warning w-100 fs-6">Login&ensp;<i class="bi bi-arrow-right"></i></a>
+                        <button type="submit" class="btn btn-lg btn-warning w-100 fs-6">Login&ensp;<i class="bi bi-arrow-right"></i></button>
                     </fieldset>
                     <div class="row">
-                        <small>Heb je geen account? Laat je <a href="registreren.html">Registreren</a>.</small>
+                        <small>Heb je geen account? Laat je <a href="/registreren">Registreren</a>.</small>
                     </div>
                 </form>
             </article>
@@ -47,4 +46,4 @@
         
     </main>
 
-    <% include('partials/footer.ejs') %>
+    <% include('partials/footer.ejs'); %>

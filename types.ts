@@ -1,5 +1,36 @@
 import { ObjectId } from "mongodb";
 
+export interface User {
+    _id?: ObjectId;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password?: string;
+    role: "ADMIN" | "USER";
+}
+
+// Lists of game data with user-related objects/data
+
+export interface BlacklistGameData {
+    _id?: ObjectId;
+    email: string;
+    blacklistedMinifigs: Blacklist[];
+}
+
+export interface SortedMinifigsGameData {
+    _id?: ObjectId;
+    email: string;
+    sortedMinifigs: MinifigSet[];
+}
+
+export interface UnsortedMinifigsGameData {
+    _id?: ObjectId;
+    email: string;
+    unsortedMinifigs: Minifig[];
+}
+
+// General entity interfaces
+
 export interface Minifig {
     _id?: ObjectId;
     name: string;

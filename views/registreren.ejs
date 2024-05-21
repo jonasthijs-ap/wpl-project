@@ -1,4 +1,4 @@
-<%- include("prartials/header.ejs", {title: "Registreren"}) %>
+<%- include("partials/header.ejs", { title: "Registreren" }) %>
 
 <body>
     <header>
@@ -21,7 +21,7 @@
             </article>
             
             <article class="col-md-6 right-box">
-                <form action="#" method="post" class="row align-items-center">
+                <form action="/registreren" method="post" class="row align-items-center">
                     <hgroup class="header-text mb-4">
                          <h3>Aanmelden</h3>
                          <p>Maak hier je account</p>
@@ -33,7 +33,7 @@
                         <input type="text" id="first-name" name="firstName" class="form-control input-group mb-3" placeholder="Vul hier uw voornaam in..." />
                         
                         <label class="form-label input-group mb-1" for="second-name">Achternaam</label>
-                        <input type="text" id="second-name" name="secondName" placeholder="Vul hier uw achternaam in..." class="form-control input-group mb-3" />
+                        <input type="text" id="second-name" name="lastName" placeholder="Vul hier uw achternaam in..." class="form-control input-group mb-3" />
                     </fieldset>
                     <fieldset class="input-group mb-3">
                         <legend>Logingegevens</legend>
@@ -48,7 +48,7 @@
                         <input type="password" id="password-check" class="form-control input-group mb-3" name="passwordCheck" placeholder="Herhaal hier uw gekozen wachtwoord..." />
                     </fieldset>
                     
-                    <button type="submit" name="register" class="btn btn-warning input-group mb-3">Registreren&ensp;<i class="bi bi-arrow-right"></i></button>
+                    <button type="submit" class="btn btn-warning input-group mb-3">Registreren&ensp;<i class="bi bi-arrow-right"></i></button>
                     <div class="row">
                         <small>Heb je al een account? <a href="/login">Inloggen</a>.</small>
                     </div>
