@@ -1,4 +1,4 @@
-import { Minifig, Set, MinifigSet, Minifig_Set_FromAPI, Parts_FromAPI, MinifigParts, Part } from "../types";
+import { Minifig, Set, MinifigSet, Minifig_Set_FromAPI, Parts_FromAPI, MinifigParts, Part, User } from "../types";
 import { client, retrieveSortedMinifigs, retrieveUnsortedMinifigs } from "../database";
 import dotenv from "dotenv";
 import { randomInt } from "crypto";
@@ -87,43 +87,48 @@ export async function retrieveSingleMinifig(req: Express.Request, figCode: strin
     });
 }
 
-export async function getNewMinifigsFromAPI(count: number): Promise<Minifig[]> {
+export async function getNewMinifigsFromAPI(req: Express.Request, count: number): Promise<Minifig[]> {
     let notAvailableFigCodes: string[] = [];
     let figCodesForNewMinifigs: string[] = [];
+
+    let user: User | undefined = req.session.user;
+    let output: Minifig[];
     
-    let unsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs();
-    let sortedMinifigs: MinifigSet[] = await retrieveSortedMinifigs();
+    if (user !== undefined) {
+        let unsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs(user);
+        let sortedMinifigs: MinifigSet[] = await retrieveSortedMinifigs(user);
+        
+        notAvailableFigCodes = unsortedMinifigs.map(value => value.figCode);
+        sortedMinifigs = sortedMinifigs.filter(value => {
+            if (!notAvailableFigCodes.includes(value.minifig.figCode)) return true;
+            else return false;
+        });
+        notAvailableFigCodes = sortedMinifigs.map(value => value.minifig.figCode);
 
-    notAvailableFigCodes = unsortedMinifigs.map(value => value.figCode);
-    sortedMinifigs = sortedMinifigs.filter(value => {
-        if (!notAvailableFigCodes.includes(value.minifig.figCode)) return true;
-        else return false;
-    });
-    notAvailableFigCodes = sortedMinifigs.map(value => value.minifig.figCode);
+        for (let i: number = 0; i < count; i++) {
+            let randomFigCode: string = "fig-";
+            do {
+                let currentCode: string = randomInt(14993).toString();
+                currentCode = currentCode.padStart(6, "0");
+                randomFigCode += currentCode;
+            } while (notAvailableFigCodes.includes(randomFigCode));
+            figCodesForNewMinifigs.push(randomFigCode);
+        }
+        
+        let newMinifigs: Minifig_Set_FromAPI[] = [];
+        
+        for (let currentFigCode of figCodesForNewMinifigs) {
+            const response = await fetch(
+                `https://rebrickable.com/api/v3/lego/minifigs/${currentFigCode}`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
+            );
+            const result: Minifig_Set_FromAPI = await response.json();
+            newMinifigs.push(result);
+            await setTimeout(() => {}, 1500);
+        }
+        
+        output = convert_MinifigsFromAPI_ToMinifigs(newMinifigs);
 
-    for (let i: number = 0; i < count; i++) {
-        let randomFigCode: string = "fig-";
-        do {
-            let currentCode: string = randomInt(14993).toString();
-            currentCode = currentCode.padStart(6, "0");
-            randomFigCode += currentCode;
-        } while (notAvailableFigCodes.includes(randomFigCode));
-        figCodesForNewMinifigs.push(randomFigCode);
     }
-    
-    let newMinifigs: Minifig_Set_FromAPI[] = [];
-
-    for (let currentFigCode of figCodesForNewMinifigs) {
-        const response = await fetch(
-            `https://rebrickable.com/api/v3/lego/minifigs/${currentFigCode}`, {headers: {Authorization: `key ${process.env.API_KEY}`}}
-        );
-        const result: Minifig_Set_FromAPI = await response.json();
-        newMinifigs.push(result);
-        await setTimeout(() => {}, 1500);
-    }
-
-    const output: Minifig[] = convert_MinifigsFromAPI_ToMinifigs(newMinifigs);
-
     return new Promise<Minifig[]>((resolve, reject) => {
         try {
             resolve(output);

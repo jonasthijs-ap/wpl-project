@@ -2,7 +2,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
-import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts, Minifig_Set_FromAPI, User } from "./types";
+import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts, Minifig_Set_FromAPI, User, UnsortedMinifigsGameData } from "./types";
 import { getLoadOfNewMinifigsAtStart, getMinifigsOfSpecificSet, getNewMinifigsFromAPI, getPartsOfSpecificMinifig, getSetsFromSpecificMinifig, retrieveSingleMinifig } from "./functions/fetchFunctions";
 import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs, login, createNewUser } from "./database";
 import { secureMiddleware } from "./secureMiddleware";
@@ -38,8 +38,11 @@ app.get("/foute-game", (req, res) => {
 });
 
 app.get("/home", secureMiddleware, async (req, res) => {
-    const unsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs();
-    res.render("homepagina", { unsortedMinifigs });
+    let user: User | undefined = req.session.user;
+    if (user !== undefined) {
+        const unsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs(user);
+        res.render("homepagina", { unsortedMinifigs });
+    }
 });
 
 app.get("/login", (req, res) => {
@@ -83,6 +86,8 @@ app.post("/registreren", async (req, res) => {
         newUser = await login(email, password);
         delete newUser.password; 
         req.session.user = newUser;
+        let userUnsortedMinifigsDB: UnsortedMinifigsGameData = { email: req.session.user.email, unsortedMinifigs: await getLoadOfNewMinifigsAtStart() };
+        await client.db("GameData").collection("UnsortedMinifigs").insertOne(userUnsortedMinifigsDB);
         res.redirect("/home");
         return;
     } catch (error) {
@@ -93,13 +98,19 @@ app.post("/registreren", async (req, res) => {
 });
 
 app.get("/niet-geordende-minifigs", secureMiddleware, async (req, res) => {
-    let unsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs();
-    res.render("niet-geordende-minifigs", { nietGeordendeMinifigs: unsortedMinifigs });
+    let user: User | undefined = req.session.user;
+    if (user !== undefined) {
+        let unsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs(user);
+        res.render("niet-geordende-minifigs", { nietGeordendeMinifigs: unsortedMinifigs });
+    }
 });
 
 app.get("/geordende-minifigs", secureMiddleware, async (req, res) => {
-    let sortedMinifigs: MinifigSet[] = await retrieveSortedMinifigs();
-    res.render("geordende-minifigs", { sortedMinifigs });
+    let user: User | undefined = req.session.user;
+    if (user !== undefined) {
+        let sortedMinifigs: MinifigSet[] = await retrieveSortedMinifigs(user);
+        res.render("geordende-minifigs", { sortedMinifigs });
+    }
 });
 
 app.get("/sets-met-bepaalde-minifig/:figCode", secureMiddleware, async (req, res) => {

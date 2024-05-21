@@ -2,7 +2,7 @@ import { MongoClient, ObjectId } from "mongodb";
 import session from "express-session";
 import mongoDbSession from "connect-mongodb-session";
 import bcrypt from "bcrypt";
-import { User, Minifig, MinifigSet, Blacklist, MinifigParts, Part, Set } from "./types";
+import { User, Minifig, MinifigSet, Blacklist, MinifigParts, Part, Set, UnsortedMinifigsGameData, BlacklistGameData, SortedMinifigsGameData } from "./types";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -118,28 +118,29 @@ export async function login(email: string, password: string) {
 }
 
 // Async database query functions
-export async function retrieveBlacklist() : Promise<Blacklist[]> {
-    let cursor = client.db("GameData").collection("Blacklist").find<Blacklist>({});
-    let blacklist: Blacklist[] = await cursor.toArray();
+export async function retrieveBlacklist(user: User) : Promise<Blacklist[]> {
+    let response = await client.db("GameData").collection("Blacklist").findOne<BlacklistGameData>({ email: user.email });
+    let blacklist: Blacklist[] = response?.blacklistedMinifigs ? response.blacklistedMinifigs : [];
+    
     return new Promise<Blacklist[]>((resolve, reject) => {
         resolve(blacklist);
     });
 }
 
-export async function retrieveUnsortedMinifigs(): Promise<Minifig[]> {
-    let cursor = client.db("GameData").collection("UnsortedMinifigs").find<Minifig>({});
-    let result: Minifig[] = await cursor.toArray();
+export async function retrieveUnsortedMinifigs(user: User): Promise<Minifig[]> {
+    let response = await client.db("GameData").collection("UnsortedMinifigs").findOne<UnsortedMinifigsGameData>({ email: user.email });
+    let unsortedMinifigs: Minifig[] = response?.unsortedMinifigs ? response.unsortedMinifigs : [];
 
     return new Promise<Minifig[]>((resolve, reject) => {
-        resolve(result);
+        resolve(unsortedMinifigs);
     });
 }
 
-export async function retrieveSortedMinifigs(): Promise<MinifigSet[]> {
-    let cursor = client.db("GameData").collection("SortedMinifigs").find<MinifigSet>({});
-    let result: MinifigSet[] = await cursor.toArray();
+export async function retrieveSortedMinifigs(user: User): Promise<MinifigSet[]> {
+    let response = await client.db("GameData").collection("SortedMinifigs").findOne<SortedMinifigsGameData>({ email: user.email });
+    let sortedMinifigs: MinifigSet[] = response?.sortedMinifigs ? response.sortedMinifigs : [];
 
     return new Promise<MinifigSet[]>((resolve, reject) => {
-        resolve(result);
+        resolve(sortedMinifigs);
     });
 }
