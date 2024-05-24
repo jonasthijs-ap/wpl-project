@@ -330,19 +330,58 @@ app.get("/blacklist", async (req, res) => {
 app.post("/blacklist/changeReason", async (req, res) => {
     let figCodeOfMinifigToChangeReasonOf: string = req.body.minifig;
     let newReasonOfBlacklisting: string = req.body.reason;
-    client.db("GameData").collection("Blacklist").updateOne({ "minifig.figCode": figCodeOfMinifigToChangeReasonOf }, { $set: { reason: newReasonOfBlacklisting } });
+    // client.db("GameData").collection("Blacklist").updateOne({ "minifig.figCode": figCodeOfMinifigToChangeReasonOf }, { $set: { reason: newReasonOfBlacklisting } });
 
-    res.redirect("/blacklist");
-    return;
+    let user: User | undefined = req.session.user;
+
+    if (user !== undefined) {
+        let blacklist: BlacklistGameData | null = await client.db("GameData").collection("Blacklist").findOne<BlacklistGameData>({ email: user.email });
+        let blacklistList: Blacklist[] = blacklist?.blacklistedMinifigs ? blacklist.blacklistedMinifigs : [];
+        blacklistList[blacklistList.findIndex(entity => entity.minifig.figCode === figCodeOfMinifigToChangeReasonOf)].reason = newReasonOfBlacklisting;
+        
+        await client.db("GameData").collection("Blacklist").updateOne(
+            { email: user.email },
+            { $set: { email: user.email, blacklistedMinifigs: blacklistList } },
+            { upsert: true }
+        );
+        
+        res.redirect("/blacklist");
+        return;
+    }
 });
 
 app.post("/blacklist/remove", async (req, res) => {
     let figCodeOfMinifigToRemove: string = req.body.minifig;
-    let result = await client.db("GameData").collection("Blacklist").deleteOne({ "minifig.figCode": figCodeOfMinifigToRemove });
-    console.log(result);
-    
-    res.redirect("/blacklist");
-    return;
+
+    let user: User | undefined = req.session.user;
+
+    if (user !== undefined) {
+        let blacklist: BlacklistGameData | null = await client.db("GameData").collection("Blacklist").findOne<BlacklistGameData>({ email: user.email });
+        let blacklistList: Blacklist[] = blacklist?.blacklistedMinifigs ? blacklist.blacklistedMinifigs : [];
+        let minifig: Minifig | undefined = blacklistList.find(entity => entity.minifig.figCode === figCodeOfMinifigToRemove)?.minifig;
+        blacklistList = blacklistList.filter(entity => entity.minifig.figCode !== figCodeOfMinifigToRemove);
+        
+        await client.db("GameData").collection("Blacklist").updateOne(
+            { email: user.email },
+            { $set: { email: user.email, blacklistedMinifigs: blacklistList } },
+            { upsert: true }
+        );
+
+        if (minifig !== undefined) {
+            let unsortedMinifigs: UnsortedMinifigsGameData | null = await client.db("GameData").collection("UnsortedMinifigs").findOne<UnsortedMinifigsGameData>({ email: user.email });
+            let unsortedList = unsortedMinifigs?.unsortedMinifigs ? unsortedMinifigs.unsortedMinifigs : [];
+            unsortedList.push(minifig);
+
+            await client.db("GameData").collection("UnsortedMinifigs").updateOne(
+                { email: user.email },
+                { $set: { email: user.email, unsortedMinifigs: unsortedList } },
+                { upsert: true }
+            );
+        }
+        
+        res.redirect("/blacklist");
+        return;
+    }
 });
 
 // Wanneer opgevraagde pagina niet gevonden wordt (HTTP 404 NOT FOUND), wordt dit opgeroepen in de middleware
