@@ -2,7 +2,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
-import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts, Minifig_Set_FromAPI, User, UnsortedMinifigsGameData } from "./types";
+import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts, Minifig_Set_FromAPI, User, UnsortedMinifigsGameData, BlacklistGameData } from "./types";
 import { get6RandomSets, getLoadOfNewMinifigsAtStart, getMinifigsOfSpecificSet, getNewMinifigsFromAPI, getPartsOfSpecificMinifig, getSetsFromSpecificMinifig, retrieveSingleMinifig, retrieveSingleSet } from "./functions/fetchFunctions";
 import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs, login, createNewUser, addMinifigToSet } from "./database";
 import { secureMiddleware } from "./secureMiddleware";
@@ -288,15 +288,43 @@ app.post("/minifigs-ordenen/addToBlacklist", async (req, res) => {
         minifig: minifigToBlacklist
     };
 
-    await client.db("GameData").collection("Blacklist").insertOne(result);
+    let user: User | undefined = req.session.user;
+    
+    if (user !== undefined) {
+        // Find entity from unsorted list
+        let unsortedMinifigs: UnsortedMinifigsGameData | null = await client.db("GameData").collection("UnsortedMinifigs").findOne<UnsortedMinifigsGameData>({ email: user.email });
+        let unsortedList: Minifig[] = unsortedMinifigs?.unsortedMinifigs ? unsortedMinifigs.unsortedMinifigs : [];
+        let minifig: Minifig | undefined = unsortedList.find(minifig => minifig.figCode === figCodeOfMinifigToBlacklist);
+        unsortedList = unsortedList.filter(value => value.figCode !== figCodeOfMinifigToBlacklist); // Filter out the selected entity
 
-    res.sendStatus(201).redirect("/blacklist");
-    return;
+        // Push new entity to blacklist
+        let blacklist: BlacklistGameData | null = await client.db("GameData").collection("Blacklist").findOne<BlacklistGameData>({ email: user.email });
+        let blacklistList: Blacklist[] = blacklist?.blacklistedMinifigs ? blacklist.blacklistedMinifigs : [];
+        blacklistList.push(result);
+        await client.db("GameData").collection("Blacklist").updateOne(
+            { email: user.email },
+            { $set: { email: user.email, blacklistedMinifigs: blacklistList } },
+            { upsert: true }
+        );
+        
+        // Remove entity from unsorted list
+        await client.db("GameData").collection("UnsortedMinifigs").updateOne(
+            { email: user.email },
+            { $set: { email: user.email, unsortedMinifigs: unsortedList } },
+            { upsert: true }
+        );
+
+        res.redirect("/minifigs-ordenen");
+        return;
+    }
 });
 
 app.get("/blacklist", async (req, res) => {
-    let blacklist: Blacklist[] = await retrieveBlacklist();
-    res.render("blacklist", { blacklistedMinifigs: blacklist });
+    let user: User | undefined = req.session.user;
+    if (user !== undefined) {
+        let blacklist: Blacklist[] = await retrieveBlacklist(user);
+        res.render("blacklist", { blacklistedMinifigs: blacklist });
+    }
 });
 
 app.post("/blacklist/changeReason", async (req, res) => {

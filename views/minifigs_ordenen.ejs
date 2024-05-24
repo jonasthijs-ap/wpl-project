@@ -7,7 +7,7 @@
         <!--BEGIN MODAL-->
         <section class="modal fade" id="modal-blacklist" tabindex="-1" aria-labelledby="modal-blacklistLabel" aria-hidden="true">
             <article class="modal-dialog">
-                <form class="modal-content text-start">
+                <form class="modal-content text-start" action="/minifigs-ordenen/addToBlacklist" method="post">
                     <fieldset class="modal-header">
                         <h1 class="modal-title fs-5" id="modal-blacklistLabel">Waarom wil je deze minifig blacklisten?</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -15,12 +15,13 @@
 
                     <fieldset class="modal-body">
                         <label for="reason" class="form-label">Geef hier je reden</label>
-                        <input type="text" id="reason" class="form-control" />
+                        <input type="text" name="reason" id="reason" class="form-control" />
+                        <input type="hidden" name="figCode" value="<%= minifigOrdenen.figCode %>" />
                     </fieldset>
 
                     <fieldset class="modal-footer">
                         <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Sluit</button>
-                        <button type="button" class="btn btn-warning">Verzenden</button>
+                        <button type="submit" class="btn btn-warning">Verzenden</button>
                     </fieldset>
                 </form>
             </article>
@@ -56,7 +57,7 @@
                     
                 </article>
                 <article>
-                    <form class="d-flex flex-column gap-3" action="/minifigs-ordenen/skip" method="post">
+                    <form class="d-flex flex-column gap-3">
                         <fieldset class="d-grid form-floating gap-2">
                             <select class="form-select rounded-4" name="setsSelect" id="sets-select">
                                 <% for (let set of sets) { %>
@@ -66,14 +67,14 @@
                             <label for="sets-select">Selecteer een set om deze minifig in te plaatsen</label>
                         </fieldset>
                         <fieldset class="d-flex flex-row gap-2">
-                            <button type="submit" id="minifig-skip" class="btn btn-warning rounded-2" name="minifigSkip" formaction="/minifigs-ordenen/skip">
+                            <button type="submit" id="minifig-skip" class="btn btn-warning rounded-2" name="minifigSkip" formaction="/minifigs-ordenen/skip" formmethod="post">
                                 <a href="#" class="no-link-style"><i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan--></a>
                                 <input type="hidden" name="minifigId" value="<%= minifigOrdenen.figCode %>" />
                             </button>
-                            <button id="minifig-blacklist" class="btn btn-dark rounded-2" name="minifigBlacklist" data-bs-toggle="modal" data-bs-target="#modal-blacklist">
+                            <button type="button" id="minifig-blacklist" class="btn btn-dark rounded-2" name="minifigBlacklist" data-bs-toggle="modal" data-bs-target="#modal-blacklist">
                                 <i class="bi bi-ban"></i><!--Minifig blacklisten-->
                             </button>
-                            <button type="submit" class="btn btn-success flex-fill rounded-2" formaction="/minifigs-ordenen/bevestigen">
+                            <button type="submit" class="btn btn-success flex-fill rounded-2" formaction="/minifigs-ordenen/bevestigen" formmethod="post">
                                 Bevestigen
                             </button>
                         </fieldset>
