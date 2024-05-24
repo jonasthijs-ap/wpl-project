@@ -146,6 +146,9 @@ export async function retrieveSortedMinifigs(user: User): Promise<MinifigSet[]> 
     });
 }
 
-export async function addMinifigToSet(minifig: Minifig, set: Set): Promise<void> {
-    await client.db("GameData").collection("SortedMinifigs").insertOne({ minifig: minifig, set: set });
+export async function addMinifigToSet(user: User, minifig: Minifig, set: Set): Promise<void> {
+    const newMinifigSet: MinifigSet = { minifig, set };
+    const currentMinifigSets = await retrieveSortedMinifigs(user);
+    currentMinifigSets.push(newMinifigSet);
+    await client.db("GameData").collection("SortedMinifigs").updateOne({ email: user.email }, { $set: { sortedMinifigs: currentMinifigSets } }, { upsert: true });
 }

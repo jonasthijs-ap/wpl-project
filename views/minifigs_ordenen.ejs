@@ -7,21 +7,21 @@
         <!--BEGIN MODAL-->
         <section class="modal fade" id="modal-blacklist" tabindex="-1" aria-labelledby="modal-blacklistLabel" aria-hidden="true">
             <article class="modal-dialog">
-                <form class="modal-content text-start">
+                <form action="/minifigs-ordenen/blacklist" class="modal-content text-start" method="post">
                     <fieldset class="modal-header">
                         <h1 class="modal-title fs-5" id="modal-blacklistLabel">Waarom wil je deze minifig blacklisten?</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </fieldset>
 
                     <fieldset class="modal-body">
                         <label for="reason" class="form-label">Geef hier je reden</label>
-                        <input type="text" id="reason" class="form-control" />
+                        <input type="text" id="reason" name="reason" class="form-control" />
                     </fieldset>
-
+                    <input type="hidden" name="minifigId" value="<%= minifigOrdenen.figCode %>" />
                     <fieldset class="modal-footer">
-                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Sluit</button>
-                        <button type="button" class="btn btn-warning">Verzenden</button>
-                    </fieldset>
+                        <button class="btn btn-dark" data-bs-dismiss="modal">Sluit</button>
+                        <button type="submit" class="btn btn-warning">Verzenden</button>
+                    </fieldset>                                
                 </form>
             </article>
         </section>
@@ -70,9 +70,9 @@
                                 <a href="#" class="no-link-style"><i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan--></a>
                                 <input type="hidden" name="minifigId" value="<%= minifigOrdenen.figCode %>" />
                             </button>
-                            <button id="minifig-blacklist" class="btn btn-dark rounded-2" name="minifigBlacklist" data-bs-toggle="modal" data-bs-target="#modal-blacklist">
+                            <a id="minifig-blacklist" class="btn btn-dark rounded-2" name="minifigBlacklist" data-bs-toggle="modal" data-bs-target="#modal-blacklist">
                                 <i class="bi bi-ban"></i><!--Minifig blacklisten-->
-                            </button>
+                            </a>
                             <button type="submit" class="btn btn-success flex-fill rounded-2" formaction="/minifigs-ordenen/bevestigen">
                                 Bevestigen
                             </button>

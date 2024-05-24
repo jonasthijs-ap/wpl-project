@@ -39,10 +39,15 @@ app.get("/foute-game", (req, res) => {
 });
 
 app.get("/home", secureMiddleware, async (req, res) => {
+    counter = 0;
+    maxCounter = 0;
+    skippedMinifigs = [];
+    bevestigdMinifigs = [];
+    blacklistedMinifigs = [];
     let user: User | undefined = req.session.user;
     if (user !== undefined) {
         const unsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs(user);
-        console.log(unsortedMinifigs.length);
+        maxCounter = unsortedMinifigs.length;
         res.render("homepagina", { minifigToOrder: unsortedMinifigs });
     }
 });
@@ -194,12 +199,12 @@ app.get("/password-reset", async (req, res) => {
 });
 
 app.post("/addNewMinifigToDatabase", async (req, res) => {
+    let user: User | undefined = req.session.user;
     const { minifigs } = req.body;
     maxCounter = parseInt(minifigs);
     const newMinifigs: Minifig[] = await getNewMinifigsFromAPI(req, parseInt(minifigs));
-    for (let i = 0; i < newMinifigs.length; i++) {
-        await client.db("GameData").collection("UnsortedMinifigs").insertOne(newMinifigs[i]);
-    }
+    await client.db("GameData").collection("UnsortedMinifigs").updateOne({ email: user!.email }, { $set: { unsortedMinifigs: newMinifigs } });
+    maxCounter = parseInt(minifigs);
     res.redirect("/minifigs-ordenen");
 });
 
@@ -230,7 +235,6 @@ app.get("/minifigs-ordenen", async (req, res) => {
             //let minifig = await getNewMinifigsFromAPI(1);
             res.redirect("/home");
             //einde van minifig ordenen de resultaten pagina tonen
-            counter = 0;
             return;
 
 
@@ -239,7 +243,6 @@ app.get("/minifigs-ordenen", async (req, res) => {
             let randomMinifig = UnsortedMinifigs[Math.floor(Math.random() * UnsortedMinifigs.length)];
             let sets: Set[] = [];
             sets = await get6RandomSets();
-            counter++;
 
             res.render("minifigs_ordenen", { minifigOrdenen: randomMinifig, sets });
 
@@ -256,27 +259,56 @@ app.post("/minifigs-ordenen/skip", async (req, res) => {
 
     const skippedMinifig = req.body.minifigId; 
     skippedMinifigs.push(skippedMinifig);
+    counter++;
+
+    res.redirect("/minifigs-ordenen");
+});
+let bevestigdMinifigs: string[] = [];
+app.post("/minifigs-ordenen/bevestigen", async (req, res) => {
+    let user: User | undefined = req.session.user;
+    const minifig = await retrieveSingleMinifig(req, req.body.minifigId);
+    const set = await retrieveSingleSet(req.body.setsSelect);
+    await addMinifigToSet(user!, minifig, set);
+    // verwijder minifig uit unsortedMinifigs van de user
+    const usersMinifigs = await client.db("GameData").collection("UnsortedMinifigs").findOne({ email: user?.email }, { projection: { unsortedMinifigs: 1 } });
+    const newUnsortedMinifigs = usersMinifigs?.unsortedMinifigs?.filter((minifig: { figCode: string }) => minifig.figCode !== req.body.minifigId);
+    if (usersMinifigs) {
+        await client.db("GameData").collection("UnsortedMinifigs").updateOne({ email: user?.email }, { $set: { unsortedMinifigs: newUnsortedMinifigs } });
+    }
+    counter++;
+    bevestigdMinifigs.push(req.body.minifigId);
     res.redirect("/minifigs-ordenen");
 });
 
-app.post("/minifigs-ordenen/bevestigen", async (req, res) => {
-    let user : User | undefined = req.session.user;
+let blacklistedMinifigs: string[] = [];
+app.post("/minifigs-ordenen/blacklist", async (req, res) => {
+    let user: User | undefined = req.session.user;
     const minifig = await retrieveSingleMinifig(req, req.body.minifigId);
-    const set = await retrieveSingleSet(req.body.setsSelect);
-    await addMinifigToSet(minifig, set);
+    const reason = req.body.reason;
+    const userBlacklist = await client.db("GameData").collection("Blacklist").findOne({ email: user?.email }, { projection: { blacklistedMinifigs: 1 } });
+    if (userBlacklist) {
+        const newBlacklist = { minifig, reason };
+        userBlacklist.blacklistedMinifigs.push(newBlacklist);
+        await client.db("GameData").collection("Blacklist").updateOne({ email: user?.email }, { $set: { blacklistedMinifigs: userBlacklist.blacklistedMinifigs } }, { upsert: true });
+    } else {
+        await client.db("GameData").collection("Blacklist").insertOne({ email: user?.email, blacklistedMinifigs: [{ minifig, reason }] });
+    }
     // verwijder minifig uit unsortedMinifigs van de user
-    const usersMinifigs = await client.db("GameData").collection("UnsortedMinifigs").findOne({ email : user?.email }, { projection: { unsortedMinifigs: 1 } });
-    const newUnsortedMinifigs = usersMinifigs?.unsortedMinifigs?.filter((minifig: { figCode: string }) => minifig.figCode === req.body.minifigId);
-    await client.db("GameData").collection("UnsortedMinifigs").updateOne({ email : user?.email }, { $set: { unsortedMinifigs: newUnsortedMinifigs } });
+    const usersMinifigs = await client.db("GameData").collection("UnsortedMinifigs").findOne({ email: user?.email }, { projection: { unsortedMinifigs: 1 } });
+    const newUnsortedMinifigs = usersMinifigs?.unsortedMinifigs?.filter((minifig: { figCode: string }) => minifig.figCode !== req.body.minifigId);
+    if (usersMinifigs) {
+        await client.db("GameData").collection("UnsortedMinifigs").updateOne({ email: user?.email }, { $set: { unsortedMinifigs: newUnsortedMinifigs } });
+    }
+    counter++;
+    blacklistedMinifigs.push(req.body.minifigId);
     res.redirect("/minifigs-ordenen");
 });
 
 //gebruikte en skip miniffigs lokaal opgeslagen
 app.get("/resultaten", async (req, res) => {
-    maxCounter = 0;
     let user: User | undefined = req.session.user;
     if (user !== undefined) {
-        let sortedMinifigs: MinifigSet[] = await retrieveSortedMinifigs(user);
+        //let sortedMinifigs: MinifigSet[] = await retrieveSortedMinifigs(user);
         // filter through duplicates in skippedMinifigs
         for (let i = 0; i < skippedMinifigs.length; i++) {
             for (let j = i + 1; j < skippedMinifigs.length; j++) {
@@ -285,7 +317,8 @@ app.get("/resultaten", async (req, res) => {
                 }
             }
         }
-        res.render("resultaten-ordenen", { usedMinifigs : sortedMinifigs, skippedMinifigs });
+        
+        res.render("resultaten-ordenen", { usedMinifigs : bevestigdMinifigs, skippedMinifigs, blacklistedMinifigs });
     }
 });
 
@@ -300,7 +333,14 @@ app.post("/resultaten-ordenen/gebruikte-minifigs", secureMiddleware, async (req,
         return;
     }
 });
-
+app.post("/resultaten-ordenen/blacklist", secureMiddleware, async (req, res) => {
+    let user: User | undefined = req.session.user;
+    if (user !== undefined) {
+        const blacklistedMinifigs: Blacklist[] = await retrieveBlacklist(user);
+        res.render("blacklist", { blacklistedMinifigs });
+        return;
+    }
+});
 app.post("/resultaten-ordenen/overgeslagen-minifigs", secureMiddleware, async (req, res) => {
     let skippedFigs: Minifig[] = [];
     for (let i = 0; i < skippedMinifigs.length; i++) {
@@ -329,7 +369,9 @@ app.post("/minifigs-ordenen/addToBlacklist", async (req, res) => {
 });
 
 app.get("/blacklist", async (req, res) => {
-    let blacklist: Blacklist[] = await retrieveBlacklist();
+    let user: User | undefined = req.session.user;
+    let blacklist: Blacklist[] = user? await retrieveBlacklist(user) : [];
+    console.log(blacklist);
     res.render("blacklist", { blacklistedMinifigs: blacklist });
 });
 
