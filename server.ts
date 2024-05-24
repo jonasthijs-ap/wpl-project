@@ -277,6 +277,46 @@ app.post("/resultaten-ordenen/overgeslagen-minifigs", secureMiddleware, async (r
     return;
 });
 
+// Express-routes
+app.post("/minifigs-ordenen/addToBlacklist", async (req, res) => {
+    const figCodeOfMinifigToBlacklist: string = req.body.figCode;
+    const reasonOfBlacklisting: string = req.body.reason;
+
+    let minifigToBlacklist: Minifig = await retrieveSingleMinifig(req, figCodeOfMinifigToBlacklist);
+    let result: Blacklist = {
+        reason: reasonOfBlacklisting,
+        minifig: minifigToBlacklist
+    };
+
+    await client.db("GameData").collection("Blacklist").insertOne(result);
+
+    res.sendStatus(201).redirect("/blacklist");
+    return;
+});
+
+app.get("/blacklist", async (req, res) => {
+    let blacklist: Blacklist[] = await retrieveBlacklist();
+    res.render("blacklist", { blacklistedMinifigs: blacklist });
+});
+
+app.post("/blacklist/changeReason", async (req, res) => {
+    let figCodeOfMinifigToChangeReasonOf: string = req.body.minifig;
+    let newReasonOfBlacklisting: string = req.body.reason;
+    client.db("GameData").collection("Blacklist").updateOne({ "minifig.figCode": figCodeOfMinifigToChangeReasonOf }, { $set: { reason: newReasonOfBlacklisting } });
+
+    res.redirect("/blacklist");
+    return;
+});
+
+app.post("/blacklist/remove", async (req, res) => {
+    let figCodeOfMinifigToRemove: string = req.body.minifig;
+    let result = await client.db("GameData").collection("Blacklist").deleteOne({ "minifig.figCode": figCodeOfMinifigToRemove });
+    console.log(result);
+    
+    res.redirect("/blacklist");
+    return;
+});
+
 // Wanneer opgevraagde pagina niet gevonden wordt (HTTP 404 NOT FOUND), wordt dit opgeroepen in de middleware
 app.use((req, res) => {
     res.status(404).render("not-found", { requestedUrl: req.url });
