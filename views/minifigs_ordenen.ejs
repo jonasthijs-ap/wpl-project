@@ -40,7 +40,7 @@
                 <article>
                     
                     <figure class="card rounded-4">     
-                        <img src="<%= minifigOrdenen.imageUrl %>" alt="fig-001804" class="card-img-top rounded-4" />
+                        <img src="<%= minifigOrdenen.imageUrl %>" alt="<%= minifigOrdenen.figCode %>" class="card-img-top rounded-4" />
                        
                         <div class="card-body">
                             <figcaption class="card-text fw-bold"><%= minifigOrdenen.name %></figcaption>
@@ -49,7 +49,7 @@
                             <a href="/minifig-onderdelen/<%=minifigOrdenen.figCode%>" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
                             </a>
-                            <a href="/sets-met-bepaalde-minifig" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
+                            <a href="/sets-met-bepaalde-minifig/<%= minifigOrdenen.figCode %>" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
                             </a>
                         </div>

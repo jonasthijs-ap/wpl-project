@@ -7,26 +7,30 @@
             <p>Op deze pagina ziet u de minifigs die nog geen verblijf hebben gekregen. Geef ze een verblijf.</p>
         </hgroup>
         <section class="container-fluid col-lg-10">
-            <div class="row">
-                <% for (let i = 0; i < nietGeordendeMinifigs.length; i++) { %>
-                    <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="<%= nietGeordendeMinifigs[i].imageUrl %>" class="card-img-top rounded-4" alt="<%= nietGeordendeMinifigs[i].figCode %>" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold"><%= nietGeordendeMinifigs[i].name %></figcaption>
-                            </div>
-                            <div class="card-footer">
-                                <a href="/minifig-onderdelen/<%= nietGeordendeMinifigs[i].figCode %>" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
-                                    <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
-                                </a>
-                                <a href="/sets-met-bepaalde-minifig/<%= nietGeordendeMinifigs[i].figCode %>" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
-                                    <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
-                                </a>
-                            </div>
-                        </figure>
-                    </article>
-                <% } %>
-            </div>
+            <% if (nietGeordendeMinifigs.length === 0) { %>
+                <h2>Al jouw minifigs een verblijf. Ga naar de startpagina om er nieuwe op te halen.</h2>
+            <% } else { %>
+                <div class="row">
+                    <% for (let i = 0; i < nietGeordendeMinifigs.length; i++) { %>
+                        <article class="col-xl-4 col-md-6 col-sm-12">
+                            <figure class="card rounded-4">
+                                <img src="<%= nietGeordendeMinifigs[i].imageUrl %>" class="card-img-top rounded-4" alt="<%= nietGeordendeMinifigs[i].figCode %>" />
+                                <div class="card-body">
+                                    <figcaption class="card-text fw-bold"><%= nietGeordendeMinifigs[i].name %></figcaption>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="/minifig-onderdelen/<%= nietGeordendeMinifigs[i].figCode %>" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
+                                        <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
+                                    </a>
+                                    <a href="/sets-met-bepaalde-minifig/<%= nietGeordendeMinifigs[i].figCode %>" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
+                                        <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
+                                    </a>
+                                </div>
+                            </figure>
+                        </article>
+                    <% } %>
+                </div>
+            <% } %>
         </section>
     </main>
 

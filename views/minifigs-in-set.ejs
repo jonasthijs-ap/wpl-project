@@ -22,21 +22,24 @@
             </aside>
 
             <section class="container-fluid col-lg-7">
-                <h2 class="mb-3 mt-5 mt-lg-0">De bewoners</h2>
-                <div class="row">
-                    <% for (let i = 0; i < minifigsInSet.length; i++) { %>
-                        <article class="col-xl-4 col-md-6 col-sm-12">
-                            <figure class="card rounded-4">
-                                <img src="<%= minifigsInSet[i].imageUrl %>" class="card-img-top rounded-4" alt="<%= minifigsInSet[i].figCode %>" />
-                                <div class="card-body">
-                                    <figcaption class="card-text fw-bold"><%= minifigsInSet[i].name %></figcaption>
-                                </div>
-                            </figure>
-                        </article>
-                    <% } %>
-                </div>
+                <% if (minifigsInSet.length === 0) { %>
+                    <h2 class="mb-3 mt-5 mt-lg-0">Deze set heeft geen bewoners.</h2>
+                <% } else { %>
+                    <h2 class="mb-3 mt-5 mt-lg-0">De bewoners</h2>
+                    <div class="row">
+                        <% for (let i = 0; i < minifigsInSet.length; i++) { %>
+                            <article class="col-xl-4 col-md-6 col-sm-12">
+                                <figure class="card rounded-4">
+                                    <img src="<%= minifigsInSet[i].imageUrl %>" class="card-img-top rounded-4" alt="<%= minifigsInSet[i].figCode %>" />
+                                    <div class="card-body">
+                                        <figcaption class="card-text fw-bold"><%= minifigsInSet[i].name %></figcaption>
+                                    </div>
+                                </figure>
+                            </article>
+                        <% } %>
+                    </div>
+                <% } %>
             </section>
-
         </div>
     </main>
 
