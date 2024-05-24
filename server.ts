@@ -7,6 +7,7 @@ import { get6RandomSets, getLoadOfNewMinifigsAtStart, getMinifigsOfSpecificSet, 
 import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs, login, createNewUser, addMinifigToSet } from "./database";
 import { secureMiddleware } from "./secureMiddleware";
 import session from "./session";
+import bcrypt from "bcrypt";
 
 // .env-settings
 dotenv.config();
@@ -41,6 +42,7 @@ app.get("/home", secureMiddleware, async (req, res) => {
     let user: User | undefined = req.session.user;
     if (user !== undefined) {
         const unsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs(user);
+        console.log(unsortedMinifigs.length);
         res.render("homepagina", { minifigToOrder: unsortedMinifigs });
     }
 });
@@ -162,6 +164,35 @@ app.get("/minifigs-in-set/:setCode", secureMiddleware, async (req, res) => {
     }
 }); */
 
+app.post("/password-reset", async (req, res) => {
+
+    const { password } = req.body;
+    
+    const { email } = req.body;
+
+    try {
+        await client.db("LoginSystem").collection("Users").findOne({ email: email }).then(async (user) => {
+            if (user === null) {
+                res.redirect("/password-reset");
+                return;
+            }
+            else {
+                const hashedPassword: string = await bcrypt.hash(password, 10);
+                await client.db("LoginSystem").collection("Users").updateOne({ email: email }, { $set: { password: hashedPassword } });
+                res.redirect("/login");
+                return;
+            }
+        });
+    } catch (error) {
+        res.redirect("/password-reset");
+        return;
+    }
+});
+
+app.get("/password-reset", async (req, res) => {
+    res.render("password-reset");
+});
+
 app.post("/addNewMinifigToDatabase", async (req, res) => {
     const { minifigs } = req.body;
     maxCounter = parseInt(minifigs);
@@ -229,11 +260,14 @@ app.post("/minifigs-ordenen/skip", async (req, res) => {
 });
 
 app.post("/minifigs-ordenen/bevestigen", async (req, res) => {
+    let user : User | undefined = req.session.user;
     const minifig = await retrieveSingleMinifig(req, req.body.minifigId);
     const set = await retrieveSingleSet(req.body.setsSelect);
     await addMinifigToSet(minifig, set);
-    // verwijder minifig uit unsortedMinifigs
-    await client.db("GameData").collection("UnsortedMinifigs").deleteOne({ figCode: req.body.minifigId });
+    // verwijder minifig uit unsortedMinifigs van de user
+    const usersMinifigs = await client.db("GameData").collection("UnsortedMinifigs").findOne({ email : user?.email }, { projection: { unsortedMinifigs: 1 } });
+    const newUnsortedMinifigs = usersMinifigs?.unsortedMinifigs?.filter((minifig: { figCode: string }) => minifig.figCode === req.body.minifigId);
+    await client.db("GameData").collection("UnsortedMinifigs").updateOne({ email : user?.email }, { $set: { unsortedMinifigs: newUnsortedMinifigs } });
     res.redirect("/minifigs-ordenen");
 });
 

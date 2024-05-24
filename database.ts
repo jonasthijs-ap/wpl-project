@@ -129,6 +129,7 @@ export async function retrieveBlacklist(user: User) : Promise<Blacklist[]> {
 
 export async function retrieveUnsortedMinifigs(user: User): Promise<Minifig[]> {
     let response = await client.db("GameData").collection("UnsortedMinifigs").findOne<UnsortedMinifigsGameData>({ email: user.email });
+    console.log(response?.unsortedMinifigs.length);
     let unsortedMinifigs: Minifig[] = response?.unsortedMinifigs ? response.unsortedMinifigs : [];
 
     return new Promise<Minifig[]>((resolve, reject) => {
