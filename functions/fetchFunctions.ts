@@ -40,7 +40,7 @@ function convert_PartsFromAPI_ToMinifigsParts(minifig: Minifig, parts: Parts_Fro
 
 export async function getLoadOfNewMinifigsAtStart(): Promise<Minifig[]> {
     const response = await fetch(
-        `https://rebrickable.com/api/v3/lego/minifigs?page_size=25`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
+        `https://rebrickable.com/api/v3/lego/minifigs?page_size=5`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
     );
     const result: Minifig_Set_FromAPI[] = (await response.json()).results;
 
