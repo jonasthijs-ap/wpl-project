@@ -37,7 +37,12 @@
                                         <figcaption><b><%= sortedMinifigs[i].set.name %></b><br /><code><%= sortedMinifigs[i].set.setCode %></code></figcaption>
                                     </figure>
                                 </td>
-                            </tr>
+                                <td class="text-center">
+                                <form type="submit">
+                                    <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
+                                </form>
+                            </td>
+                        </tr>
                         <% } %>
                     </tbody>
                 </table>
