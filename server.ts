@@ -120,6 +120,23 @@ app.get("/geordende-minifigs", secureMiddleware, async (req, res) => {
     }
 });
 
+app.post("/geordende-minifigs/remove/:figCode", secureMiddleware, async (req, res) => {
+    let figCode: string = req.params.figCode;
+    let user: User | undefined = req.session.user;
+    if (user !== undefined) {
+        let sortedMinifigs: MinifigSet[] = await retrieveSortedMinifigs(user);
+        let updatedSortedMinifigs: MinifigSet[] = sortedMinifigs.filter(minifigSet => minifigSet.minifig.figCode!== figCode);
+        await client.db("GameData").collection("SortedMinifigs").updateOne({ email: user.email }, { $set: { sortedMinifigs: updatedSortedMinifigs } });
+        const minifig: Minifig = await retrieveSingleMinifig(req, figCode);
+        const unsortedList: Minifig[] = await retrieveUnsortedMinifigs(user);
+        unsortedList.push(minifig);
+        await client.db("GameData").collection("UnsortedMinifigs").updateOne({ email: user.email }, { $set: { unsortedMinifigs: unsortedList } });
+        
+        res.redirect("/geordende-minifigs");
+        return;
+    }
+});
+
 app.get("/sets-met-bepaalde-minifig/:figCode", secureMiddleware, async (req, res) => {
     let figCode: string = req.params.figCode;
     let minifig: Minifig = await retrieveSingleMinifig(req, figCode);
@@ -350,29 +367,7 @@ app.post("/resultaten-ordenen/overgeslagen-minifigs", secureMiddleware, async (r
     res.render("overgeslagen-minifigs", { skippedMinifigs : skippedFigs });
     return;
 });
-// Gekopiëerd van Jonas op github
-app.get("/blacklist", async (req, res) => {
-    let blacklist: Blacklist[] = await retrieveBlacklist();
-    res.render("blacklist", { blacklistedMinifigs: blacklist });
-});
 
-app.post("/blacklist/changeReason", async (req, res) => {
-    let figCodeOfMinifigToChangeReasonOf: string = req.body.minifig;
-    let newReasonOfBlacklisting: string = req.body.reason;
-    client.db("GameData").collection("Blacklist").updateOne({ "minifig.figCode": figCodeOfMinifigToChangeReasonOf }, { $set: { reason: newReasonOfBlacklisting } });
-
-    res.redirect("/blacklist");
-    return;
-});
-
-app.post("/blacklist/remove", async (req, res) => {
-    let figCodeOfMinifigToRemove: string = req.body.minifig;
-    let result = await client.db("GameData").collection("Blacklist").deleteOne({ "minifig.figCode": figCodeOfMinifigToRemove });
-    console.log(result);
-    
-    res.redirect("/blacklist");
-    return;
-});
 
 
 

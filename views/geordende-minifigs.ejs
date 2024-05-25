@@ -38,8 +38,8 @@
                                     </figure>
                                 </td>
                                 <td class="text-center">
-                                <form type="submit">
-                                    <button class="btn btn-sm btn-danger" title="Verwijderen uit blacklist"><i class="bi bi-trash-fill"></i></button>
+                                <form action="/geordende-minifigs/remove/<%= sortedMinifigs[i].minifig.figCode %>" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Verwijderen uit geordende lijst"><i class="bi bi-trash-fill"></i></button>
                                 </form>
                             </td>
                         </tr>
