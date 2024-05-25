@@ -15,7 +15,8 @@
 
                     <fieldset class="modal-body">
                         <label for="reason" class="form-label">Geef hier je reden</label>
-                        <input type="text" id="reason" name="reason" class="form-control" />
+                        <input type="text" name="reason" id="reason" class="form-control" />
+                        <input type="hidden" name="figCode" value="<%= minifigOrdenen.figCode %>" />
                     </fieldset>
                     <input type="hidden" name="minifigId" value="<%= minifigOrdenen.figCode %>" />
                     <fieldset class="modal-footer">
@@ -39,7 +40,7 @@
                 <article>
                     
                     <figure class="card rounded-4">     
-                        <img src="<%= minifigOrdenen.imageUrl %>" alt="fig-001804" class="card-img-top rounded-4" />
+                        <img src="<%= minifigOrdenen.imageUrl %>" alt="<%= minifigOrdenen.figCode %>" class="card-img-top rounded-4" />
                        
                         <div class="card-body">
                             <figcaption class="card-text fw-bold"><%= minifigOrdenen.name %></figcaption>
@@ -48,7 +49,7 @@
                             <a href="/minifig-onderdelen/<%=minifigOrdenen.figCode%>" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
                             </a>
-                            <a href="/sets-met-bepaalde-minifig" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
+                            <a href="/sets-met-bepaalde-minifig/<%= minifigOrdenen.figCode %>" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
                             </a>
                         </div>
@@ -56,7 +57,7 @@
                     
                 </article>
                 <article>
-                    <form class="d-flex flex-column gap-3" action="/minifigs-ordenen/skip" method="post">
+                    <form class="d-flex flex-column gap-3">
                         <fieldset class="d-grid form-floating gap-2">
                             <select class="form-select rounded-4" name="setsSelect" id="sets-select">
                                 <% for (let set of sets) { %>
@@ -66,7 +67,7 @@
                             <label for="sets-select">Selecteer een set om deze minifig in te plaatsen</label>
                         </fieldset>
                         <fieldset class="d-flex flex-row gap-2">
-                            <button type="submit" id="minifig-skip" class="btn btn-warning rounded-2" name="minifigSkip" formaction="/minifigs-ordenen/skip">
+                            <button type="submit" id="minifig-skip" class="btn btn-warning rounded-2" name="minifigSkip" formaction="/minifigs-ordenen/skip" formmethod="post">
                                 <a href="#" class="no-link-style"><i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan--></a>
                                 <input type="hidden" name="minifigId" value="<%= minifigOrdenen.figCode %>" />
                             </button>

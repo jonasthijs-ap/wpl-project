@@ -18,10 +18,10 @@
                             <figcaption class="card-text fw-bold"><%= minifig.name %></figcaption>
                         </div>
                         <div class="card-footer">
-                            <a href="/minifig-onderdelen" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
+                            <a href="/minifig-onderdelen/<%= minifig.figCode %>" target="_blank" title="Bekijk de onderdelenlijst van deze minifig in een nieuw tabblad" class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
                             </a>
-                            <a href="/sets-met-bepaalde-minifig" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
+                            <a href="/sets-met-bepaalde-minifig/<%= minifig.figCode %>" target="_blank" title="Bekijk lijst van sets waarin deze minifig voorkomt" class="no-link-style">
                                 <i class="btn btn-dark orange-hover btn-sm bi-view-list rounded-2"></i>
                             </a>
                         </div>
@@ -31,22 +31,24 @@
             </aside>
 
             <section class="container-fluid col-lg-7">
-                <h2 class="mb-3 mt-5 mt-lg-0">Onderdelen</h2>
-                <div class="row">
-                    <% for (let i =0; i<parts.length; i++) { %>
-                        <article class="col-xl-4 col-md-6 col-sm-12">
-                            <figure class="card rounded-4">
-                                <img src="<%= parts[i].imageUrl %>" class="card-img-top rounded-4" alt="<%= parts[i].name %>" />
-                                <div class="card-body">
-                                    <figcaption class="card-text fw-bold"><%= parts[i].name %></figcaption>
-                                </div>
-                            </figure>
-                        </article>
-                    <% } %>
-
-                </div>
+                <% if (parts.length === 0) { %>
+                    <h2 class="mb-3 mt-5 mt-lg-0">Deze minifig heeft geen onderdelen.</h2>
+                <% } else { %>
+                    <h2 class="mb-3 mt-5 mt-lg-0">Onderdelen</h2>
+                    <div class="row">
+                        <% for (let i =0; i<parts.length; i++) { %>
+                            <article class="col-xl-4 col-md-6 col-sm-12">
+                                <figure class="card rounded-4">
+                                    <img src="<%= parts[i].imageUrl %>" class="card-img-top rounded-4" alt="<%= parts[i].name %>" />
+                                    <div class="card-body">
+                                        <figcaption class="card-text fw-bold"><%= parts[i].name %></figcaption>
+                                    </div>
+                                </figure>
+                            </article>
+                        <% } %>
+                    </div>
+                <% } %>
             </section>
-            
         </div>
     </main>
 

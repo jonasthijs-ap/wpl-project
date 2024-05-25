@@ -146,6 +146,23 @@ export async function retrieveSortedMinifigs(user: User): Promise<MinifigSet[]> 
     });
 }
 
+export async function updateBlacklistDB(user: User, list: Blacklist[]): Promise<void> {
+    await client.db("GameData").collection("Blacklist").updateOne(
+        { email: user.email },
+        { $set: { email: user.email, blacklistedMinifigs: list } },
+        { upsert: true }
+    );
+}
+
+export async function updateUnsortedMinifigsDB(user: User, list: Minifig[]): Promise<void> {
+    await client.db("GameData").collection("UnsortedMinifigs").updateOne(
+        { email: user.email },
+        { $set: { email: user.email, unsortedMinifigs: list } },
+        { upsert: true }
+    );
+}
+
+
 export async function addMinifigToSet(user: User, minifig: Minifig, set: Set): Promise<void> {
     const newMinifigSet: MinifigSet = { minifig, set };
     const currentMinifigSets = await retrieveSortedMinifigs(user);

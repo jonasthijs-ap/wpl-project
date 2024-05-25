@@ -2,9 +2,9 @@
 import dotenv from "dotenv";
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
-import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts, Minifig_Set_FromAPI, User, UnsortedMinifigsGameData } from "./types";
+import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts, Minifig_Set_FromAPI, User, UnsortedMinifigsGameData, BlacklistGameData } from "./types";
 import { get6RandomSets, getLoadOfNewMinifigsAtStart, getMinifigsOfSpecificSet, getNewMinifigsFromAPI, getPartsOfSpecificMinifig, getSetsFromSpecificMinifig, retrieveSingleMinifig, retrieveSingleSet } from "./functions/fetchFunctions";
-import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs, login, createNewUser, addMinifigToSet } from "./database";
+import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs, login, createNewUser, addMinifigToSet, updateBlacklistDB, updateUnsortedMinifigsDB } from "./database";
 import { secureMiddleware } from "./secureMiddleware";
 import session from "./session";
 import bcrypt from "bcrypt";
@@ -357,40 +357,75 @@ app.post("/minifigs-ordenen/addToBlacklist", async (req, res) => {
     const reasonOfBlacklisting: string = req.body.reason;
 
     let minifigToBlacklist: Minifig = await retrieveSingleMinifig(req, figCodeOfMinifigToBlacklist);
-    let result: Blacklist = {
-        reason: reasonOfBlacklisting,
-        minifig: minifigToBlacklist
-    };
+    let result: Blacklist = { reason: reasonOfBlacklisting, minifig: minifigToBlacklist };
 
-    await client.db("GameData").collection("Blacklist").insertOne(result);
+    let user: User | undefined = req.session.user;
+    
+    if (user !== undefined) {
+        // Find entity from unsorted list
+        let unsortedList: Minifig[] = await retrieveUnsortedMinifigs(user);
+        unsortedList = unsortedList.filter(value => value.figCode !== figCodeOfMinifigToBlacklist); // Filter out the selected entity
 
-    res.sendStatus(201).redirect("/blacklist");
-    return;
+        // Push new entity to blacklist
+        let blacklistList: Blacklist[] = await retrieveBlacklist(user);
+        blacklistList.push(result);
+        await updateBlacklistDB(user, blacklistList);
+        
+        // Remove entity from unsorted list
+        await updateUnsortedMinifigsDB(user, unsortedList);
+
+        res.redirect("/minifigs-ordenen");
+        return;
+    }
 });
 
 app.get("/blacklist", async (req, res) => {
     let user: User | undefined = req.session.user;
-    let blacklist: Blacklist[] = user? await retrieveBlacklist(user) : [];
-    console.log(blacklist);
-    res.render("blacklist", { blacklistedMinifigs: blacklist });
+    if (user !== undefined) {
+        let blacklist: Blacklist[] = await retrieveBlacklist(user);
+        res.render("blacklist", { blacklistedMinifigs: blacklist });
+    }
 });
 
 app.post("/blacklist/changeReason", async (req, res) => {
     let figCodeOfMinifigToChangeReasonOf: string = req.body.minifig;
     let newReasonOfBlacklisting: string = req.body.reason;
-    client.db("GameData").collection("Blacklist").updateOne({ "minifig.figCode": figCodeOfMinifigToChangeReasonOf }, { $set: { reason: newReasonOfBlacklisting } });
 
-    res.redirect("/blacklist");
-    return;
+    let user: User | undefined = req.session.user;
+
+    if (user !== undefined) {
+        let blacklistList: Blacklist[] = await retrieveBlacklist(user);
+        blacklistList[blacklistList.findIndex(entity => entity.minifig.figCode === figCodeOfMinifigToChangeReasonOf)].reason = newReasonOfBlacklisting;
+        
+        await updateBlacklistDB(user, blacklistList);
+        
+        res.redirect("/blacklist");
+        return;
+    }
 });
 
 app.post("/blacklist/remove", async (req, res) => {
     let figCodeOfMinifigToRemove: string = req.body.minifig;
-    let result = await client.db("GameData").collection("Blacklist").deleteOne({ "minifig.figCode": figCodeOfMinifigToRemove });
-    console.log(result);
-    
-    res.redirect("/blacklist");
-    return;
+
+    let user: User | undefined = req.session.user;
+
+    if (user !== undefined) {
+        let blacklistList: Blacklist[] = await retrieveBlacklist(user);
+        let minifig: Minifig | undefined = blacklistList.find(entity => entity.minifig.figCode === figCodeOfMinifigToRemove)?.minifig;
+        blacklistList = blacklistList.filter(entity => entity.minifig.figCode !== figCodeOfMinifigToRemove);
+        
+        await updateBlacklistDB(user, blacklistList);
+
+        if (minifig !== undefined) {
+            let unsortedList: Minifig[] = await retrieveUnsortedMinifigs(user);
+            unsortedList.push(minifig);
+
+            await updateUnsortedMinifigsDB(user, unsortedList);
+        }
+        
+        res.redirect("/blacklist");
+        return;
+    }
 });
 
 // Wanneer opgevraagde pagina niet gevonden wordt (HTTP 404 NOT FOUND), wordt dit opgeroepen in de middleware

@@ -26,25 +26,27 @@
             <hr class="d-block d-lg-none col-8 mt-5 pt-5 border-top border-2 border-success" />
 
             <section class="container-fluid col-lg-7">
-                <div class="row">
-                    <% for (let i=0; i<setsMetBepaaldeMinifig.length; i++){%>
-                    <article class="col-xl-4 col-md-6 col-sm-12">
-                        <figure class="card rounded-4">
-                            <img src="<%= setsMetBepaaldeMinifig[i].imageUrl %>" class="card-img-top rounded-4" alt="<%= setsMetBepaaldeMinifig[i].setCode %>" />
-                            <div class="card-body">
-                                <figcaption class="card-text fw-bold"><%= setsMetBepaaldeMinifig[i].name %></figcaption>
-                            </div>
-                            <div class="card-footer">
-                                <a href="/minifigs-in-set/<%= setsMetBepaaldeMinifig[i].setCode %>" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
-                                    <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
-                                </a>
-                            </div>
-                        </figure>
-                    </article>
-                    <% } %>
-                    
-
-                </div>
+                <% if (setsMetBepaaldeMinifig.length === 0) { %>
+                    <h2 class="mb-3 mt-5 mt-lg-0">Deze minifig heeft geen verblijven.</h2>
+                <% } else { %>
+                    <div class="row">
+                        <% for (let i=0; i<setsMetBepaaldeMinifig.length; i++){%>
+                            <article class="col-xl-4 col-md-6 col-sm-12">
+                                <figure class="card rounded-4">
+                                    <img src="<%= setsMetBepaaldeMinifig[i].imageUrl %>" class="card-img-top rounded-4" alt="<%= setsMetBepaaldeMinifig[i].setCode %>" />
+                                    <div class="card-body">
+                                        <figcaption class="card-text fw-bold"><%= setsMetBepaaldeMinifig[i].name %></figcaption>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="/minifigs-in-set/<%= setsMetBepaaldeMinifig[i].setCode %>" target="_blank" title="Bekijk lijst van minifigs van deze set in een nieuw tabblad" class="no-link-style">
+                                            <i class="btn btn-dark orange-hover btn-sm bi-person-lines-fill rounded-2"></i>
+                                        </a>
+                                    </div>
+                                </figure>
+                            </article>
+                        <% } %>
+                    </div>
+                <% } %>
             </section>
         </div>
     </main>
