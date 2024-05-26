@@ -65,15 +65,14 @@ app.get("/logout", secureMiddleware, async (req, res) => {
 app.post("/login", async (req, res) => {
     const email: string = req.body.email;
     const password: string = req.body.password;
-
     try {
         let user: User = await login(email, password);
         delete user.password; 
         req.session.user = user;
-        res.redirect("/home");
+        res.status(200).json({ user });
         return;
     } catch (error) {
-        res.redirect("/login");
+        res.status(401).json({ error: "Incorrect email or password" });
         return;
     }
 });

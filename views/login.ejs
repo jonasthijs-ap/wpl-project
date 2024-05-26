@@ -13,16 +13,16 @@
             </article>
             
             <article class="col-md-6 right-box">
-                <form action="/login" method="post" class="row align-items-center">
+                <form action="/login" method="post" id="loginForm" class="row align-items-center">
                     <hgroup class="header-text mb-4">
                         <h3>Inloggen</h3>
                         <p>Welkom bij Lego Masters</p>
                     </hgroup>
                     <fieldset class="input-group mb-3">
-                        <input type="text" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="E-mailadres" />
+                        <input type="text" id="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="E-mailadres" />
                     </fieldset>
                     <fieldset class="input-group mb-1">
-                        <input type="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Wachtwoord" />
+                        <input type="password" id="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Wachtwoord" />
                     </fieldset>
                     <div class="row" style="width: 100% ; padding: 0%;">
                         <small style="text-align: right; padding: 0%;"> <a href="/password-reset">wachtwoord vergeten ?</a></small>
@@ -35,6 +35,38 @@
                         <small>Heb je geen account? Laat je <a href="/registreren">Registreren</a>.</small>
                     </div>
                 </form>
+                <script>
+                    const loginForm = document.getElementById('loginForm');
+                    loginForm.addEventListener('submit', (event) => {
+                        event.preventDefault();
+                        const email = document.getElementById('email').value;
+                        const password = document.getElementById('password').value;
+                        const url = '/login';
+                        const data = {
+                            email: email,
+                            password: password
+                        }
+                        fetch(url, {
+                            method: 'POST',
+                            body: JSON.stringify(data),
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                       .then(response => response.json())
+                       .then(data => {
+                            if (data.user) {
+                                window.location.href = '/home';
+                            } else {
+                                alert(data.error);
+                            }
+                        })
+                       .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                    });
+                      
+                </script>
             </article>
 
         </section>
