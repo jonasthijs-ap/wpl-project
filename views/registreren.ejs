@@ -1,51 +1,100 @@
 <%- include("partials/head.ejs", { title: "Registreren" }) %>
-<%- include("partials/header-simple.ejs") %>
-    
-    <main class="container d-flex justify-content-center align-items-center min-vh-100">
-      
-        <section class="row border rounded-5 p-3 bg-white shadow box-area">
+    <%- include("partials/header-simple.ejs") %>
 
-            <article class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" >
-                <figure class="featured-image mb-3 left-img">
-                    <img src="/assets/images/click-logo.png" class="img-fluid w-100" />
-                </figure>
-            </article>
-            
-            <article class="col-md-6 right-box">
-                <form action="/registreren" method="post" class="row align-items-center">
-                    <hgroup class="header-text mb-4">
-                         <h3>Aanmelden</h3>
-                         <p>Maak hier je account</p>
-                    </hgroup>
-                    <fieldset class="input-group mb-3">
-                        <legend>Persoonlijke informatie</legend>
+        <main class="container d-flex justify-content-center align-items-center min-vh-100">
 
-                        <label class="form-label input-group mb-1" for="first-name">Voornaam</label>
-                        <input type="text" id="first-name" name="firstName" class="form-control input-group mb-3" placeholder="Vul hier uw voornaam in..." />
-                        
-                        <label class="form-label input-group mb-1" for="second-name">Achternaam</label>
-                        <input type="text" id="second-name" name="lastName" placeholder="Vul hier uw achternaam in..." class="form-control input-group mb-3" />
-                    </fieldset>
-                    <fieldset class="input-group mb-3">
-                        <legend>Logingegevens</legend>
-                        
-                        <label for="email" class="form-label input-group mb-1">E-mailadres</label>
-                        <input type="email" id="email" class="form-control input-group mb-3" name="email" placeholder="Vul hier uw e-mailadres in..." />
-                        
-                        <label for="password" class="form-label input-group mb-1">Wachtwoord</label>
-                        <input type="password" id="password" class="form-control input-group mb-3" name="password" placeholder="Kies een wachtwoord..." />
-                        
-                        <label for="password-check" class="form-label input-group mb-1">Bevestig wachtwoord</label>
-                        <input type="password" id="password-check" class="form-control input-group mb-3" name="passwordCheck" placeholder="Herhaal hier uw gekozen wachtwoord..." />
-                    </fieldset>
-                    
-                    <button type="submit" class="btn btn-warning input-group mb-3">Registreren&ensp;<i class="bi bi-arrow-right"></i></button>
-                    <div class="row">
-                        <small>Heb je al een account? <a href="/login">Inloggen</a>.</small>
-                    </div>
-                </form>
-            </article>
-        </section>
-    </main>
-    
-<%- include("partials/footer") %>
+            <section class="row border rounded-5 p-3 bg-white shadow box-area">
+
+                <article
+                    class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
+                    <figure class="featured-image mb-3 left-img">
+                        <img src="/assets/images/click-logo.png" class="img-fluid w-100" />
+                    </figure>
+                </article>
+
+                <article class="col-md-6 right-box">
+                    <form action="/registreren" id="registerForm" method="post" class="row align-items-center">
+                        <hgroup class="header-text mb-4">
+                            <h3>Aanmelden</h3>
+                            <p>Maak hier je account</p>
+                        </hgroup>
+                        <fieldset class="input-group mb-3">
+                            <legend>Persoonlijke informatie</legend>
+
+                            <label class="form-label input-group mb-1" for="first-name">Voornaam</label>
+                            <input type="text" id="first-name" name="firstName" class="form-control input-group mb-3"
+                                placeholder="Vul hier uw voornaam in..." />
+
+                            <label class="form-label input-group mb-1" for="second-name">Achternaam</label>
+                            <input type="text" id="second-name" name="lastName"
+                                placeholder="Vul hier uw achternaam in..." class="form-control input-group mb-3" />
+                        </fieldset>
+                        <fieldset class="input-group mb-3">
+                            <legend>Logingegevens</legend>
+
+                            <label for="email" class="form-label input-group mb-1">E-mailadres</label>
+                            <input type="email" id="email" class="form-control input-group mb-3" name="email"
+                                placeholder="Vul hier uw e-mailadres in..." />
+
+                            <label for="password" class="form-label input-group mb-1">Wachtwoord</label>
+                            <input type="password" id="password" class="form-control input-group mb-3" name="password"
+                                placeholder="Kies een wachtwoord..." />
+
+                            <label for="password-check" class="form-label input-group mb-1">Bevestig wachtwoord</label>
+                            <input type="password" id="password-check" class="form-control input-group mb-3"
+                                name="passwordCheck" placeholder="Herhaal hier uw gekozen wachtwoord..." />
+                        </fieldset>
+
+                        <button type="submit" class="btn btn-warning input-group mb-3">Registreren&ensp;<i
+                                class="bi bi-arrow-right"></i></button>
+                        <div class="row">
+                            <small>Heb je al een account? <a href="/login">Inloggen</a>.</small>
+                        </div>
+                    </form>
+                </article>
+            </section>
+            <script>
+                const loginForm = document.getElementById('registerForm');
+                loginForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    const firstName = document.getElementById('first-name').value;
+                    const lastName = document.getElementById('second-name').value;
+                    const passwordCheck = document.getElementById('password-check').value;
+                    const url = '/registreren';
+                    const data = {
+                        email: email,
+                        password: password,
+                        firstName: firstName,
+                        lastName: lastName
+                    }
+                    fetch(url, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (password !== passwordCheck) {
+                                alert('Wachtwoorden komen niet overeen.');
+                            }
+                            else {
+                                if (data.user) {
+                                    window.location.href = '/home';
+                                } else {
+                                    alert(data.error);
+                                }
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                });
+
+            </script>
+        </main>
+
+        <%- include("partials/footer") %>

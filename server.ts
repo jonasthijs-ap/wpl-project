@@ -88,17 +88,20 @@ app.post("/registreren", async (req, res) => {
     const password: string = req.body.password;
 
     try {
-        let newUser: User = await createNewUser(firstName, lastName, email, password);
+        let newUser: User | Error = await createNewUser(firstName, lastName, email, password);
+        if (newUser instanceof Error) {
+            res.json({ error: "Email is al in gebruik" });
+            return;
+        }
         newUser = await login(email, password);
         delete newUser.password; 
         req.session.user = newUser;
         let userUnsortedMinifigsDB: UnsortedMinifigsGameData = { email: req.session.user.email, unsortedMinifigs: await getLoadOfNewMinifigsAtStart() };
         await client.db("GameData").collection("UnsortedMinifigs").insertOne(userUnsortedMinifigsDB);
-        res.redirect("/home");
+        res.status(200).json({ user: newUser });
         return;
     } catch (error) {
-        console.error(error);
-        res.redirect("/registreren");
+        res.json({ error: "Email is al in gebruik" });
         return;
     }
 });

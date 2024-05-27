@@ -86,20 +86,24 @@ async function createInitialUser(): Promise<void> {
     });
 }
 
-export async function createNewUser(firstName: string, lastName: string, email: string, password: string): Promise<User> {
+export async function createNewUser(firstName: string, lastName: string, email: string, password: string): Promise<User | Error> {
     if (firstName === undefined || lastName === undefined || email === undefined || password === undefined) {
         throw new Error("Some user values were not set properly. Please try again!");
     }
+    if (await userCollection.countDocuments({ email: email }) > 0) {
+        return new Error("Email already in use");
+    }
+    else {
+        await userCollection.insertOne({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: await bcrypt.hash(password, saltRounds),
+            role: "USER"
+        });
+        return { firstName, lastName, email, password, role: "USER" }
+    }
 
-    await userCollection.insertOne({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: await bcrypt.hash(password, saltRounds),
-        role: "USER"
-    });
-
-    return { firstName, lastName, email, password, role: "USER" }
 }
 
 export async function login(email: string, password: string) {
