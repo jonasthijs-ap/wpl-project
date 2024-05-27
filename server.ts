@@ -128,11 +128,6 @@ app.get("/sets-met-bepaalde-minifig/:figCode", secureMiddleware, async (req, res
     res.render("sets-met-bepaalde-minifig", { minifig, setsMetBepaaldeMinifig: sets });
 });
 
-
-    
-
-
-
 app.get("/minifig-onderdelen/:figCode", secureMiddleware, async (req, res) => {
     let figCode: string = req.params.figCode;
     let minifig: Minifig = await retrieveSingleMinifig(req, figCode);
@@ -149,25 +144,6 @@ app.get("/minifigs-in-set/:setCode", secureMiddleware, async (req, res) => {
 
     res.render("minifigs-in-set", { set, minifigsInSet: minifigs });
 });
-
-/* app.get("/home", async (req, res) => {
-    counter = 0;
-    maxCounter = 0;
-    
-    let user: User | undefined = req.session.user;
-    if (user !== undefined) {
-        const minifigToOrder: Minifig[] = await retrieveUnsortedMinifigs(user);
-        if (minifigToOrder.length > 0) {
-            maxCounter = minifigToOrder.length;
-        }
-        else {
-            maxCounter = 0;
-        }
-        //empty minifigToOrder array
-        //minifigToOrder.splice(0, minifigToOrder.length);
-        res.render('homepagina', { minifigToOrder });
-    }
-}); */
 
 app.post("/password-reset", async (req, res) => {
 
@@ -198,7 +174,7 @@ app.get("/password-reset", async (req, res) => {
     res.render("password-reset");
 });
 
-app.post("/addNewMinifigToDatabase", async (req, res) => {
+app.post("/addNewMinifigToDatabase", secureMiddleware, async (req, res) => {
     let user: User | undefined = req.session.user;
     const { minifigs } = req.body;
     maxCounter = parseInt(minifigs);
@@ -208,11 +184,6 @@ app.post("/addNewMinifigToDatabase", async (req, res) => {
     res.redirect("/minifigs-ordenen");
 });
 
-
-app.get("/", (req, res) => {
-    res.render("index");
-});
-
 app.get("/resultaten-ordenen", secureMiddleware, async (req, res) => {
     const usedMinifigs: Minifig[] = req.body.usedMinifigs;
     const skippedMinifigs: Minifig[] = req.body.skippedMinifigs;
@@ -220,9 +191,11 @@ app.get("/resultaten-ordenen", secureMiddleware, async (req, res) => {
     res.render("resultaten-ordenen", {usedMinifigs, skippedMinifigs});
     return;
 });
-let counter : number ;
-let maxCounter = 0;
-app.get("/minifigs-ordenen", async (req, res) => {
+
+let counter: number;
+let maxCounter: number;
+
+app.get("/minifigs-ordenen", secureMiddleware, async (req, res) => {
     let user: User | undefined = req.session.user;
     if (user !== undefined) {
         const UnsortedMinifigs: Minifig[] = await retrieveUnsortedMinifigs(user);
@@ -240,9 +213,9 @@ app.get("/minifigs-ordenen", async (req, res) => {
 
 
         } else {
-            let randomMinifig = UnsortedMinifigs[Math.floor(Math.random() * UnsortedMinifigs.length)];
+            let randomMinifig: Minifig = UnsortedMinifigs[Math.floor(Math.random() * UnsortedMinifigs.length)];
             let sets: Set[] = [];
-            sets = await get6RandomSets();
+            sets = await getSetsFromSpecificMinifig(req, randomMinifig);
 
             res.render("minifigs_ordenen", { minifigOrdenen: randomMinifig, sets });
 
@@ -255,7 +228,7 @@ app.get("/minifigs-ordenen", async (req, res) => {
 
 let skippedMinifigs: string[] = [];
 
-app.post("/minifigs-ordenen/skip", async (req, res) => {
+app.post("/minifigs-ordenen/skip", secureMiddleware, async (req, res) => {
 
     const skippedMinifig = req.body.minifigId; 
     skippedMinifigs.push(skippedMinifig);
@@ -263,8 +236,10 @@ app.post("/minifigs-ordenen/skip", async (req, res) => {
 
     res.redirect("/minifigs-ordenen");
 });
+
 let bevestigdMinifigs: string[] = [];
-app.post("/minifigs-ordenen/bevestigen", async (req, res) => {
+
+app.post("/minifigs-ordenen/bevestigen", secureMiddleware, async (req, res) => {
     let user: User | undefined = req.session.user;
     const minifig = await retrieveSingleMinifig(req, req.body.minifigId);
     const set = await retrieveSingleSet(req.body.setsSelect);
@@ -281,7 +256,8 @@ app.post("/minifigs-ordenen/bevestigen", async (req, res) => {
 });
 
 let blacklistedMinifigs: string[] = [];
-app.post("/minifigs-ordenen/blacklist", async (req, res) => {
+
+app.post("/minifigs-ordenen/blacklist", secureMiddleware, async (req, res) => {
     let user: User | undefined = req.session.user;
     const minifig = await retrieveSingleMinifig(req, req.body.minifigId);
     const reason = req.body.reason;
@@ -305,7 +281,7 @@ app.post("/minifigs-ordenen/blacklist", async (req, res) => {
 });
 
 //gebruikte en skip miniffigs lokaal opgeslagen
-app.get("/resultaten", async (req, res) => {
+app.get("/resultaten", secureMiddleware, async (req, res) => {
     let user: User | undefined = req.session.user;
     if (user !== undefined) {
         //let sortedMinifigs: MinifigSet[] = await retrieveSortedMinifigs(user);
@@ -351,8 +327,7 @@ app.post("/resultaten-ordenen/overgeslagen-minifigs", secureMiddleware, async (r
     return;
 });
 
-// Express-routes
-app.post("/minifigs-ordenen/addToBlacklist", async (req, res) => {
+app.post("/minifigs-ordenen/addToBlacklist", secureMiddleware, async (req, res) => {
     const figCodeOfMinifigToBlacklist: string = req.body.figCode;
     const reasonOfBlacklisting: string = req.body.reason;
 
@@ -379,7 +354,7 @@ app.post("/minifigs-ordenen/addToBlacklist", async (req, res) => {
     }
 });
 
-app.get("/blacklist", async (req, res) => {
+app.get("/blacklist", secureMiddleware, async (req, res) => {
     let user: User | undefined = req.session.user;
     if (user !== undefined) {
         let blacklist: Blacklist[] = await retrieveBlacklist(user);
@@ -387,7 +362,7 @@ app.get("/blacklist", async (req, res) => {
     }
 });
 
-app.post("/blacklist/changeReason", async (req, res) => {
+app.post("/blacklist/changeReason", secureMiddleware, async (req, res) => {
     let figCodeOfMinifigToChangeReasonOf: string = req.body.minifig;
     let newReasonOfBlacklisting: string = req.body.reason;
 
@@ -404,7 +379,7 @@ app.post("/blacklist/changeReason", async (req, res) => {
     }
 });
 
-app.post("/blacklist/remove", async (req, res) => {
+app.post("/blacklist/remove", secureMiddleware, async (req, res) => {
     let figCodeOfMinifigToRemove: string = req.body.minifig;
 
     let user: User | undefined = req.session.user;
