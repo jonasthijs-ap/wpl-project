@@ -436,9 +436,10 @@ app.use((req, res) => {
     res.status(404).render("not-found", { requestedUrl: req.url });
 });
 
-
-
-
+// HTTP 500 ERROR HANDLING
+app.use((req, res) => {
+    res.status(500 || 502).send("Sorry, er heeft een interne serverfout plaatsgevonden.");
+});
 
 // Maakt het mogelijk om de Express-applicatie te laten draaien op de ingestelde poort
 app.listen(app.get("port"), async () => {
