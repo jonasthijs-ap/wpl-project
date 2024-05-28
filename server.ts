@@ -3,11 +3,12 @@ import dotenv from "dotenv";
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
 import { Minifig, Set, MinifigSet, Part, Blacklist, MinifigParts, Minifig_Set_FromAPI, User, UnsortedMinifigsGameData, BlacklistGameData } from "./types";
-import { get6RandomSets, getLoadOfNewMinifigsAtStart, getMinifigsOfSpecificSet, getNewMinifigsFromAPI, getPartsOfSpecificMinifig, getSetsFromSpecificMinifig, retrieveSingleMinifig, retrieveSingleSet } from "./functions/fetchFunctions";
+import { getRandomSets, getLoadOfNewMinifigsAtStart, getMinifigsOfSpecificSet, getNewMinifigsFromAPI, getPartsOfSpecificMinifig, getSetsFromSpecificMinifig, retrieveSingleMinifig, retrieveSingleSet } from "./functions/fetchFunctions";
 import { client, connect, retrieveBlacklist, retrieveUnsortedMinifigs, retrieveSortedMinifigs, login, createNewUser, addMinifigToSet, updateBlacklistDB, updateUnsortedMinifigsDB } from "./database";
 import { secureMiddleware } from "./secureMiddleware";
 import session from "./session";
 import bcrypt from "bcrypt";
+import e from "express";
 
 // .env-settings
 dotenv.config();
@@ -235,6 +236,14 @@ app.get("/minifigs-ordenen", secureMiddleware, async (req, res) => {
             let randomMinifig: Minifig = UnsortedMinifigs[Math.floor(Math.random() * UnsortedMinifigs.length)];
             let sets: Set[] = [];
             sets = await getSetsFromSpecificMinifig(req, randomMinifig);
+            const randomSets: Set[] = await getRandomSets();
+            if ( sets.length > 6) {
+                sets.splice(6, sets.length - 6);
+            }else {
+                for (let i = sets.length ; i < 6; i++) {
+                    sets.push(randomSets[i]);
+                }
+            }
 
             res.render("minifigs_ordenen", { minifigOrdenen: randomMinifig, sets });
 

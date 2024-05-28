@@ -3,6 +3,7 @@ import { client, retrieveSortedMinifigs, retrieveUnsortedMinifigs } from "../dat
 import dotenv from "dotenv";
 import { randomInt } from "crypto";
 import { ObjectId } from "mongodb";
+import { get } from "http";
 
 dotenv.config();
 
@@ -272,17 +273,32 @@ export async function getMinifigsOfSpecificSet(req: Express.Request, set: Set): 
     });
 }
 
-export async function get6RandomSets(): Promise<Set[]> {
-    let output: Set[];
-    for (let i: number = 0; i < 6; i++) {
-        const randomNumber = Math.floor(Math.random() * 3785 + 1);
+export async function getRandomSets(): Promise<Set[]> {
+    const output: Set[] = [];
+
+    for (let i = 0; i < 6; i++) {
+        const randomNumber = Math.floor(Math.random() * 3000 + 1000);
         const response = await fetch(
-            `https://rebrickable.com/api/v3/lego/sets/${randomNumber}-1&page_size=6`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
+            `https://rebrickable.com/api/v3/lego/sets/?page=${randomNumber}&page_size=6`, 
+            { headers: { Authorization: `key ${process.env.API_KEY}` } }
         );
-        let result: Minifig_Set_FromAPI[] = (await response.json()).results;
-        result = result.filter(value => value.set_img_url !== null);
-        output = convert_SetsFromAPI_ToSets(result);
+
+        if (!response.ok) {
+            console.error(`Failed to fetch data for set ${randomNumber}: ${response.statusText}`);
+            continue;
+        }
+
+        const data = await response.json();
+        
+        if (data && data.results && Array.isArray(data.results)) {
+            const sets = data.results as Minifig_Set_FromAPI[];
+            const convertedSets = convert_SetsFromAPI_ToSets(sets);
+            output.push(...convertedSets);
+        } else {
+            console.error(`Unexpected response format for set ${randomNumber}:`, data);
+        }
     }
+
     return new Promise<Set[]>((resolve, reject) => {
         try {
             resolve(output);
