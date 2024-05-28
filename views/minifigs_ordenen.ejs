@@ -14,7 +14,7 @@
 
                     <fieldset class="modal-body">
                         <label for="reason" class="form-label">Geef hier je reden</label>
-                        <input type="text" name="reason" id="reason" class="form-control" />
+                        <input type="text" name="reason" id="reason" class="form-control" required />
                         <input type="hidden" name="figCode" value="<%= minifigOrdenen.figCode %>" />
                     </fieldset>
                     <input type="hidden" name="minifigId" value="<%= minifigOrdenen.figCode %>" />
@@ -67,7 +67,7 @@
                         </fieldset>
                         <fieldset class="d-flex flex-row gap-2">
                             <button type="submit" id="minifig-skip" class="btn btn-warning rounded-2" name="minifigSkip" formaction="/minifigs-ordenen/skip" formmethod="post">
-                                <a href="#" class="no-link-style"><i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan--></a>
+                                <i class="bi bi-skip-forward-fill"></i><!--Minifig overslaan-->
                                 <input type="hidden" name="minifigId" value="<%= minifigOrdenen.figCode %>" />
                             </button>
                             <a id="minifig-blacklist" class="btn btn-dark rounded-2" name="minifigBlacklist" data-bs-toggle="modal" data-bs-target="#modal-blacklist">

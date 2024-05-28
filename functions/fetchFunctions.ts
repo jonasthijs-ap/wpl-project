@@ -175,7 +175,9 @@ export async function getNewMinifigsFromAPI(req: Express.Request, count: number)
             do {
                 (additionalCount > 1) ? console.warn(`Er waren ${additionalCount} minifigs die geen imageUrl hadden.`) : console.warn(`Er was ${additionalCount} minifig die geen imageUrl had.`);
                 additionalNewMinifigs = await generateUnusedFigCodes(user, additionalCount);
-                additionalNewMinifigs = additionalNewMinifigs.filter(value => value.set_img_url !== null);
+                additionalNewMinifigs = additionalNewMinifigs.filter(value => {
+                    return !(value.last_modified_dt === null || value.name === null || value.num_parts === null || value.set_img_url === null || value.set_num === null || value.set_url === null);
+                });
             } while (additionalNewMinifigs.length !== additionalCount);
 
             newMinifigs.push(...additionalNewMinifigs);
@@ -199,7 +201,9 @@ export async function getSetsFromSpecificMinifig(req: Express.Request, minifig: 
         `https://rebrickable.com/api/v3/lego/minifigs/${minifig.figCode}/sets`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
     );
     let result: Minifig_Set_FromAPI[] = (await response.json()).results;
-    result = result.filter(value => value.set_img_url !== null);
+    result = result.filter(value => {
+        return !(value.last_modified_dt === null || value.name === null || value.num_parts === null || value.set_img_url === null || value.set_num === null || value.set_url === null);
+    });
 
     const output: Set[] = convert_SetsFromAPI_ToSets(result);
 
@@ -232,7 +236,9 @@ export async function getPartsOfSpecificMinifig(req: Express.Request, minifig: M
             `https://rebrickable.com/api/v3/lego/minifigs/${minifig.figCode}/parts?inc_color_details=0`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
         );
         let result: Parts_FromAPI[] = (await response.json()).results;
-        result = result.filter(value => value.part.part_img_url !== null);
+        result = result.filter(value => {
+            return !(value.color === null || value.element_id === null || value.id === null || value.inv_part_id === null || value.is_spare === null || value.num_sets === null || value.part === null || value.quantity === null || value.set_num === null);
+        });
 
         outputMinifigWithParts = convert_PartsFromAPI_ToMinifigsParts(minifig, result);
 
@@ -255,7 +261,9 @@ export async function getMinifigsOfSpecificSet(req: Express.Request, set: Set): 
         `https://rebrickable.com/api/v3/lego/sets/${set.setCode}/minifigs`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
     );
     let result: Minifig_Set_FromAPI[] = (await response.json()).results;
-    result = result.filter(value => value.set_img_url !== null);
+    result = result.filter(value => {
+        return !(value.last_modified_dt === null || value.name === null || value.num_parts === null || value.set_img_url === null || value.set_num === null || value.set_url === null);
+    });
 
     const output: Minifig[] = convert_MinifigsFromAPI_ToMinifigs(result);
 
@@ -280,7 +288,9 @@ export async function get6RandomSets(): Promise<Set[]> {
             `https://rebrickable.com/api/v3/lego/sets/${randomNumber}-1&page_size=6`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
         );
         let result: Minifig_Set_FromAPI[] = (await response.json()).results;
-        result = result.filter(value => value.set_img_url !== null);
+        result = result.filter(value => {
+            return !(value.last_modified_dt === null || value.name === null || value.num_parts === null || value.set_img_url === null || value.set_num === null || value.set_url === null);
+        });
         output = convert_SetsFromAPI_ToSets(result);
     }
     return new Promise<Set[]>((resolve, reject) => {
