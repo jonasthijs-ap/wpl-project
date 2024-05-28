@@ -1,4 +1,4 @@
-<%- include('partials/head.ejs', {title: "Alle minifigs die in de set " + set.name + " voorkomen"}) %>
+<%- include('partials/head.ejs', { title: "Alle minifigs die in de set " + set.name + " voorkomen", scriptForCustomCSSAllowed: true }) %>
 <%- include("partials/header-complex.ejs") %>
 
     <main class="container"><!--De afbeeldingen komen van de API-->
@@ -43,4 +43,4 @@
         </div>
     </main>
 
-    <% include('partials/footer.ejs') %>
+    <%- include('partials/footer.ejs') %>

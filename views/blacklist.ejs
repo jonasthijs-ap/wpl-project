@@ -1,28 +1,7 @@
-<%- include("partials/head.ejs", { title: "Blacklist" }); %>
+<%- include("partials/head.ejs", { title: "Blacklist", scriptForCustomCSSAllowed: true }); %>
 <%- include("partials/header-complex.ejs") %>
 
     <main class="container"><!--De afbeeldingen komen van de API-->
-        <!--Blacklist modal-->
-        <section class="modal fade" id="modal-blacklist" tabindex="-1" aria-labelledby="modal-blacklistLabel" aria-hidden="true">
-            <article class="modal-dialog">
-                <div class="modal-content text-start">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modal-blacklistLabel">Waarom heb je deze minifig geblacklist?</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <label class="form-label">Geef hier je reden</label>
-                        <input type="text" class="form-control">
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Sluit</button>
-                        <button type="button" class="btn btn-warning">Verzenden</button>
-                    </div>
-                </div>
-            </article>
-        </section>
         <hgroup class="container-fluid col-lg-10">
             <h1>Gevangengenomen minifigs (blacklist)</h1>
             <p>WELKOM op de pagina blacklist. Hier kan je de geblacklisten minifigs terug vinden. Blacklist wilt namelijk zeggen dat de minifigs die niet worden gebruikt tijdens het sorteren van de minifigs automatisch in de blacklist lijst terug komen.<br />Hierbij kan je ook nog de reden meegegven of wijzigen bij het blacklisten van een individuele minifig</p>
@@ -66,7 +45,7 @@
 
                                                 <fieldset class="modal-body">
                                                     <input type="hidden" name="minifig" value="<%= blacklistedMinifigs[i].minifig.figCode %>" />
-                                                    <textarea style="font-size: 1rem;" name="reason" id="reason" cols="50" rows="5" placeholder="Geef hier je reden"></textarea>
+                                                    <textarea style="font-size: 1rem;" name="reason" id="reason" cols="50" rows="5" placeholder="Geef hier je reden" required></textarea>
                                                 </fieldset>
 
                                                 <fieldset class="modal-footer">

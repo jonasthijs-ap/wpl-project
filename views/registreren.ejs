@@ -1,20 +1,21 @@
-<%- include("partials/head.ejs", { title: "Registreren" }) %>
-    <%- include("partials/header-simple.ejs") %>
+<%- include("partials/head.ejs", { title: "Registreren", scriptForCustomCSSAllowed: false }) %>
+<%- include("partials/header-simple.ejs") %>
+    
+    <main class="container d-flex justify-content-center align-items-center min-vh-100">
+      
+        <section class="row border rounded-5 p-3 bg-white shadow box-area">
 
-        <main class="container d-flex justify-content-center align-items-center min-vh-100">
-
-            <section class="row border rounded-5 p-3 bg-white shadow box-area">
-
-                <article
-                    class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
-                    <figure class="featured-image mb-3 left-img">
-                        <img src="/assets/images/click-logo.png" class="img-fluid w-100" />
-                    </figure>
+                <article class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
+                    <a href="/">
+                        <figure class="featured-image mb-3 left-img">
+                            <img src="/assets/images/click-logo.png" class="img-fluid w-100" />
+                        </figure>
+                    </a>
                 </article>
 
                 <article class="col-md-6 right-box">
                     <form action="/registreren" id="registerForm" method="post" class="row align-items-center">
-                        <hgroup class="header-text mb-4">
+                        <hgroup class="header-text login mb-4">
                             <h3>Aanmelden</h3>
                             <p>Maak hier je account</p>
                         </hgroup>

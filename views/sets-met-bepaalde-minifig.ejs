@@ -1,10 +1,10 @@
-<%- include("partials/head.ejs", {title: "Alle huizen waar " + minifig.name + " deel van uitmaakt"}) %>
+<%- include("partials/head.ejs", { title: "Alle huizen waar " + minifig.name + " deel van uitmaakt", scriptForCustomCSSAllowed: true }) %>
 <%- include("partials/header-complex.ejs") %>
 
     <main class="container"><!--De afbeeldingen komen van de API-->
         <hgroup class="container-fluid col-lg-10">
-        <h1>Verblijven van <%= minifig.name%></h1>
-        <p>In deze pagina ziet u een specifieke minifig met daarbij alle bijhorende sets en per set kunt u met behulp van het knopje de bijhorende minifig bekijken van dat specifieke set.</p>
+            <h1>Verblijven van <%= minifig.name%></h1>
+            <p>In deze pagina ziet u een specifieke minifig met daarbij alle bijhorende sets en per set kunt u met behulp van het knopje de bijhorende minifig bekijken van dat specifieke set.</p>
         </hgroup>
         <div class="row justify-content-center">
             <aside class="col-lg-4">
@@ -51,4 +51,4 @@
         </div>
     </main>
 
- <%- include("partials/footer.ejs") %>
+<%- include("partials/footer.ejs") %>

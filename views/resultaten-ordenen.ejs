@@ -1,57 +1,49 @@
-<%- include("partials/head.ejs", {title: "Resultaten van het ordenen" }) %>
-    <%- include("partials/header-complex.ejs") %>
+<%- include("partials/head.ejs", { title: "Resultaten van het ordenen", scriptForCustomCSSAllowed: true }) %>
+<%- include("partials/header-complex.ejs") %>
+<main class="container"><!--De afbeeldingen komen van de API-->
+    <hgroup class="container-fluid col-lg-10">
+        <h1>Resultaten</h1>
+        <p>In deze pagina word de aantal van de gebruikte minifigs en geskipte minifigs bijgehouden met daarbij een knopje waardoor het ook in een lijst wordt getoond.</p>
+    </hgroup>
+    <section class="row justify-content-evenly ">
+        <article class="card text-bg-success col-11 col-sm-6 col-md-4 col-lg-3 ">
+            <div class="card-header ">
+                <h2 class="card-title"> gebruikt</h2>
+            </div>
+            <form class="card-body" action="/resultaten-ordenen/gebruikte-minifigs" method="post" target="_blank">
+                <p class="card-text" id="number-sorted">
+                    <%= usedMinifigs.length %>
+                </p>
+                <input type="hidden" name="usedMinifigs" value="<%= JSON.stringify(usedMinifigs) %>" />
+                <button type="submit" class="btn btn-dark d-block"><i class="bi bi-eye-fill">&ensp;</i>Lijst bekijken</button>
+            </form>
+        </article>
+        <article class="card text-bg-dark col-11 col-sm-6 col-md-4 col-lg-3   ">
+            <div class="card-header">
+                <h2 class="card-title"> Blacklist</h2>
+            </div>
+            <form class="card-body" action="/resultaten-ordenen/blacklist" method="post" target="_blank">
+                <p class="card-text" id="number-skipped">
+                    <%= blacklistedMinifigs.length %>
+                </p>
+                <input type="hidden" name="skippedMinifigs" value="<%= JSON.stringify(skippedMinifigs) %>" />
+                <button type="submit" class="btn btn-danger d-block"><i class="bi bi-eye-fill">&ensp;</i>Lijst bekijken</button>
+            </form>
+        </article>
+        <article class="card text-bg-warning col-11 col-sm-6 col-md-4 col-lg-3 ">
+            <div class="card-header">
+                <h2 class="card-title"> overgeslagen</h2>
+            </div>
+            <form class="card-body" action="/resultaten-ordenen/overgeslagen-minifigs" method="post" target="_blank">
+                <p class="card-text" id="number-skipped">
+                    <%= skippedMinifigs.length %>
+                </p>
+                <input type="hidden" name="skippedMinifigs" value="<%= JSON.stringify(skippedMinifigs) %>" />
+                <button type="submit" class="btn btn-dark d-block"><i class="bi bi-eye-fill">&ensp;</i>Lijst bekijken</button>
+            </form>
+        </article>
+    </section>
 
-        <main class="container"><!--De afbeeldingen komen van de API-->
-            <hgroup class="container-fluid col-lg-10">
-                <h1>Resultaten</h1>
-                <p>In deze pagina word de aantal van de gebruikte minifigs en geskipte minifigs bijgehouden met daarbij
-                    een knopje waardoor het ook in een lijst wordt getoond</p>
-            </hgroup>
-            <section class="row justify-content-evenly ">
-                <article class="card text-bg-success col-11 col-sm-6 col-md-4 col-lg-3 ">
-                    <div class="card-header ">
-                        <h2 class="card-title"> gebruikt</h2>
-                    </div>
-                    <form class="card-body" action="/resultaten-ordenen/gebruikte-minifigs" method="post"
-                        target="_blank">
-                        <p class="card-text" id="number-sorted">
-                            <%= usedMinifigs.length %>
-                        </p>
-                        <input type="hidden" name="usedMinifigs" value="<%= JSON.stringify(usedMinifigs) %>" />
-                        <button type="submit" class="btn btn-dark d-block"><i class="bi bi-eye-fill">&ensp;</i>Lijst
-                            bekijken</button>
-                    </form>
-                </article>
-                <article class="card text-bg-dark col-11 col-sm-6 col-md-4 col-lg-3   ">
-                    <div class="card-header">
-                        <h2 class="card-title"> Blacklist</h2>
-                    </div>
-                    <form class="card-body" action="/resultaten-ordenen/blacklist" method="post" target="_blank">
-                        <p class="card-text" id="number-skipped">
-                            <%= blacklistedMinifigs.length %>
-                        </p>
-                        <input type="hidden" name="skippedMinifigs" value="<%= JSON.stringify(skippedMinifigs) %>" />
-                        <button type="submit" class="btn btn-danger d-block"><i class="bi bi-eye-fill">&ensp;</i>Lijst
-                            bekijken</button>
-                    </form>
-                </article>
-                <article class="card text-bg-warning col-11 col-sm-6 col-md-4 col-lg-3 ">
-                    <div class="card-header">
-                        <h2 class="card-title"> overgeslagen</h2>
-                    </div>
-                    <form class="card-body" action="/resultaten-ordenen/overgeslagen-minifigs" method="post"
-                        target="_blank">
-                        <p class="card-text" id="number-skipped">
-                            <%= skippedMinifigs.length %>
-                        </p>
-                        <input type="hidden" name="skippedMinifigs" value="<%= JSON.stringify(skippedMinifigs) %>" />
-                        <button type="submit" class="btn btn-dark d-block"><i class="bi bi-eye-fill">&ensp;</i>Lijst
-                            bekijken</button>
-                    </form>
-                </article>
-            </section>
+</main>
 
-        </main>
-
-        <%- include("partials/footer") %>
-            <mt-5></mt-5><mt-lg-0></mt-lg-0>
+<%- include("partials/footer") %>
