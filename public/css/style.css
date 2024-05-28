@@ -54,6 +54,11 @@ body {
     font-size: 0.8rem;
 }
 
+.card-img-top {
+    width: 100%;
+    object-fit: contain;
+}
+
 /* GLOBAL CSS */
 
 footer {
@@ -102,6 +107,10 @@ h2 {
 }
 
 /* INDIVIDUAL CSS */
+
+.index > article {
+    padding: 15px;
+}
 
 table.table-blacklist thead th:first-of-type {
     text-align: center;
@@ -161,6 +170,11 @@ table.table-sorted-minifigs td.plus-sign {
         height: auto;
         width: 30vw;
     }
+}
+
+hgroup.login > * {
+    max-width: 100%;
+    text-align: center !important;
 }
 
 p#number-sorted,

@@ -1,5 +1,4 @@
-
-<%- include('partials/head.ejs', {title: "Minifigs ordenen"}) %>
+<%- include('partials/head.ejs', { title: "Minifigs ordenen", scriptForCustomCSSAllowed: true }) %>
 <%- include("partials/header-complex.ejs") %>
 
     <main class="container"><!--De afbeeldingen komen van de API-->
@@ -111,4 +110,4 @@
         </div>
     </main>
 
-    <% include('partials/footer.ejs') %>
+    <%- include('partials/footer.ejs') %>

@@ -1,4 +1,4 @@
-<%- include("partials/head.ejs", { title: "Foutmelding" }); %>
+<%- include("partials/head.ejs", { title: "Foutmelding", scriptForCustomCSSAllowed: false }); %>
 <%- include("partials/header-simple.ejs") %>
 
     <main class="d-flex justify-content-center align-items-center p-5">
@@ -11,7 +11,7 @@
                 <div>
                     <h5>Deze game kan niet gekozen worden</h5>
                     <p>helaas is deze gekozen game niet beschikbaar op de server</p>
-                    <a class="btn btn-dark orange-hover" href="/index">Ga terug naar start&ensp;<i class="bi bi-arrow-right"></i></a>
+                    <a class="btn btn-dark orange-hover" href="/">Ga terug naar start&ensp;<i class="bi bi-arrow-right"></i></a>
                 </div>
             </article>
         </section>
