@@ -201,7 +201,18 @@ export async function getSetsFromSpecificMinifig(req: Express.Request, minifig: 
     const response = await fetch(
         `https://rebrickable.com/api/v3/lego/minifigs/${minifig.figCode}/sets`, { headers: { Authorization: `key ${process.env.API_KEY}` } }
     );
-    let result: Minifig_Set_FromAPI[] = (await response.json()).results;
+    let result: Minifig_Set_FromAPI[];
+
+    try {
+        result = (await response.json()).results;
+        if (!Array.isArray(result)) {
+            throw new Error('Expected result to be an array');
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        result = []; // Toekennen van een lege array als er een fout optreedt
+    }
+ 
     result = result.filter(value => {
         return !(value.last_modified_dt === null || value.name === null || value.num_parts === null || value.set_img_url === null || value.set_num === null || value.set_url === null);
     });
@@ -293,6 +304,9 @@ export async function getRandomSets(): Promise<Set[]> {
 
         if (!response.ok) {
             console.error(`Failed to fetch data for set ${randomNumber}: ${response.statusText}`);
+            if (response.status === 429) {
+                setTimeout(() => {}, 2000);
+            }
             continue;
         }
 
